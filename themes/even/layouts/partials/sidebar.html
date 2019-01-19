@@ -1,0 +1,56 @@
+<div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="{{ .Site.BaseURL }}" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="{{ .Site.BaseURL }}">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="{{ .Site.BaseURL }}post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="{{ .Site.BaseURL }}categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+    {{- range $name, $path := .Site.Params.social }}
+      {{- if $path }}
+        {{- $realName := slicestr $name 2 }}
+        <li><a href="{{ $path | safeURL }}" class="iconfont icon-{{ $realName }}" title="{{ $realName }}"></a></li>
+      {{- end }}
+    {{- end }}
+    {{ if .Site.LanguagePrefix -}}
+      <li>
+        <a href="{{ .Site.LanguagePrefix | absURL }}/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+      </li>
+    {{- else -}}
+    <li>
+      <a href="{{ .Site.RSSLink }}" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    {{- end }}
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="{{ "search" | absURL }}">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>
+    {{- block "title" . -}}
+      {{ if .IsPage }}{{ .Title }} - {{ .Site.Title }}{{ else }}{{ .Site.Title }}{{ end }}
+    {{- end -}}
+  </title>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        {{ partial "sidebar.html" . }}
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        <div id="search-results">
+          <h3>Matching pages</h3>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ partial "scripts.html" . }}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.0/fuse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js"></script>
+<script src="{{ "js/search.js" | absURL }}"></script>
+<!-- this template is sucked in by search.js and appended to the search-results div above. So editing here will adjust style -->
+<script id="search-result-template" type="text/x-js-template">
+    <div id="summary-${key}">
+      <h4><a href="${link}">${title}</a></h4>
+    </div>
+</script>
+
+</body>
+</html>

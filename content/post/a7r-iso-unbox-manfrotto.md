@@ -37,9 +37,11 @@ e.....搞半天还没上主角啊 ,  2333333333333
 先再次吐槽X通的效率, 然后,终于收到货了.(没有大光圈来虚化不知道是不是让很多人解毒了捏?)
 
 躺平
+
 ![](https://6grjga.dm1.livefilestore.com/y2pH1uGEFLacgGmmK-r5HxnvJbMHSfUOXW8LjkiAzSQU0U1xqrLLJkVc_zBuAX432NctHsgKraoj2KT784l1PUFkwDfXFs3RnyTwa0Vn723UZ0/DSC00110.jpg?psid=1)
 
 站直
+
 ![](https://6grjga.dm1.livefilestore.com/y2pRjhEG4NsVM_NcyTzNuTP3LgH6qtg27rUOnFSUlCKPASPDduo1GuLXjsDxgZmSDGRI_GvItDtEQaLIQWGdjukHuOMEBBLX7rFz4tGRyXQZuc/DSC00111.jpg?psid=1)
 
 褪去最外面的厚纸皮
@@ -52,12 +54,15 @@ e.....搞半天还没上主角啊 ,  2333333333333
 ![](https://6grjga.dm2301.livefilestore.com/y2p2r_tzsB0TFQGf_34RhYlLWlUptQpcG-opFOczPrFO0lh5Z2ETBdmVR3q3HmPIuLr3fjVkG5PJXF71vMe2vzPpiCGrp2ggGzbRbYa1pt8G4E/DSC00116.jpg?psid=1)
 
 终于见到真面目鸟, 我蛋疼的跑到阳台来一发
+
 ![](https://6grjga.dm2302.livefilestore.com/y2pVry7hvhn4DwVccwriOs58pNMiaVn3SjmPkpg9Jof7Ma8mFF_qvFcM9fozYFn-V6ZZZJ2D0KTPWAFG5EqNsCzM9AJYPToluO_6c1qAPRadvM/DSC00117.jpg?psid=1)
 
 四节升起,额,一定是我打开的方式不对, 这个视角看上去顶上天花板了. 家里房子太矮了.
+
 ![](https://6grjga.dm2301.livefilestore.com/y2pd7ZU_h5iWScUI2y_vQGGLIY5Ckk8VNkOHYC1Zg_ZZYIdA-YRZNAydx7LRmQ3hb6DkFBOvuWxy7wmQ9sU1p6HlZCucQXScPGNWRdsuvaNUu8/DSC00118.jpg?psid=1)
 
 升埋中轴! 吐槽下自己, 折腾了好一会才发现有一个脚的一节没有完全拉伸开来.
+
 ![](https://6grjga.dm2302.livefilestore.com/y2pKs1yYDZo11pOd2hhNQPDsrmV7yizg0HGs6D7mFwu7zm-PfA2814BrELj0vPqznGAzr3tETy7hSpZnYqtYh1nYV1XaxYnDf5py26cByefFp4/DSC00119.jpg?psid=1)
 
 搭上 A7R, 再一次说明,手真抖, 拿手机拍出来的各种不能直视.
@@ -69,9 +74,11 @@ e.....搞半天还没上主角啊 ,  2333333333333
 ![](https://6grjga.dm2302.livefilestore.com/y2pO8sPFMkTfv00PEs6UFg_rP-Hv8_-TbxQtHDzAPD54VICx83rGshNIm-_51a7UcsxecT8WSTy0GrLWFrBQ-K9wHQjc1IOzBirvOcycIudkM8/20131123_170208_1.jpg?psid=1)
 
 三维转一发, 新人用脚架载新机新入手就是心惊胆颤怕摔了.  好多余的担心, 螺丝圈了N圈还怕毛线.
+
 ![](https://6grjga.dm2302.livefilestore.com/y2pt8mJTJLlMVufKBNcjd0pTUnvZ0v7LPSB39VBKvMkOH-TTODfQ83T2BY_9jx8JT9plpFaA6t5hjuLBknIhiz5g9eiPY7B16PYX8cfOH8PSh4/20131123_170413_1.jpg?psid=1)
 
 局部, oops, 反光了, 没关系,看得到 「MADE IN ITALY」就行了
+
 ![](https://6grjga.dm2302.livefilestore.com/y2plYCW2gAqEV4xVdQZrLuDZiq_SJjO8tPJCYu-HvkyTm8cgdJZ1kBZMDuVQRwZ7zAW2ac-wqJrA25n2rKacdMcguq8L_L9Mv9meWNq9W9qiy0/DSC00121.jpg?psid=1)
 
 无节操自爆, 请不要吐槽我的邋遢装束. 刚开始还在担心高度问题, 结果很合适的说, 看来我高估自己的身高了.  不过 befree 系列貌似要矮上近 10 cm 那可能真的比较不合适了.
@@ -102,28 +109,36 @@ e.....搞半天还没上主角啊 ,  2333333333333
 好吧,最后下起雨了准备回去的时候才想起忘了关闭 SteadyShot, 另外虽说娱乐测试,但构图没水平线不直, 尴尬.
 
 ISO 100 (尴尬,这张应该是长曝光降噪:开)
+
 ![](https://6grjga.dm1.livefilestore.com/y2pj7jPpUdGlm0CahvGPA_V42rEPra48y-JqVuHAYtKUsF7tGisRGr9CAw0fAiH2MOGztbjtQNJK7pWfbhNQGrPXQu2SSC0Tk9dyXNzBHmK7OE/DSC00140.jpg?psid=1)
 
 ISO 100
+
 ![](https://6grjga.dm1.livefilestore.com/y2padt2ZIySg7AgCb_rbYEVls2C8hLHezGKobEYvWi0zZJlh_Dkv227LFtKGlpEuAH83uqoUUKNrcDelbQwbFpy0G-I7n-WU0BtaAi4eqgI8EY/DSC00141.jpg?psid=1)
 
 ISO 800
+
 ![](https://6grjga.dm1.livefilestore.com/y2pJk79cyqXl5g1_fA9uguF8-yhozUjjB0s3HTz-cPhfetXirZrwVwLgGbRyjeIzz_KgEhBvzU1J8EtRsCWNQART_29BJRhmPf3TouEMM0WxOg/DSC00142.jpg?psid=1)
 
 ISO 1600
+
 ![](https://6grjga.dm2302.livefilestore.com/y2pXRhZjXreY0_bwLSXKA0vv23MRBycuokF_luXAz4wSvq9MdSbHHNlnzd_aEsCPdIyPbFJfIlZ7-q7mydEmFh3iIWEo-kxwuiNKmLqwcNSXhE/DSC00143.jpg?psid=1)
 
 
 ISO3200
+
 ![](https://6grjga.dm1.livefilestore.com/y2pDmwG9xNM7uPvk0Xjo9qK_8eS8b2W3E79XWUeK25_hxj9dllOUIKARtwzTThHXHa6f_Sqlt6ctPdgF3INqdtvI612HcgEEmdsBq5fhsBcdKo/DSC00144.jpg?psid=1)
 
 ISO 6400  高ISO降噪: 标准
+
 ![](https://6grjga.dm2302.livefilestore.com/y2p1zi6RogNoezN5vJ1uiQuowRmxB5UTklwbnlwZs1Qp2oHaSok3qw_0ZH3zggRBDeutvKimKrX3ZWuRfUd-thQTN6oq2OFnVBbRPcrNE8R0ms/DSC00145.jpg?psid=1)
 
 ISO 6400  高ISO降噪: 低
+
 ![](https://6grjga.dm2302.livefilestore.com/y2pYGYfN6SYJ3ymTYBh8DnSMQsLYQQz4JGMelutFvZXk9EndVzk2StJMwangPhedrDv2FeMaI0HeGOVbO0p0-dYwgTHj3ZQkVHwN4AZRUo-VM8/DSC00147.jpg?psid=1)
 
 ISO 6400  高ISO降噪: 关
+
 ![](https://6grjga.dm1.livefilestore.com/y2pPplI0Pa6SIO8hfRZKjRor8vO2dqeQDspyJTAaqyi2WtG-921KfM9jhVTl1vI0uonqYStgc4ZO9mW5LLs3lPWMbbXeYsKgFOM0SApnfCkQ3Y/DSC00149.jpg?psid=1)
 
 **ISO Auto 多帧降噪**

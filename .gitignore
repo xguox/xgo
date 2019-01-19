@@ -11,3 +11,4 @@ _drafts
 /vendor/bundle
 npm-debug.log
 public/
+deploy.sh

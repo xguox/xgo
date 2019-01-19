@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CSS on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/categories/css/</link>
+    <description>Recent content in CSS on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 01 Jul 2014 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/categories/css/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>@import vs require</title>
+      <link>https://xguox.me/import-vs-require.html/</link>
+      <pubDate>Tue, 01 Jul 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/import-vs-require.html/</guid>
+      <description>因为项目是我中途参入进来的, 所以并没有注意到 CSS(Sass) 的组织一直都是用的 Sprockets 的方式去 require, 尽管这期间写了不少的CSS(Sass), 包括后来当添加一些个变量</description>
+    </item>
+    
+    <item>
+      <title>css3 之 column-*</title>
+      <link>https://xguox.me/css3-column-star.html/</link>
+      <pubDate>Thu, 13 Feb 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/css3-column-star.html/</guid>
+      <description>原本想要使用 CSS3 中的多栏属性实现类似报纸那样的排版, 或者 pinterest 那样的瀑布流, 但结果跟预想相去较远. 原以为用 column-count 或 column-width 来将 HTML 元素变成多栏, 再 column-gap 定义为 0 让</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>多肉与植物 on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/tags/%E5%A4%9A%E8%82%89%E4%B8%8E%E6%A4%8D%E7%89%A9/</link>
+    <description>Recent content in 多肉与植物 on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 20 Dec 2018 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/tags/%E5%A4%9A%E8%82%89%E4%B8%8E%E6%A4%8D%E7%89%A9/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ruby on earth</title>
+      <link>https://xguox.me/ruby-on-earth.html/</link>
+      <pubDate>Thu, 20 Dec 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ruby-on-earth.html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>第一批来到的多肉 I</title>
+      <link>https://xguox.me/succulent-plant-i.html/</link>
+      <pubDate>Mon, 08 Oct 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/succulent-plant-i.html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>第一批来到的多肉 II</title>
+      <link>https://xguox.me/succulent-plant-ii.html/</link>
+      <pubDate>Mon, 08 Oct 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/succulent-plant-ii.html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>第一批来到的多肉 III</title>
+      <link>https://xguox.me/succulent-plant-iii.html/</link>
+      <pubDate>Mon, 08 Oct 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/succulent-plant-iii.html/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

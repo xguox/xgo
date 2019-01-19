@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/tags/mysql/</link>
+    <description>Recent content in MySQL on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 06 Sep 2015 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MySQL 的 TRUNCATE</title>
+      <link>https://xguox.me/mysql-truncate-vs-delete.html/</link>
+      <pubDate>Sun, 06 Sep 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/mysql-truncate-vs-delete.html/</guid>
+      <description>1 TRUNCATE [TABLE] tbl_name TRUNCATE 语句可以用来清空一个表格里面的数据. 跟使用 DELETE 语句来删除所有行相似, 又或者也跟 DROP TABLE + CREATE TABLE 连用的效果相似. 为了达到更高的性能, 它绕过了</description>
+    </item>
+    
+  </channel>
+</rss>

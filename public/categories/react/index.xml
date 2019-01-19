@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>React on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/categories/react/</link>
+    <description>Recent content in React on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 26 Jul 2017 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/categories/react/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rails 5 webpacker 部署时候报错</title>
+      <link>https://xguox.me/rails-webpacker-deploy.html/</link>
+      <pubDate>Wed, 26 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-webpacker-deploy.html/</guid>
+      <description>&lt;hr /&gt;
+
+&lt;p&gt;layout: post
+title: &amp;ldquo;Rails 5 webpacker 部署时候报错&amp;rdquo;
+date: 2017-07-26 13:25:20
+categories: [JavaScript, React, Ruby]&lt;/p&gt;
+
+&lt;h2 id=&#34;tags-javascript-react-ruby&#34;&gt;tags: [JavaScript, React, Ruby]&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Redux 的中 Store 的默认 state</title>
+      <link>https://xguox.me/redux-reducers-default-state.html/</link>
+      <pubDate>Mon, 24 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/redux-reducers-default-state.html/</guid>
+      <description>写了一段时间 React, Redux, 发现之前对 Redux 的 Store 理解偏差了. 每次发生 dispatch 某一个 action, 除去 action.type 的对应的 reducer, 其余都返回默认值通常是 switch 的 default 语句, Redux 在背后做了一些事情, 并不是</description>
+    </item>
+    
+    <item>
+      <title>weixin://preInjectJSBridge/fail [React]</title>
+      <link>https://xguox.me/react-babel-wechat-es6-env.html/</link>
+      <pubDate>Tue, 28 Mar 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/react-babel-wechat-es6-env.html/</guid>
+      <description>Redux 中 reducer 返回 state 的时候经常用到 Object.assign， 然后几乎所有现代浏览器都试过能正常运行以后， 发现在微信的内置浏览器里边就报这玩意， weixin://preInjectJSBridge/fail babel</description>
+    </item>
+    
+  </channel>
+</rss>

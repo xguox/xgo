@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Rails 3 Remote Links and Forms: A Definitive Guide - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="blahblah: 这些天遇上一些困难请教Larry的时候他没少给我一些英文的资料,虽然能够阅读,但是始终觉得翻译回中文以后再看也方便些.不过有些地方翻的比较" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/rails-3-remote-links-and-forms.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Rails 3 Remote Links and Forms: A Definitive Guide" />
+<meta property="og:description" content="blahblah: 这些天遇上一些困难请教Larry的时候他没少给我一些英文的资料,虽然能够阅读,但是始终觉得翻译回中文以后再看也方便些.不过有些地方翻的比较" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/rails-3-remote-links-and-forms.html/" /><meta property="article:published_time" content="2012-07-11T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2012-07-11T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Rails 3 Remote Links and Forms: A Definitive Guide">
+<meta itemprop="description" content="blahblah: 这些天遇上一些困难请教Larry的时候他没少给我一些英文的资料,虽然能够阅读,但是始终觉得翻译回中文以后再看也方便些.不过有些地方翻的比较">
+
+
+<meta itemprop="datePublished" content="2012-07-11T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2012-07-11T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="3371">
+
+
+
+<meta itemprop="keywords" content="Translation,Ruby," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rails 3 Remote Links and Forms: A Definitive Guide"/>
+<meta name="twitter:description" content="blahblah: 这些天遇上一些困难请教Larry的时候他没少给我一些英文的资料,虽然能够阅读,但是始终觉得翻译回中文以后再看也方便些.不过有些地方翻的比较"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Rails 3 Remote Links and Forms: A Definitive Guide</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 11 Jul 2012 </span>
+          <span class="more-meta"> 3371 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/translation/"> Translation </a>
+          <a href="/categories/ruby/"> Ruby </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      
+
+<h5 id="blahblah">blahblah:</h5>
+
+<blockquote>
+<p>这些天遇上一些困难请教Larry的时候他没少给我一些英文的资料,虽然能够阅读,但是始终觉得翻译回中文以后再看也方便些.不过有些地方翻的比较蹩脚呀.</p>
+
+<p>原文:<a href="http://www.alfajango.com/blog/Rails-3-remote-links-and-forms/">Rails 3 Remote Links and Forms: A Definitive Guide</a></p>
+</blockquote>
+
+<p>Spoiler Alert:如果你喜欢魔法,请停止阅读这篇文章.因为,让Rails的表单、连接、输入等如此强大的Rails 3 UJS驱动—-Rails.js,当你知道它的工作原理后,你就知道其实它没有多么的神奇.</p>
+
+<h5 id="rails-js做什么">Rails.js做什么</h5>
+
+<ol>
+<li>它找到远程链接、表单和输入,并通过Ajax覆盖这些的click事件以提交到服务器端.</li>
+<li>它触发6种javascript事件来让你绑定一些回调函数用以处理和操纵这个Ajax响应</li>
+<li><del>它处理从服务器端得到的Ajax回应</del></li>
+</ol>
+
+<h5 id="rails-js不做什么">Rails.js不做什么</h5>
+
+<p>请注意到上述最后一点是加了删除线的.当启用新的Rails3远程功能时候,这似乎是混乱的最大来源.因为已经根深蒂固的习惯于Rails2的 link_to_remote 与 remote_form_for,我们期待Rails3也同样的会为我们的表单、链接处理Ajax响应.但是Rails3却没有这么做,它把这些都交给你去完成. Rails会做的是帮你把包裹搬上房间,但不会帮你打开包裹.This is by design;为什么你想要侍从帮你使用你的东西呢?同样的,每个元素的数据实际处理方式很大程度上是独一无二的,并且取决于你再各种情况下工作所得的的数据.所以,Rails把这一部分留给你来做决定,而我们则回到了过去.</p>
+
+<h5 id="html5的角色">HTML5的角色</h5>
+
+<p>你可能已经听说Rails3将使用HTML5.的确是的.但HTML5所扮演的实际角色并没有你想象中的那么重要. 是否还记得Rails.js所做的第一样东西.在它能覆盖所有远程元素的click事件和submit事件前,它需要先找到这些所有的元素. 因此,我们需要一种方法来指定我们的远程元素.在以前,我们可能会添加 class=&ldquo;remote&rdquo; 到我们的远程元素.但现在,所有的class属性都跟样式相关联了.难道就没有一种办法能区分出远程元素而不用污染到我们的CSS类. 这,在HTML5中是有的.有这么一段HTML5规范:现在,你可以添加任意标签到一个HTML元素,只要这个标签的起始部分是&rdquo;data-&ldquo;.因此,下面这是一个有效的HTML标记:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">hre</span><span class="o">=</span><span class="s">&#34;stuff.hml&#34;</span> <span class="na">data-rocketsocks</span><span class="o">=</span><span class="s">&#34;whateva&#34;</span><span class="err">]]</span> <span class="p">&gt;</span> Blast off!<span class="err">&lt;</span>/a]] &gt;</code></pre></td></tr></table>
+</div>
+</div>
+<p>Rails 3充分利用了这种新的HTML标记,它通过在HTML元素中添加 :remote =&gt; true 来转换所有的链接和表单使其拥有了标签 data-remote = true</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="err">&lt;</span>%= link_to &#34;Get remote sauce&#34;, {:action =&gt; &#34;sauce&#34;}, :remote =&gt; true, :class =&gt; &#34;button-link&#34; %&gt;# =&gt; <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;sauce&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;button-link&#34;</span> <span class="na">data-remote</span><span class="o">=</span><span class="s">true</span><span class="p">&gt;</span>Get remote sauce<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>现在Rails.js通过如下的选择器找到所有的远程链接:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;form[data-remote]&#39;</span><span class="p">)</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a[data-remote],input[data-remote]&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>并且分别通过一个ajax请求到form的action和link的href属性从而重载了submit和click动作, Then it does the same thing wirh remote forms and inputs, using the form&rsquo;s action. 就是这样,HTML5只是提供一个方便、语法、方式给我们用以指定及选择劫持哪个元素(???)</p>
+
+<h5 id="处理ajax响应">处理Ajax响应</h5>
+
+<p>那么,我们到底是如何根据ajax响应做一些事情呢?幸运的是,当Rails.js远程发送你的请求时,它同时也触发了6个自定义事件,并传输相应的数据/响应到每一个事件.你也可以绑定你自己的处理函数到这些事件. 这6个事件是:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="ss">ajax</span><span class="p">:</span><span class="n">before</span>
+<span class="ss">ajax</span><span class="p">:</span><span class="n">loading</span>
+<span class="ss">ajax</span><span class="p">:</span><span class="n">success</span>
+<span class="ss">ajax</span><span class="p">:</span><span class="n">failure</span>
+<span class="ss">ajax</span><span class="p">:</span><span class="n">complete</span>
+<span class="ss">ajax</span><span class="p">:</span><span class="n">after</span></code></pre></td></tr></table>
+</div>
+</div>
+<h5 id="update">Update:</h5>
+
+<blockquote>
+<p>在这篇文章写下后,Rails团队对 jQuery UJS driver 做了些改动.在最新版本的Rails.js中,只剩下了以下4个回调事件:</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="ss">ajax</span><span class="p">:</span><span class="n">beforeSend</span>
+<span class="ss">ajax</span><span class="p">:</span><span class="n">success</span>
+<span class="ss">ajax</span><span class="p">:</span><span class="n">complete</span>
+<span class="ss">ajax</span><span class="p">:</span><span class="n">error</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这样,在你的页面中,你将会像下面这样绑定这些事件到一个函数中:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.button-lnk&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;ajax:success&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>  <span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;Success!&#34;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>你会发现,通过绑定一些函数到实体/事件,在Rails中的所有的javascript功能都是很方便的.</p>
+
+<p>Binding is good,因为它不是引人注目的.javascript功能和html标记分别作为完全独立单位但通过javascript绑定在一起的存在.如果用户没有用到javascript,那么javascript所绑定到html实体的js函数将永远不会被执行,用户所得到的,只是干干净净、有效的HTML</p>
+
+<h5 id="把他们都放在一起">把他们都放在一起</h5>
+
+<p>解释的足够多了,下面让我们建立一个加载一些内容到页面的远程表单.我们会提供给用户即时反馈,完整地处理所有的错误,以及能让用户重置表单再做一次.有了以上知识的武装,希望下面的没有人会看起来以为是魔法. 接下来,我们将假定在我们的Rails app中,有一个Comment model,且该model在数据库中有一个text类型的&rdquo;content&rdquo;字段.通过提交一个远程表单,我们能让用户创建一个comment,并将这个comment插入到页面中.</p>
+
+<blockquote>
+<p>你可能注意到,我们直接请求了一个html的响应,但却以JSON的形式返回一些错误.我们使用 respond_with 覆盖了许多魔术方法.这一切说明我们在请求/响应中有多大的控制权.</p>
+
+<p>接着的Part2将通过一个更production-appropriate的例子叙述了如何请求一个JS(xml,json,文本或其他)的响应.</p>
+</blockquote>
+
+<h5 id="view">View</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="s">%= form_for @comment, :remote =</span><span class="o">&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:html</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:&#39;data-type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;html&#39;</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="s1">&#39;create_comment_form&#39;</span> <span class="p">}</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="s">%&gt;  &lt;%= f.text_area(:content) %&gt;</span>
+  <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&#34;validation-error&#34;</span><span class="o">&gt;&lt;</span><span class="sr">/div&gt;
+</span><span class="sr">  &lt;%= f.submit %&gt;
+</span><span class="sr">&lt;% end %&gt;
+</span><span class="sr">
+</span><span class="sr">&lt;div id=&#34;comments&#34;&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h5 id="controller">Controller</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">respond_to</span> <span class="ss">:html</span><span class="p">,</span> <span class="ss">:xml</span><span class="p">,</span> <span class="ss">:json</span><span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">create</span>
+  <span class="vi">@comment</span> <span class="o">=</span> <span class="no">Comment</span><span class="o">.</span><span class="n">new</span><span class="p">(</span> <span class="n">params</span><span class="o">[</span><span class="ss">:comment</span><span class="o">]</span> <span class="p">)</span>
+
+  <span class="k">if</span> <span class="vi">@comment</span><span class="o">.</span><span class="n">save</span>
+    <span class="n">respond_with</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+      <span class="nb">format</span><span class="o">.</span><span class="n">html</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">xhr?</span>
+          <span class="n">render</span> <span class="ss">:partial</span> <span class="o">=&gt;</span> <span class="s2">&#34;comments/show&#34;</span><span class="p">,</span> <span class="ss">:locals</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:comment</span> <span class="o">=&gt;</span> <span class="vi">@comment</span> <span class="p">},</span> <span class="ss">:layout</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span> <span class="ss">:status</span> <span class="o">=&gt;</span> <span class="ss">:created</span>
+        <span class="k">else</span>
+          <span class="n">redirect_to</span> <span class="vi">@comment</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">else</span>
+    <span class="n">respond_with</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+      <span class="nb">format</span><span class="o">.</span><span class="n">html</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">xhr?</span>
+          <span class="n">render</span> <span class="ss">:json</span> <span class="o">=&gt;</span> <span class="vi">@comment</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="ss">:status</span> <span class="o">=&gt;</span> <span class="ss">:unprocessable_entity</span>
+        <span class="k">else</span>
+          <span class="n">render</span> <span class="ss">:action</span> <span class="o">=&gt;</span> <span class="ss">:new</span><span class="p">,</span> <span class="ss">:status</span> <span class="o">=&gt;</span> <span class="ss">:unprocessable_entity</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>显而易见的,我们需要一个显示comment的partial模板 <code>_show.html.erb</code> .希望你知道如何做到.</p>
+
+<p>在这一点上,我们有一个提交到远程服务器上的表单,并且我们的服务器响应以我们在view中的partial,并准备插入到页面中去.但有一点是,它并不是真正的被插入到页面中.</p>
+
+<h5 id="javascript">Javascript</h5>
+
+<p>是时候绑定一些处理函数到那些触发的ajax事件.因此,在我们的表单页面中,我们将希望加载这个javascript(可能会在标签或者在一个分离开的js文件)</p>
+
+<blockquote>
+<p>Update:</p>
+
+<p>下面这段已经更新以绑定到最新版本的Rails.js所允许的回调.</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#create_comment_form&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s2">&#34;ajax:beforeSend&#34;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span> <span class="nx">xhr</span><span class="p">,</span> <span class="nx">settings</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">$submitButton</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input[name=&#34;commit&#34;]&#39;</span><span class="p">);</span>
+
+      <span class="c1">// Update the text of the submit button to let the user know stuff is happening.
+</span><span class="c1"></span>      <span class="c1">// But first, store the original text of the submit button, so it can be restored when the request is finished.
+</span><span class="c1"></span>      <span class="nx">$submitButton</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span> <span class="s1">&#39;origText&#39;</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">text</span><span class="p">()</span> <span class="p">);</span>
+      <span class="nx">$submitButton</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span> <span class="s2">&#34;Submitting...&#34;</span> <span class="p">);</span>
+
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s2">&#34;ajax:success&#34;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">xhr</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">$form</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+
+      <span class="c1">// Reset fields and any validation errors, so form can be used again, but leave hidden_field values intact.
+</span><span class="c1"></span>      <span class="nx">$form</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;textarea,input[type=&#34;text&#34;],input[type=&#34;file&#34;]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">);</span>
+      <span class="nx">$form</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;div.validation-error&#39;</span><span class="p">).</span><span class="nx">empty</span><span class="p">();</span>
+
+      <span class="c1">// Insert response partial into page below the form.
+</span><span class="c1"></span>      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#comments&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;ajax:complete&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span> <span class="nx">xhr</span><span class="p">,</span> <span class="nx">status</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">$submitButton</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input[name=&#34;commit&#34;]&#39;</span><span class="p">);</span>
+
+      <span class="c1">// Restore the original submit button text
+</span><span class="c1"></span>      <span class="nx">$submitButton</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;origText&#39;</span><span class="p">)</span> <span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s2">&#34;ajax:error&#34;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span> <span class="nx">xhr</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">error</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">$form</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
+          <span class="nx">errors</span><span class="p">,</span>
+          <span class="nx">errorText</span><span class="p">;</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="c1">// Populate errorText with the comment errors
+</span><span class="c1"></span>        <span class="nx">errors</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">parseJSON</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// If the responseText is not valid JSON (like if a 500 exception was thrown), populate errors with a generic error message.
+</span><span class="c1"></span>        <span class="nx">errors</span> <span class="o">=</span> <span class="p">{</span><span class="nx">message</span><span class="o">:</span> <span class="s2">&#34;Please reload the page and try again&#34;</span><span class="p">};</span>
+      <span class="p">}</span>
+
+      <span class="c1">// Build an unordered list from the list of errors
+</span><span class="c1"></span>      <span class="nx">errorText</span> <span class="o">=</span> <span class="s2">&#34;There were errors with the submission: \n&lt;ul&gt;&#34;</span><span class="p">;</span>
+
+      <span class="k">for</span> <span class="p">(</span> <span class="nx">error</span> <span class="k">in</span> <span class="nx">errors</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">errorText</span> <span class="o">+=</span> <span class="s2">&#34;&lt;li&gt;&#34;</span> <span class="o">+</span> <span class="nx">error</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nx">errors</span><span class="p">[</span><span class="nx">error</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;&lt;/li&gt; &#34;</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nx">errorText</span> <span class="o">+=</span> <span class="s2">&#34;&lt;/ul&gt;&#34;</span><span class="p">;</span>
+
+      <span class="c1">// Insert error list into form
+</span><span class="c1"></span>      <span class="nx">$form</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;div.validation-error&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">errorText</span><span class="p">);</span>
+    <span class="p">});</span>
+
+<span class="p">});</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>这些函数每一个都能轻易地抽象化,这样他们能轻易地或者自动地应用在我们所有的远程表单中.</p>
+</blockquote>
+
+<p>这些绑定也以同样的方式工作于远程链接中.但我想我们已经使用了一个远程表单在这个例子中,由于这需要一些额外的但没有明显区别的步骤(例如清除表单或增添验证错误)</p>
+
+<p>同时,需要注意到:从ajax事件所传输到你的函数的数据并不是在同一个顺序.在ajax:success中是 evt,data,status,xhr ,而在ajax:failure中是,eve,xhr,status,error.This will get ya every time.</p>
+
+<h5 id="别急-还有更重要的">别急,还有更重要的</h5>
+
+<p>如果你从文章开始就做足功课,并且看过了Rails.js文件,你应该会注意到一些额外的细节.</p>
+
+<h5 id="live">.live</h5>
+
+<p>Rails.js实际上用 .live() 而不是直接绑定click事件到远程表单、链接、输入.这样,在上面的javascript中,你可以替换 .bind() 为 .live() 显得更文艺一些.</p>
+
+<h5 id="update-1">Update:</h5>
+
+<blockquote>
+<p>如果要在你的ajax处理中使用 .live() ,请确定你所使用的jQuery版本&gt;v1.4.4,因为早些的版本会在IE中出现一些问题.</p>
+</blockquote>
+
+<h5 id="confirm-r-u-sure">:confirm =&gt; &ldquo;R U sure? &ldquo;</h5>
+
+<p>你可能还会注意到 Rails.js文件处理 :confirm =&gt; &ldquo;R U sure? &ldquo;(当你点击或者提交一些东西的时候嘣的弹出一个小窗口并显示&rdquo;R U sure&rdquo;(你也可以只写 :confirm =&gt; true 使用默认的信息)),就像远程功能,Rails 3简单地添加有效的标签 data-confirm=true 到你的HTML元素</p>
+
+<h5 id="disable-with-submitting">:disable_with =&gt; &ldquo;Submitting…&rdquo;</h5>
+
+<p>Rails 3给了我们另外的一个选项,:disable_with,这样当一个远程表单被提交的时候, we can give to form input elements to disable and re-label them.添加data-disable-with标签到这些输入中,使Rails.js能选择和绑定这个功能.</p>
+
+<p>想知道如何让远程表单或者链接工作于 js.erb(或者其他任何与之相关联的形式),请看这篇文章的<a href="http://xguox.me/rails-3-remote-links-and-forms-part-2-data-type-with-jquery.html">Part 2</a></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/translation/">Translation</a>
+          <a href="/tags/ruby/">Ruby</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/rails-3-remote-links-and-forms-part-2-data-type-with-jquery.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Rails 3 Remote Links and Forms Part 2: Data-type (With jQuery)</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/the-first-week-in-shanghai.html/">
+            <span class="next-text nav-default">安顿生活,融入上海</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

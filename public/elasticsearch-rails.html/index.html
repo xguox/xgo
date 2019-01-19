@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Elasticsearch on Rails - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="上一篇扯了一大通都只是 Elasticsearch 的安装配置, 现在扯点集成到 Rails 上的东西. elasticsearch-rails 这个 Repository 是由三个 Gem 组成, 1 2 3 gem &amp;#39;elasticsearch-model&amp;#39; gem &amp;#39;elasticsearch-rails&amp;#39; gem &amp;#39;elasticsearch-persistence&amp;#39; 总觉得这里起名略蛋疼 = . = 一般用到前" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/elasticsearch-rails.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Elasticsearch on Rails" />
+<meta property="og:description" content="上一篇扯了一大通都只是 Elasticsearch 的安装配置, 现在扯点集成到 Rails 上的东西. elasticsearch-rails 这个 Repository 是由三个 Gem 组成, 1 2 3 gem &#39;elasticsearch-model&#39; gem &#39;elasticsearch-rails&#39; gem &#39;elasticsearch-persistence&#39; 总觉得这里起名略蛋疼 = . = 一般用到前" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/elasticsearch-rails.html/" /><meta property="article:published_time" content="2015-09-16T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2015-09-16T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Elasticsearch on Rails">
+<meta itemprop="description" content="上一篇扯了一大通都只是 Elasticsearch 的安装配置, 现在扯点集成到 Rails 上的东西. elasticsearch-rails 这个 Repository 是由三个 Gem 组成, 1 2 3 gem &#39;elasticsearch-model&#39; gem &#39;elasticsearch-rails&#39; gem &#39;elasticsearch-persistence&#39; 总觉得这里起名略蛋疼 = . = 一般用到前">
+
+
+<meta itemprop="datePublished" content="2015-09-16T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2015-09-16T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="1403">
+
+
+
+<meta itemprop="keywords" content="Ruby,Elasticsearch," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Elasticsearch on Rails"/>
+<meta name="twitter:description" content="上一篇扯了一大通都只是 Elasticsearch 的安装配置, 现在扯点集成到 Rails 上的东西. elasticsearch-rails 这个 Repository 是由三个 Gem 组成, 1 2 3 gem &#39;elasticsearch-model&#39; gem &#39;elasticsearch-rails&#39; gem &#39;elasticsearch-persistence&#39; 总觉得这里起名略蛋疼 = . = 一般用到前"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Elasticsearch on Rails</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 16 Sep 2015 </span>
+          <span class="more-meta"> 1403 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/ruby/"> Ruby </a>
+          <a href="/categories/elasticsearch/"> Elasticsearch </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      
+
+<p><a href="http://xguox.me/elasticsearch-ik-mmseg-homebrew-ubuntu.html">上一篇</a>扯了一大通都只是 <strong>Elasticsearch</strong> 的安装配置, 现在扯点集成到 <strong>Rails</strong> 上的东西.</p>
+
+<p><code>elasticsearch-rails</code> 这个 Repository 是由三个 Gem 组成,</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="s1">&#39;elasticsearch-model&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;elasticsearch-rails&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;elasticsearch-persistence&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>总觉得这里起名略蛋疼 = . = 一般用到前两个较多.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="kp">include</span> <span class="no">Elasticsearch</span><span class="o">::</span><span class="no">Model</span>
+  <span class="kp">include</span> <span class="no">Elasticsearch</span><span class="o">::</span><span class="no">Model</span><span class="o">::</span><span class="no">Callbacks</span>
+
+  <span class="c1"># settings do</span>
+  <span class="c1">#   mappings dynamic: &#39;false&#39; do</span>
+  <span class="c1">#     indexes :title, type: &#39;string&#39;, analyzer: &#39;ik_smart&#39;</span>
+  <span class="c1">#     indexes :keywords, type: &#39;string&#39;, analyzer: &#39;ik_smart&#39;</span>
+  <span class="c1">#     indexes :body, type: &#39;string&#39;, analyzer: &#39;ik_smart&#39;</span>
+  <span class="c1">#     indexes :user_name, type: &#39;string&#39;, analyzer: &#39;ik_smart&#39;</span>
+  <span class="c1">#   end</span>
+  <span class="c1"># end</span>
+
+  <span class="c1"># def as_indexed_json(options={})</span>
+  <span class="c1">#   as_json(</span>
+  <span class="c1">#     only: [&#39;title&#39;, &#39;body&#39;, &#39;keywords&#39;],</span>
+  <span class="c1">#     methods: [:user_name]</span>
+  <span class="c1">#   )</span>
+  <span class="c1"># end</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>Elasticsearch::Model::Callbacks</code> 这个模块主要是当 model 更新以后回调更新索引. 对于厂里的 CRM 来说, 因为是数据仓库, 更多是做一些查询, 分析之类的应用, 而不是主要应用于增删改查, 所以, 其实我们没有 include 这个模块.
+手工执行一下 <code>Post.import</code> 基本工作就完成了.</p>
+
+<p>也可以只 <a href="https://github.com/elastic/elasticsearch-rails/blob/master/elasticsearch-model/lib/elasticsearch/model/importing.rb">import</a> 特定 scope 或者查询下面的记录.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Post</span><span class="o">.</span><span class="n">import</span> <span class="ss">scope</span><span class="p">:</span> <span class="s1">&#39;published&#39;</span>
+<span class="c1">#</span>
+<span class="no">Post</span><span class="o">.</span><span class="n">import</span> <span class="ss">query</span><span class="p">:</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="ss">user_id</span><span class="p">:</span> <span class="n">user_id</span><span class="p">)</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>title, keywords, body 是 posts 表的字段, user_name 是 Post 类的一个方法.</p>
+
+<p>上面用了 <code>settings</code> 设置映射以后还要定义 <code>as_indexed_json</code>, 否则该方法来自 <strong><code>Elasticsearch::Model::Serializing</code></strong> 默认实现(只)会序列化所有原有字段(比如包括 created_at, updated_at 等). <code>settings</code> 设置也不会起作用.</p>
+
+<p><code>mappings</code> 方法的参数 <code>dynamic: 'false'</code>
+是对文档新增 field 的处理, 默认为 <code>true</code>, 也就是会动态判断该 field 的类型, 并添加这个 field, 而设置为 false 的话, 如果有新的 field 被传进来, 则会被无视之. 不会改变文档的 <code>_source</code>. <code>_source</code> 仍然是只包含已经索引的整个 JSON 文档, 任何新来的 field 都不会被添加到映射, 也不会被搜索到.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">5</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Post</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;blahblahblah&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">all</span>
+  <span class="no">Post</span> <span class="no">Search</span> <span class="p">(</span><span class="mi">11</span><span class="o">.</span><span class="mi">9</span><span class="n">ms</span><span class="p">)</span> <span class="p">{</span><span class="ss">index</span><span class="p">:</span> <span class="s2">&#34;posts&#34;</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span> <span class="ss">q</span><span class="p">:</span> <span class="s2">&#34;blahblahblah&#34;</span><span class="p">}</span>
+  <span class="no">Post</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">2</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="sb">`posts`</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="sb">`posts`</span> <span class="no">WHERE</span> <span class="mi">1</span><span class="o">=</span><span class="mi">0</span>
+<span class="o">=&gt;</span> <span class="o">[]</span>
+<span class="o">[</span><span class="mi">6</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Post</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;cool&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">all</span>
+  <span class="no">Post</span> <span class="no">Search</span> <span class="p">(</span><span class="mi">12</span><span class="o">.</span><span class="mi">8</span><span class="n">ms</span><span class="p">)</span> <span class="p">{</span><span class="ss">index</span><span class="p">:</span> <span class="s2">&#34;posts&#34;</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span> <span class="ss">q</span><span class="p">:</span> <span class="s2">&#34;cool&#34;</span><span class="p">}</span>
+  <span class="no">Post</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">4</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="sb">`posts`</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="sb">`posts`</span> <span class="no">WHERE</span> <span class="sb">`posts`</span><span class="o">.</span><span class="n">`</span><span class="nb">id</span><span class="sb">` IN (13, 108)
+</span><span class="sb">=&gt; [#&lt;Post:0x007f8819c2d690
+</span><span class="sb">  id: 13,
+</span><span class="sb">  title: &#34;Peanut and Peach nut&#34;,
+</span><span class="sb">  body:</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">10</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">resp</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;一张照片&#39;</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Elasticsearch::Model::Response::Response:0x007fcc13200008</span>
+<span class="vi">@klass</span><span class="o">=[</span><span class="no">PROXY</span><span class="o">]</span> <span class="no">Post</span> <span class="p">(</span><span class="n">call</span> <span class="s1">&#39;Post.connection&#39;</span> <span class="n">to</span> <span class="n">establish</span> <span class="n">a</span> <span class="n">connection</span><span class="p">),</span>
+<span class="vi">@search</span><span class="o">=</span>
+  <span class="c1">#&lt;Elasticsearch::Model::Searching::SearchRequest:0x007fcc13200238</span>
+   <span class="vi">@definition</span><span class="o">=</span><span class="p">{</span><span class="ss">:index</span><span class="o">=&gt;</span><span class="s2">&#34;posts&#34;</span><span class="p">,</span> <span class="ss">:type</span><span class="o">=&gt;</span><span class="s2">&#34;post&#34;</span><span class="p">,</span> <span class="ss">:q</span><span class="o">=&gt;</span><span class="s2">&#34;一张照片&#34;</span><span class="p">},</span>
+   <span class="vi">@klass</span><span class="o">=[</span><span class="no">PROXY</span><span class="o">]</span> <span class="no">Post</span> <span class="p">(</span><span class="n">call</span> <span class="s1">&#39;Post.connection&#39;</span> <span class="n">to</span> <span class="n">establish</span> <span class="n">a</span> <span class="n">connection</span><span class="p">),</span>
+   <span class="vi">@options</span><span class="o">=</span><span class="p">{}</span><span class="o">&gt;&gt;</span>
+
+<span class="o">[</span><span class="mi">11</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">resp</span><span class="o">.</span><span class="n">records</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Elasticsearch::Model::Response::Records:0x007fcc11719ca8</span>
+<span class="vi">@klass</span><span class="o">=[</span><span class="no">PROXY</span><span class="o">]</span> <span class="no">Post</span> <span class="p">(</span><span class="n">call</span> <span class="s1">&#39;Post.connection&#39;</span> <span class="n">to</span> <span class="n">establish</span> <span class="n">a</span> <span class="n">connection</span><span class="p">),</span>
+<span class="vi">@response</span><span class="o">=</span>
+ <span class="c1">#&lt;Elasticsearch::Model::Response::Response:0x007fcc117c93b0</span>
+  <span class="vi">@klass</span><span class="o">=[</span><span class="no">PROXY</span><span class="o">]</span> <span class="no">Post</span> <span class="p">(</span><span class="n">call</span> <span class="s1">&#39;Post.connection&#39;</span> <span class="n">to</span> <span class="n">establish</span> <span class="n">a</span> <span class="n">connection</span><span class="p">),</span>
+  <span class="vi">@records</span><span class="o">=</span><span class="c1">#&lt;Elasticsearch::Model::Response::Records:0x007fcc11719ca8 ...&gt;,</span>
+  <span class="vi">@search</span><span class="o">=</span>
+   <span class="c1">#&lt;Elasticsearch::Model::Searching::SearchRequest:0x007fcc117c8578</span>
+    <span class="vi">@definition</span><span class="o">=</span><span class="p">{</span><span class="ss">:index</span><span class="o">=&gt;</span><span class="s2">&#34;posts&#34;</span><span class="p">,</span> <span class="ss">:type</span><span class="o">=&gt;</span><span class="s2">&#34;post&#34;</span><span class="p">,</span> <span class="ss">:q</span><span class="o">=&gt;</span><span class="s2">&#34;一张照片&#34;</span><span class="p">},</span>
+    <span class="vi">@klass</span><span class="o">=[</span><span class="no">PROXY</span><span class="o">]</span> <span class="no">Post</span> <span class="p">(</span><span class="n">call</span> <span class="s1">&#39;Post.connection&#39;</span> <span class="n">to</span> <span class="n">establish</span> <span class="n">a</span> <span class="n">connection</span><span class="p">),</span>
+    <span class="vi">@options</span><span class="o">=</span><span class="p">{}</span><span class="o">&gt;&gt;&gt;</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">9</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">resp</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">first</span>
+  <span class="no">Post</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">8</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="sb">`posts`</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="sb">`posts`</span> <span class="no">WHERE</span> <span class="sb">`posts`</span><span class="o">.</span><span class="n">`</span><span class="nb">id</span><span class="sb">` IN (61, 4, 82, 15, 90, 72, 114, 112, 28, 17)
+</span><span class="sb">=&gt; #&lt;Post:0x007fcc18c23238
+</span><span class="sb"> id: 61,
+</span><span class="sb"> title: &#34;让布列松看不顺眼的摄影师&#34;,
+</span><span class="sb"> body: &#34;BlahBlahBlahBlah...........&#34;,
+</span><span class="sb"> user_id: 1,
+</span><span class="sb"> slug: &#34;bdgh2Lyf4z3jF&#34;,
+</span><span class="sb"> created_at: Mon, 10 Feb 2015 12:51:04 CST +08:00,
+</span><span class="sb"> updated_at: Tue, 09 Aug 2015 08:00:07 CST +08:00,
+</span><span class="sb"> comments_count: 0,
+</span><span class="sb"> keywords: &#34;Photo 摄影 布列松&#34;,
+</span><span class="sb"> popular: false&gt;</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">12</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">resp</span><span class="o">.</span><span class="n">results</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Elasticsearch::Model::Response::Results:0x007fcc11693568</span>
+<span class="vi">@klass</span><span class="o">=[</span><span class="no">PROXY</span><span class="o">]</span> <span class="no">Post</span> <span class="p">(</span><span class="n">call</span> <span class="s1">&#39;Post.connection&#39;</span> <span class="n">to</span> <span class="n">establish</span> <span class="n">a</span> <span class="n">connection</span><span class="p">),</span>
+<span class="vi">@response</span><span class="o">=</span>
+  <span class="c1">#&lt;Elasticsearch::Model::Response::Response:0x007fcc117c93b0</span>
+   <span class="vi">@klass</span><span class="o">=[</span><span class="no">PROXY</span><span class="o">]</span> <span class="no">Post</span> <span class="p">(</span><span class="n">call</span> <span class="s1">&#39;Post.connection&#39;</span> <span class="n">to</span> <span class="n">establish</span> <span class="n">a</span> <span class="n">connection</span><span class="p">),</span>
+   <span class="vi">@records</span><span class="o">=</span>
+    <span class="c1">#&lt;Elasticsearch::Model::Response::Records:0x007fcc11719ca8</span>
+     <span class="vi">@klass</span><span class="o">=[</span><span class="no">PROXY</span><span class="o">]</span> <span class="no">Post</span> <span class="p">(</span><span class="n">call</span> <span class="s1">&#39;Post.connection&#39;</span> <span class="n">to</span> <span class="n">establish</span> <span class="n">a</span> <span class="n">connection</span><span class="p">),</span>
+     <span class="vi">@response</span><span class="o">=</span><span class="c1">#&lt;Elasticsearch::Model::Response::Response:0x007fcc117c93b0 ...&gt;&gt;,</span>
+   <span class="vi">@results</span><span class="o">=</span><span class="c1">#&lt;Elasticsearch::Model::Response::Results:0x007fcc11693568 ...&gt;,</span>
+   <span class="vi">@search</span><span class="o">=</span>
+    <span class="c1">#&lt;Elasticsearch::Model::Searching::SearchRequest:0x007fcc117c8578</span>
+     <span class="vi">@definition</span><span class="o">=</span><span class="p">{</span><span class="ss">:index</span><span class="o">=&gt;</span><span class="s2">&#34;posts&#34;</span><span class="p">,</span> <span class="ss">:type</span><span class="o">=&gt;</span><span class="s2">&#34;post&#34;</span><span class="p">,</span> <span class="ss">:q</span><span class="o">=&gt;</span><span class="s2">&#34;一张照片&#34;</span><span class="p">},</span>
+     <span class="vi">@klass</span><span class="o">=[</span><span class="no">PROXY</span><span class="o">]</span> <span class="no">Post</span> <span class="p">(</span><span class="n">call</span> <span class="s1">&#39;Post.connection&#39;</span> <span class="n">to</span> <span class="n">establish</span> <span class="n">a</span> <span class="n">connection</span><span class="p">),</span>
+     <span class="vi">@options</span><span class="o">=</span><span class="p">{}</span><span class="o">&gt;&gt;&gt;</span>
+
+<span class="o">[</span><span class="mi">8</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">resp</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">first</span>
+ <span class="no">Post</span> <span class="no">Search</span> <span class="p">(</span><span class="mi">39</span><span class="o">.</span><span class="mi">4</span><span class="n">ms</span><span class="p">)</span> <span class="p">{</span><span class="ss">index</span><span class="p">:</span> <span class="s2">&#34;posts&#34;</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span> <span class="ss">q</span><span class="p">:</span> <span class="s2">&#34;一张照片&#34;</span><span class="p">}</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Elasticsearch::Model::Response::Result:0x007fcc18d44270</span>
+<span class="vi">@result</span><span class="o">=</span>
+ <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;posts&#34;</span><span class="p">,</span>
+  <span class="s2">&#34;_type&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;post&#34;</span><span class="p">,</span>
+  <span class="s2">&#34;_id&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;61&#34;</span><span class="p">,</span>
+  <span class="s2">&#34;_score&#34;</span><span class="o">=&gt;</span><span class="mi">0</span><span class="o">.</span><span class="mi">21295425</span><span class="p">,</span>
+  <span class="s2">&#34;_source&#34;</span><span class="o">=&gt;</span>
+   <span class="p">{</span><span class="s2">&#34;title&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;让布列松看不顺眼的摄影师&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;body&#34;</span><span class="o">=&gt;</span> <span class="s2">&#34;BlahBlahBlahBlah...........&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;keywords&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;Photo 摄影 布列松&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;user_name&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;XguoX&#34;</span><span class="p">}}</span><span class="o">&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>用 <code>results</code> 返回的是对应的 JSON, 而用 <code>records</code> 返回的则是经过数据库查询的记录. 毫无疑问, 使用 results 的话性能会好一些.</p>
+
+<p><strong>查看某个 model, 比如 Post 的映射配置</strong>
+<code>curl  'http://localhost:9200/posts?pretty'</code></p>
+
+<p>返回结果
+<img src="http://ww3.sinaimg.cn/large/62fdd4d5jw1f2ewz27e0jj20tc1aetdv.jpg" alt="" /></p>
+
+<p>对比一下, 同样的关键词使用 ik, ik_smart 以及使用标准 anlayser 之间分词区别.
+<img src="http://ww3.sinaimg.cn/large/62fdd4d5jw1f2ewz19m8xj227s0pk7ep.jpg" alt="" /></p>
+
+<p>索引文档之间的关联关系, 假设 Post <code>has_many</code> Comments. 可以像下面这样进行序列化:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">as_indexed_json</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="p">{})</span>
+  <span class="n">as_json</span><span class="p">(</span>
+    <span class="ss">only</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="s1">&#39;keywords&#39;</span><span class="o">]</span><span class="p">,</span>
+    <span class="nb">methods</span><span class="p">:</span> <span class="o">[</span><span class="ss">:user_name</span><span class="o">]</span><span class="p">,</span>
+    <span class="kp">include</span><span class="p">:</span> <span class="p">{</span><span class="ss">comments</span><span class="p">:</span> <span class="p">{</span><span class="ss">only</span><span class="p">:</span> <span class="ss">:content</span><span class="p">}}</span>
+  <span class="p">)</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">19</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Post</span><span class="o">.</span><span class="n">last</span><span class="o">.</span><span class="n">__elasticsearch__</span><span class="o">.</span><span class="n">as_indexed_json</span>
+  <span class="no">Post</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="sb">`posts`</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="sb">`posts`</span>  <span class="no">ORDER</span> <span class="no">BY</span> <span class="sb">`posts`</span><span class="o">.</span><span class="n">`</span><span class="nb">id</span><span class="sb">` DESC LIMIT 1
+</span><span class="sb">  User Load (0.2ms)  SELECT  `</span><span class="n">users</span><span class="sb">`.* FROM `</span><span class="n">users</span><span class="sb">` WHERE `</span><span class="n">users</span><span class="sb">`.`</span><span class="nb">id</span><span class="sb">` = 1 LIMIT 1
+</span><span class="sb">  Comment Load (0.2ms)  SELECT `</span><span class="n">comments</span><span class="sb">`.* FROM `</span><span class="n">comments</span><span class="sb">` WHERE `</span><span class="n">comments</span><span class="sb">`.`</span><span class="n">post_id</span><span class="sb">` = 61
+</span><span class="sb">=&gt; {&#34;title&#34;=&gt;&#34;让布列松看不顺眼的摄影师&#34;,
+</span><span class="sb"> &#34;body&#34;=&gt;&#34;blahblahblah.......&#34;,
+</span><span class="sb"> &#34;keywords&#34;=&gt;&#34;Photo 摄影 布列松&#34;,
+</span><span class="sb"> &#34;user_name&#34;=&gt;&#34;XguoX&#34;,
+</span><span class="sb"> &#34;comments&#34;=&gt;[{&#34;content&#34;=&gt;&#34;Here is 评论...&#34;}]}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>更改了映射设置以后要更新索引</strong>,</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Post</span><span class="o">.</span><span class="n">__elasticsearch__</span><span class="o">.</span><span class="n">create_index!</span> <span class="ss">force</span><span class="p">:</span> <span class="kp">true</span>
+<span class="no">Post</span><span class="o">.</span><span class="n">__elasticsearch__</span><span class="o">.</span><span class="n">refresh_index!</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>手动更新单个文档</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">8</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Post</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">__elasticsearch__</span><span class="o">.</span><span class="n">index_document</span>
+  <span class="no">Post</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">4</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="sb">`posts`</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="sb">`posts`</span>  <span class="no">ORDER</span> <span class="no">BY</span> <span class="sb">`posts`</span><span class="o">.</span><span class="n">`</span><span class="nb">id</span><span class="sb">` ASC LIMIT 1
+</span><span class="sb">  User Load (0.4ms)  SELECT  `</span><span class="n">users</span><span class="sb">`.* FROM `</span><span class="n">users</span><span class="sb">` WHERE `</span><span class="n">users</span><span class="sb">`.`</span><span class="nb">id</span><span class="sb">` = 2 LIMIT 1
+</span><span class="sb">=&gt; {&#34;_index&#34;=&gt;&#34;posts&#34;, &#34;_type&#34;=&gt;&#34;post&#34;, &#34;_id&#34;=&gt;&#34;1&#34;, &#34;_version&#34;=&gt;2, &#34;created&#34;=&gt;false}</span></code></pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<h3 id="related">Related:</h3>
+
+<p><a href="http://xguox.me/elasticsearch-ik-mmseg-homebrew-ubuntu.html">Elasticsearch 开箱笔记</a></p>
+
+<p><a href="http://xguox.me/elasticsearch-more-like-this.html">Elasticsearch More Like This 搜索</a></p>
+
+<p><a href="http://xguox.me/elasticsearch-aggregations.html">Elasticsearch Aggregations 聚合分析</a></p>
+
+<p><a href="http://xguox.me/upgrade-elasticsearch-2-3.html">Upgrade Elasticsearch to 2.3</a></p>
+
+<p><a href="http://xguox.me/elasticsearch-scroll.html">Elasticsearch Scroll (Ruby)</a></p>
+
+<p><a href="http://xguox.me/elasticsearch-custom-analyzer.html">Elasticsearch analysis &amp; 自定义 analyzers</a></p>
+
+<p><a href="http://xguox.me/elasticsearch-Changing-Mapping-with-Zero-Downtime.html">Elasticsearch 如何不用停机情况下完成 mapping 的修改</a></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ruby/">Ruby</a>
+          <a href="/tags/elasticsearch/">Elasticsearch</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/rails-cache-fetch-scope.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Rails.cache.fetch Relation 的&#39;坑&#39;</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/mysql-truncate-vs-delete.html/">
+            <span class="next-text nav-default">MySQL 的 TRUNCATE</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ruby on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/categories/ruby/</link>
+    <description>Recent content in Ruby on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 03 Jan 2019 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/categories/ruby/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Trie 的实现, Ruby vs Go</title>
+      <link>https://xguox.me/trie-implementing-ruby-vs-golang.html/</link>
+      <pubDate>Thu, 03 Jan 2019 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/trie-implementing-ruby-vs-golang.html/</guid>
+      <description>上一篇看到 Trie 的数据结构, 想着用 Ruby 和 Go 大概实现一下对比看看, 顺便看看一下 Benchmark. (挺没意义的一个事 = 。 =) 普通的 trie 是一个字符一个结点, 压缩 trie 的结点可</description>
+    </item>
+    
+    <item>
+      <title>Ruby 的并发, 进程, 线程, GIL, EventMachine, Celluloid</title>
+      <link>https://xguox.me/concurrency-in-ruby.html/</link>
+      <pubDate>Thu, 31 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/concurrency-in-ruby.html/</guid>
+      <description>关于并发与并行, 前不久刚好真实发生. 同事一行人去 Family Mart 买午餐, 拿回来公司只有一个微波炉加热, 在 Family Mart 有两个微波炉可以加热. 也就是说, 我们一行人一</description>
+    </item>
+    
+    <item>
+      <title>Rails render collection 的魔法</title>
+      <link>https://xguox.me/rails-render-collection.html/</link>
+      <pubDate>Thu, 17 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-render-collection.html/</guid>
+      <description>都知道的, 在 Rails 的 View 里边渲染集合的时候, 会用到 render 方法参数的 collection 选项 1 &amp;lt;%= render partial: &amp;#34;product&amp;#34;, collection: @products %&amp;gt; 而不是遍历集合来渲染单个模板. 渲染集合还有个简写形式. 假设 @products 是</description>
+    </item>
+    
+    <item>
+      <title>Rails 5 webpacker 部署时候报错</title>
+      <link>https://xguox.me/rails-webpacker-deploy.html/</link>
+      <pubDate>Wed, 26 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-webpacker-deploy.html/</guid>
+      <description>&lt;hr /&gt;
+
+&lt;p&gt;layout: post
+title: &amp;ldquo;Rails 5 webpacker 部署时候报错&amp;rdquo;
+date: 2017-07-26 13:25:20
+categories: [JavaScript, React, Ruby]&lt;/p&gt;
+
+&lt;h2 id=&#34;tags-javascript-react-ruby&#34;&gt;tags: [JavaScript, React, Ruby]&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>给 Rubyist 的 Postgresql Explain 教程</title>
+      <link>https://xguox.me/rubyist-guide-to-postgres-explain.html/</link>
+      <pubDate>Thu, 27 Apr 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rubyist-guide-to-postgres-explain.html/</guid>
+      <description>如果想知道你的数据库查询为啥变得越来越慢了， 那没有啥比 postgres 的 EXPLAIN 更好使的了。 其实也没啥神秘的。 就是让 postgres 告诉咱们，它是怎么去执行这个查询的。你甚至</description>
+    </item>
+    
+    <item>
+      <title>Ruby 老司机也未必 Gotcha </title>
+      <link>https://xguox.me/ruby-old-driver-may-not-gotcha.html/</link>
+      <pubDate>Sat, 22 Oct 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ruby-old-driver-may-not-gotcha.html/</guid>
+      <description>原 Google Docs 1 2 3 4 5 6 7 8 9 10 11 12 13 14 2.3.1 056 &amp;gt; str = &amp;#34;foo&amp;#34; =&amp;gt; &amp;#34;foo&amp;#34; str.upcase =&amp;gt; &amp;#34;FOO&amp;#34; str =&amp;gt; &amp;#34;foo&amp;#34; str.upcase! =&amp;gt; &amp;#34;FOO&amp;#34; str =&amp;gt; &amp;#34;FOO&amp;#34; str.upcase! # 这返回值惊呆了 =&amp;gt; nil str =&amp;gt; &amp;#34;FOO&amp;#34; Constant 1 2 3 4 5 6 7 8 FOO = 5 =&amp;gt; 5 2.3.1 002 &amp;gt; FOO =</description>
+    </item>
+    
+    <item>
+      <title>语法补习: Ruby 方法 source_location 和奇葩的逗号(,)</title>
+      <link>https://xguox.me/ruby-method-source_location-and-comma.html/</link>
+      <pubDate>Sun, 16 Oct 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ruby-method-source_location-and-comma.html/</guid>
+      <description>1 2 3 4 5 User.new.method(:order_commissions).source_location # =&amp;gt; [&amp;#34;....../vendor/bundle/gems/activerecord-4.2.6/lib/active_record/associations/builder/association.rb&amp;#34;, 114] User.method(:generate_token).source_location # [&amp;#34;....../app/models/user.rb&amp;#34;, 50] 这真的没有语法错误 = . = 1 2 3 4 v1, = [[&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;], &amp;#34;d&amp;#34;, &amp;#34;e&amp;#34;] v2, = v1 [33] pry(main)&amp;gt; v2 =&amp;gt; &amp;#34;a&amp;#34;</description>
+    </item>
+    
+    <item>
+      <title>Rails 5 belongs_to 默认 required</title>
+      <link>https://xguox.me/rails-5-belongs_to-association-required-by-default.html/</link>
+      <pubDate>Sat, 24 Sep 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-5-belongs_to-association-required-by-default.html/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 class Team &amp;lt; ApplicationRecord has_many :projects end class Project &amp;lt; ApplicationRecord belongs_to :team end [1] pry(main)&amp;gt; Project.create(name: &amp;#39;project_1&amp;#39;) (0.2ms) BEGIN (0.2ms) ROLLBACK =&amp;gt; #&amp;lt;Project:0x007fb8462ddf10 id: nil, team_id: nil, name: &amp;#34;project_1&amp;#34;, created_at: nil, updated_at: nil&amp;gt; [2] pry(main)&amp;gt; _.errors =&amp;gt; #&amp;lt;ActiveModel::Errors:0x007fb84634c500 @base=#&amp;lt;Project:0x007fb8462ddf10 id: nil, team_id: nil, name: &amp;#34;project_1&amp;#34;, created_at: nil, updated_at: nil&amp;gt;, @details={:team=&amp;gt;[{:error=&amp;gt;:blank}]}, @messages={:team=&amp;gt;[&amp;#34;must exist&amp;#34;]}&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>Rails autoload_paths &amp; eager_load_paths</title>
+      <link>https://xguox.me/eager_load_paths.html/</link>
+      <pubDate>Tue, 19 Jul 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/eager_load_paths.html/</guid>
+      <description>autoload_paths 假设 Rails 项目根目录下有如下目录以及 .rb 文件, (root/)extras/foo.rb 如果啥也不干, 直接打开 rails console: 1 2 3 4 5 6 [1] pry(main)&amp;gt; defined?(Foo) =&amp;gt; nil [2] pry(main)&amp;gt; Foo NameError: uninitialized constant Foo from (pry):2:in `&amp;lt;main&amp;gt;&amp;#39; 在 application.rb 中加入一行: config.autoload_paths += %W(#{config.root}/extras) 再重启</description>
+    </item>
+    
+    <item>
+      <title>语法补习: Refinements in Ruby 2.1</title>
+      <link>https://xguox.me/ruby-2-refinements.html/</link>
+      <pubDate>Sat, 16 Jul 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ruby-2-refinements.html/</guid>
+      <description>Ruby 可以随时打开一个类进行 Monkey Patch, 但是这是一个比较危险的动作, 很容易引发一些意外, 而 2.0 开始, 加入的 refinements 则是为了让这一动作变得相对安全一些. 举个只为理</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch Scroll (Ruby)</title>
+      <link>https://xguox.me/elasticsearch-scroll.html/</link>
+      <pubDate>Sat, 23 Apr 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-scroll.html/</guid>
+      <description>Elasticsearch 通过 from 和 size 参数来实现分页. size 表示返回的结果数量, 默认为 10, from 则表示从起始结果算起要跳过的结果数量, 默认为 0. 所以, 默认情况下如果返回结果数是 10</description>
+    </item>
+    
+    <item>
+      <title>使用 Ruby 处理大型 CSV 文件</title>
+      <link>https://xguox.me/processing-large-csv-with-ruby.html/</link>
+      <pubDate>Tue, 05 Apr 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/processing-large-csv-with-ruby.html/</guid>
+      <description>处理大文件是一项非常耗内存的操作, 有时候甚至会跑光服务器上的物理内存和虚拟内存. 下面来看看使用 Ruby 来处理大型 CSV 文件的几种方式, 同时测试一下这几</description>
+    </item>
+    
+    <item>
+      <title>[Rails] Model 关联选项之 :inverse_of</title>
+      <link>https://xguox.me/rails-model-association-inverse_of.html/</link>
+      <pubDate>Sat, 17 Oct 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-model-association-inverse_of.html/</guid>
+      <description>在小项目没怎么遇见过的 model 之间的 has_many 关联选项 :inverse_of, 用来指定相对应的 belongs_to 关联的名字, (反之对于 belongs_to 也一样,文邹邹的 (・_・ヾ ). 不能与 :through , :as, :polymorphic 一起使用. 1 2</description>
+    </item>
+    
+    <item>
+      <title>Rails.cache.fetch Relation 的&#39;坑&#39;</title>
+      <link>https://xguox.me/rails-cache-fetch-scope.html/</link>
+      <pubDate>Tue, 29 Sep 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-cache-fetch-scope.html/</guid>
+      <description>除了页面(Page), 动作(Action), 片段(Fragment)等这三种 Rails 所支持的缓存以外, Rails 还提供了更底层的, 对于特定值或者查询结果缓</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch on Rails</title>
+      <link>https://xguox.me/elasticsearch-rails.html/</link>
+      <pubDate>Wed, 16 Sep 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-rails.html/</guid>
+      <description>上一篇扯了一大通都只是 Elasticsearch 的安装配置, 现在扯点集成到 Rails 上的东西. elasticsearch-rails 这个 Repository 是由三个 Gem 组成, 1 2 3 gem &amp;#39;elasticsearch-model&amp;#39; gem &amp;#39;elasticsearch-rails&amp;#39; gem &amp;#39;elasticsearch-persistence&amp;#39; 总觉得这里起名略蛋疼 = . = 一般用到前</description>
+    </item>
+    
+    <item>
+      <title>理解 Unix 进程</title>
+      <link>https://xguox.me/ruby-unix-fork.html/</link>
+      <pubDate>Tue, 28 Apr 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ruby-unix-fork.html/</guid>
+      <description>推荐 Rubyist 看 &amp;lt;理解Unix进程&amp;gt;, 至少, 像我这种不是科班出身的, 可以好好补补一些计算机系统的那些基础知识. 虽然还没看完, 虽然书中的例</description>
+    </item>
+    
+    <item>
+      <title>Ruby 中的 &amp;</title>
+      <link>https://xguox.me/ampersand-in-ruby.html/</link>
+      <pubDate>Fri, 20 Jun 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ampersand-in-ruby.html/</guid>
+      <description>才发现, &amp;amp; 还是一个按位与运算符, 好像应该用才想起, 貌似以前看 &amp;lsquo;Ruby 编程语言&amp;rsquo; 内本书的时候有看到过, 不过感觉比较少用到, 没怎么去记住.</description>
+    </item>
+    
+    <item>
+      <title>Rails 4 Devise Strong Parameters</title>
+      <link>https://xguox.me/rails4-devise-strong-parameters.html/</link>
+      <pubDate>Fri, 20 Dec 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails4-devise-strong-parameters.html/</guid>
+      <description>重拾 Rails, 然后用了 devise 这个 Gem ,遂继续笔记之 Devise 在 ruby 社区里头几乎都称之为一门重炮, 当然了, 重换来的是功能丰富, 用户注册登录相关的一个 Gem 搞定, 只是要把源</description>
+    </item>
+    
+    <item>
+      <title>重拾Ruby (III)</title>
+      <link>https://xguox.me/relearn-ruby-iii.html/</link>
+      <pubDate>Thu, 07 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/relearn-ruby-iii.html/</guid>
+      <description>不把这些当做笔记卸写下来总隐隐约约觉得自己没掌握, 所以还是继续做笔记. Proc lambda 在1.9之后的写法(之前的也可以用) 1 lamb = -&amp;gt; { } proc 对象 和 block 对象之间</description>
+    </item>
+    
+    <item>
+      <title>重拾Ruby (II)</title>
+      <link>https://xguox.me/relearn-ruby-2.html/</link>
+      <pubDate>Tue, 05 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/relearn-ruby-2.html/</guid>
+      <description>继续复习 + 笔记, 今天要写的是 Dynamic Classes &amp;amp; Methods Struct 一般的, 定义一个类的做法如下： 1 2 3 4 5 6 7 8 9 class Game attr_accessor :name, :year, :system def initialize(name, year, system) self.name = name self.year = year self.system = system end end 而鉴于以上这</description>
+    </item>
+    
+    <item>
+      <title>重拾Ruby (I)</title>
+      <link>https://xguox.me/relearn-ruby.html/</link>
+      <pubDate>Mon, 04 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/relearn-ruby.html/</guid>
+      <description>真心尴尬,学习并使用了一年多的 Ruby/Rails,然后些个月不碰就忘了大半了.原本就不高端,这一回滚跟重头再来差不多了. 语法还能快速过了一</description>
+    </item>
+    
+    <item>
+      <title>你应该在生产环境下使用JavaScript的严格模式(strict mode)吗?</title>
+      <link>https://xguox.me/should-you-use-strict-in-your-production-javascript.html/</link>
+      <pubDate>Fri, 08 Feb 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/should-you-use-strict-in-your-production-javascript.html/</guid>
+      <description>ECMAScript 5 中引入了一种定义,可以切换让你的JavaScript代码是否在所谓的 严格模式(strict mode)下执行.因为在strict mode下</description>
+    </item>
+    
+    <item>
+      <title>Rails 3 Remote Links and Forms Part 2: Data-type (With jQuery)</title>
+      <link>https://xguox.me/rails-3-remote-links-and-forms-part-2-data-type-with-jquery.html/</link>
+      <pubDate>Thu, 12 Jul 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-3-remote-links-and-forms-part-2-data-type-with-jquery.html/</guid>
+      <description>自从写了Rails 3 Remote Links &amp;amp; Forms Definitive Guide有一个问题也接踵而至: 我们该如何使远程链接或者表单取回 js.erb而不是一个html的partial</description>
+    </item>
+    
+    <item>
+      <title>Rails 3 Remote Links and Forms: A Definitive Guide</title>
+      <link>https://xguox.me/rails-3-remote-links-and-forms.html/</link>
+      <pubDate>Wed, 11 Jul 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-3-remote-links-and-forms.html/</guid>
+      <description>blahblah: 这些天遇上一些困难请教Larry的时候他没少给我一些英文的资料,虽然能够阅读,但是始终觉得翻译回中文以后再看也方便些.不过有些地方翻的比较</description>
+    </item>
+    
+    <item>
+      <title>Rails 小记两则</title>
+      <link>https://xguox.me/rails-note.html/</link>
+      <pubDate>Sun, 27 May 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-note.html/</guid>
+      <description>最近在做个课程设计,好吧,俺老师是要求用JSP的,可惜我那弱爆了的水平是不可能完成的.于是顶着各种压力自己用Rails来做. 今天才发现个问题</description>
+    </item>
+    
+    <item>
+      <title>ubuntu12.04 and Rails</title>
+      <link>https://xguox.me/ubuntu1204-and-rails.html/</link>
+      <pubDate>Fri, 27 Apr 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ubuntu1204-and-rails.html/</guid>
+      <description>昨晚,把ubuntu升级到了12.04,其实,对我目前的使用来说,系统是否升级几乎没影响.不过看着更新管理器冒出了新版本,反正也就按几个下的</description>
+    </item>
+    
+    <item>
+      <title>Rails中try的用法</title>
+      <link>https://xguox.me/usage-of-try.html/</link>
+      <pubDate>Fri, 20 Apr 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/usage-of-try.html/</guid>
+      <description>居然今晚才发现Rails中try的用法,初一看,怎么那么像印象中某些语言的异常处理?不对啊,Ruby中的异常处理不是长这个样子的. 查了下Ra</description>
+    </item>
+    
+    <item>
+      <title>Two weeks withs Rails</title>
+      <link>https://xguox.me/two-weeks-withs-rails.html/</link>
+      <pubDate>Fri, 23 Mar 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/two-weeks-withs-rails.html/</guid>
+      <description>并不是我刚开始接触Rails两周,而是这两周我才能真正的算个入门吧.虽然学校有教C与Java,但就像我之前所说那般,其实Ruby才是我的fi</description>
+    </item>
+    
+    <item>
+      <title>DRY</title>
+      <link>https://xguox.me/dry.html/</link>
+      <pubDate>Sun, 04 Mar 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/dry.html/</guid>
+      <description>从刚接触Rails开始就被灌输三种观念&amp;ndash;DRY、COC、REST.虽然这三种思想还没完全的领悟透彻,但是,已经感受到了它们的强大</description>
+    </item>
+    
+    <item>
+      <title>Ruby/Rails.note</title>
+      <link>https://xguox.me/rails-dot-note.html/</link>
+      <pubDate>Mon, 27 Feb 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-dot-note.html/</guid>
+      <description>把平常中一些开发出错以及解决方法记录了下来,其实,基本上都是Google或者StackOverflow得到的答案.然后有些都不知道问题的根源</description>
+    </item>
+    
+    <item>
+      <title>给 Ruby on Rails 提速</title>
+      <link>https://xguox.me/ror-performance.html/</link>
+      <pubDate>Sun, 25 Dec 2011 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ror-performance.html/</guid>
+      <description>Repost Ruby 语言常以其灵活性为人所称道.正如 Dick Sites 所言,您可以 &amp;ldquo;为了编程而编程&amp;rdquo;.Ruby on Rails 扩展了核心 Ruby 语言,但正是 Ruby 本身使</description>
+    </item>
+    
+    <item>
+      <title>Lambda 和 Proc 的区别在哪儿</title>
+      <link>https://xguox.me/proc-vs-lambda.html/</link>
+      <pubDate>Fri, 18 Nov 2011 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/proc-vs-lambda.html/</guid>
+      <description>proc是代码块的对象形式,它的行为就像一个代码块.Lambda的的行为略有不同,它的行为更像方法而非代码块.调用一个proc则像对代码块进</description>
+    </item>
+    
+  </channel>
+</rss>

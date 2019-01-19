@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Ruby/Rails.note - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="把平常中一些开发出错以及解决方法记录了下来,其实,基本上都是Google或者StackOverflow得到的答案.然后有些都不知道问题的根源" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/rails-dot-note.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Ruby/Rails.note" />
+<meta property="og:description" content="把平常中一些开发出错以及解决方法记录了下来,其实,基本上都是Google或者StackOverflow得到的答案.然后有些都不知道问题的根源" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/rails-dot-note.html/" /><meta property="article:published_time" content="2012-02-27T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2012-02-27T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Ruby/Rails.note">
+<meta itemprop="description" content="把平常中一些开发出错以及解决方法记录了下来,其实,基本上都是Google或者StackOverflow得到的答案.然后有些都不知道问题的根源">
+
+
+<meta itemprop="datePublished" content="2012-02-27T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2012-02-27T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="491">
+
+
+
+<meta itemprop="keywords" content="Ruby," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ruby/Rails.note"/>
+<meta name="twitter:description" content="把平常中一些开发出错以及解决方法记录了下来,其实,基本上都是Google或者StackOverflow得到的答案.然后有些都不知道问题的根源"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Ruby/Rails.note</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 27 Feb 2012 </span>
+          <span class="more-meta"> 491 words </span>
+          <span class="more-meta"> 1 min read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/ruby/"> Ruby </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>把平常中一些开发出错以及解决方法记录了下来,其实,基本上都是Google或者StackOverflow得到的答案.然后有些都不知道问题的根源,只知道个解决方法</p>
+
+<p>*</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Issue--
+	RVM is not a function, selecting rubies with &#39;rvm use ...&#39; will not work.</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Solution--
+	添加下面这句到  ~/.bashrc
+	[[ -s &#34;$HOME/.rvm/scripts/rvm&#34; ]] &amp;&amp; . &#34;$HOME/.rvm/scripts/rvm&#34;重启终端</pre></td></tr></table>
+</div>
+</div>
+<p>*</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Issue--
+	Gem::Installer::ExtensionBuildError: ERROR: Failed to build gem native extension.
+	.
+	.
+	An error occured while installing mysql2 (0.3.11), and Bundler cannot continue.
+
+	Make sure that `gem install mysql2 -v &#39;0.3.11&#39;` succeeds before bundling.</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Solution--
+sudo apt-get install libmysql-Ruby libmysqlclient-dev (Ubuntu)</pre></td></tr></table>
+</div>
+</div>
+<p>*</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Issue--
+Could not find a JavaScript runtime. See https://github.com/sstephenson/execjs for a list of available runtimes.</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Solution--
+Just install execjs and the Rubyracer in your gemfile and run bundle after.
+gem &#39;execjs&#39;
+gem &#39;theRubyracer&#39;</pre></td></tr></table>
+</div>
+</div>
+<p>*</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Issue--
+&gt;Can&#39;t connect to local MySQL server through socket &#39;/tmp/mysql.sock&#39; (2)
+Couldn&#39;t create database for {&#34;adapter&#34;=&gt;&#34;mysql2&#34;, &#34;encoding&#34;=&gt;&#34;utf8&#34;, &#34;database&#34;=&gt;&#34;o_p_&#34;, &#34;pool&#34;=&gt;5, &#34;username&#34;=&gt;&#34;root&#34;, &#34;password&#34;=&gt;nil, &#34;socket&#34;=&gt;&#34;/tmp/mysql.sock&#34;}, charset: , collation:</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Solution--
+host:127.0.0.1(diff??localhost)</pre></td></tr></table>
+</div>
+</div>
+<p>*</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Issue--
+Gem::Installer::ExtensionBuildError: ERROR: Failed to build gem native extension.
+
+/usr/bin/Ruby1.9.1 extconf.rb
+checking for pg_config... no
+No pg_config... trying anyway. If building fails, please try again with
+--with-pg-config=/path/to/pg_config
+checking for libpq-fe.h... no
+Can&#39;t find the &#39;libpq-fe.h header
+* extconf.rb failed *
+Could not create Makefile due to some reason, probably lack of
+necessary libraries and/or headers. Check the mkmf.log file for more
+details. You may need configuration options.
+
+
+sudo apt-get install libpq-dev
+
+sudo gem install pg</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Solution--
+sudo apt-get install libpq-dev
+sudo gem install pg
+
+#貌似跟之前那个mysql的问题有点像</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">除了系统的Ruby文件可以用相对路径,自己编写的Ruby文件如果要require的话需要用绝对路径.否则会报错no such file to load .
+而load则无论什么Ruby文件都可以用相对路径加载</pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ruby/">Ruby</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/dry.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">DRY</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/hackers-and-painters.html/">
+            <span class="next-text nav-default">《黑客与画家》语录---我的那些价值观</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

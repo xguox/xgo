@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Hidden Productivity Secrets With Alfred - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="好的开发人员总是在寻找可以让自己的工作流程更快速,更自动化的方法. 这次,我们带来的是Alfred的一系列workflows,它们可以极大的提" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/hidden-productivity-secrets-with-alfred.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Hidden Productivity Secrets With Alfred" />
+<meta property="og:description" content="好的开发人员总是在寻找可以让自己的工作流程更快速,更自动化的方法. 这次,我们带来的是Alfred的一系列workflows,它们可以极大的提" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/hidden-productivity-secrets-with-alfred.html/" /><meta property="article:published_time" content="2013-10-28T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2013-10-28T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Hidden Productivity Secrets With Alfred">
+<meta itemprop="description" content="好的开发人员总是在寻找可以让自己的工作流程更快速,更自动化的方法. 这次,我们带来的是Alfred的一系列workflows,它们可以极大的提">
+
+
+<meta itemprop="datePublished" content="2013-10-28T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2013-10-28T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="2509">
+
+
+
+<meta itemprop="keywords" content="Tools," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hidden Productivity Secrets With Alfred"/>
+<meta name="twitter:description" content="好的开发人员总是在寻找可以让自己的工作流程更快速,更自动化的方法. 这次,我们带来的是Alfred的一系列workflows,它们可以极大的提"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Hidden Productivity Secrets With Alfred</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 28 Oct 2013 </span>
+          <span class="more-meta"> 2509 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/tools/"> Tools </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      
+
+<p>好的开发人员总是在寻找可以让自己的工作流程更快速,更自动化的方法.
+这次,我们带来的是<strong>Alfred的一系列workflows</strong>,它们可以极大的提高你的开发效率,相信你会为之震惊.</p>
+
+<h3 id="what-is-alfred">What is Alfred?</h3>
+
+<p>对于大多数了解不深的人来说,<a href="http://www.alfredapp.com/">Alfred</a>只是一个备受赞誉的Mac OS X app, 它可以快速地帮助你查找在线或者本地的文件. 最新的版本 <strong>Alfred 2</strong>更是带来了大量的改进,尤其是其中的<a href="http://www.alfredapp.com/powerpack/">Powerpack</a>,可以让你创建自己的workflows(工作流程).</p>
+
+<p>下面你将会看到这些精心挑选出来的,能够改变你的工作方式的workflows.</p>
+
+<h2 id="open-with-sublime-text">Open With Sublime Text</h2>
+
+<p>强大的文件,目录搜索能力是Alfred所最让人喜爱的功能之一. 那如果我们想要利用它使用自己喜爱的编辑器(比如说Sublime Text 3)打开文件或者目录呢?</p>
+
+<ul>
+<li><a href="https://github.com/franzheidl/alfred-workflows/tree/master/open-with-sublime-text">Open With Sublime Text (v3)</a>, developed by <a href="https://github.com/franzheidl/">@franzheidl</a></li>
+<li><a href="http://zno.io/RcAe">下载</a></li>
+<li>触发: <code>subl</code>,<code>subl*</code></li>
+</ul>
+
+<p>想要其他编辑器的话请猛击 <a href="https://github.com/zenorocha/alfred-workflows/wiki/Extras#code-editors">Extras</a></p>
+
+<p><img src="https://7nnqba.dm1.livefilestore.com/y2pGNECa5OJFUT2KVW5fKdahDKuCsRFn-r7el4QbFLC7ijAiYxRNxBI_COOWUq8W8-oKBvrS0eU7UyCFn129AtLp9eBjydEPpJzJwHMK8hIqMA/alfred-subl-opt.png?psid=1" alt="" /></p>
+
+<p>XguoX: 可能更多人还是选择在终端直接用命令敲开.</p>
+
+<h2 id="can-i-use-workflow">Can I Use&hellip; Workflow</h2>
+
+<p>在HTML5时代,当使用某一个CSS属性或者JavaScript APIs之前,你需要检查知道浏览器是否支持. 当然,你可以打开浏览器,直接浏览<a href="http://caniuse.com/">Can I Use&hellip;</a>这个网站, 然后搜索某个关键字从而看看浏览器的支持情况.除此外,你还可以使用这个Alfred Workflow.</p>
+
+<ul>
+<li><a href="https://github.com/willfarrell/alfred-caniuse-workflow">Can I Use&hellip; Workflow</a>,developed by <a href="https://github.com/willfarrell/">@willfarrell</a></li>
+<li><a href="http://zno.io/Rcex">下载</a></li>
+<li>触发: <code>caniuse</code></li>
+</ul>
+
+<p><img src="https://7nnqba.dm2301.livefilestore.com/y2pLGL9Yh8RK9E6UUkjLPqhxSoA_Wofc3tyJuq-9DOmdK1fjtDTfmvBdegAJmCsO45T_Pf02opsLZ2YJXmhoXWy5HXUTmCw-3u-oJfUH9UERVU/alfred-caniuse-opt.png?psid=1" alt="" /></p>
+
+<p>XguoX:搜索速度还行</p>
+
+<h2 id="dash-workflow">Dash Workflow</h2>
+
+<p>没有人会知道某一门语言或者某一个框架的所有.我们时常会需要查找某个特定的method如何使用.最近,发现了一个非常惊艳的app,<a href="http://kapeli.com/dash">Dash</a>,在本地查找各类APIs文档,完全离线的说. 这还不算啥,通过这个workflow,你可以通过过滤各个语言(框架)关键字来查找相关文档.这个流弊的app可是免费的哦,所以,在使用这个workflow前请先安装好Dash.</p>
+
+<ul>
+<li><a href="https://github.com/willfarrell/alfred-dash-workflow">Dash Workflow</a>,developed by <a href="https://github.com/willfarrell/">@willfarrell</a></li>
+<li><a href="http://zno.io/Rc3p">下载</a></li>
+<li>触发:<code>dash</code> <code>html</code> <code>css</code> <code>gem</code> <code>angularjs</code> <code>Rails</code> 基本上常用的语言框架库都有了</li>
+</ul>
+
+<p><img src="https://7nnqba.dm1.livefilestore.com/y2p8jXte6unkiz4tr4VJFW9zTtwY5LHw6TPj8Bhx6IOm_bI2eU-6GyzBMx8DdEbI6jsLcPz7ttB9S1FqNDA9q8rU4JsouoEspKKgbjj2k-EQLA/alfred-dash-bs-opt.png?psid=1" alt="" />
+<img src="https://7nnqba.dm2302.livefilestore.com/y2pxzqD2DRpB4rhywnWViFn5zJMrjn59dI_lKaX4wCj9HTSO40hX1NSuRoCJGObJMCHdRB-bkmuYE9OPQePbPjXcaVli3J3dETsLtKIPWx-aHU/alfred-dash-js-opt.png?psid=1" alt="" /></p>
+
+<p>XguoX:Dash 真心很流弊!巨赞!!!</p>
+
+<h2 id="terminal-finder">Terminal Finder</h2>
+
+<p>一些操作我们可能会希望在终端完成,而另一些则希望在Finder完成.这个workflow可以流畅地在这两者之间转换.在终端(iTerm)中打开当前的Finder窗口,反之亦然.</p>
+
+<ul>
+<li><a href="https://github.com/LeEnno/alfred-terminalfinder">TerminalFinder</a>, developed by <a href="https://github.com/LeEnno/">@LeEnno</a></li>
+<li><a href="http://zno.io/RkU2">下载</a></li>
+<li>触发: <code>ft</code> <code>tf</code> <code>fi</code> <code>if</code></li>
+</ul>
+
+<p><img src="https://7nnqba.dm2302.livefilestore.com/y2plpdCbBvSP7J7seYaCrTIdd0MPtXmqhhqDa-GPRjiO3nBza38J4jpFTetxVTAWfkafkiiTrqaikp-v3_Q-n2bTiBZj7rc3RvdO8OXgjJIhZU/alfred-fi-opt.png?psid=1" alt="" />
+<img src="https://7nnqba.dm1.livefilestore.com/y2pKTdNdqK9KacL8BTdEMxozuH9vtTAC0qZTdO7wMa3VFtS0rjV_EXpOMKyYx_eqMAGvs6auzVGPw50UN-qYMJyeUVwZNihpyq8TbyYeyqUFyw/alfred-tf-opt.png?psid=1" alt="" /></p>
+
+<p>XguoX:又是一个巨实用的workflow</p>
+
+<h2 id="package-managers-workflow">Package Managers Workflow</h2>
+
+<p>代码复用是软件开发的一个重要组成部分,现如今我们有很多的方案来构建我们的代码以及搜索使用第三方软件包. 想要使用某个Node.js module? Grunt task?通过这个workflow,你可以快速简便地在一个地方通过你想要的包管理器查找到你想要的插件或者组件.</p>
+
+<ul>
+<li><a href="https://github.com/willfarrell/alfred-pkgman-workflow">Package Managers Workflow</a>, developed by <a href="https://github.com/willfarrell/">@willfarrell</a></li>
+<li><a href="https://github.com/willfarrell/">下载</a></li>
+<li>触发: <code>bower</code> <code>grunt</code> <code>npm</code> <code>composer</code> <code>gems</code> <code>pear</code> <code>pypi</code> <code>cocoa</code> <code>brew</code> <code>alcatraz</code> <code>rpm</code> <code>maven</code> <code>docker</code></li>
+</ul>
+
+<p><img src="https://7nnqba.dm1.livefilestore.com/y2ppAHAT45dOTn6bKbLSb4zC8iyK4bl8qlXjz7dsYx3h3lceulR1kHbZdz1wS5XiA5V6pzdJGxrpjKI-gwF6IpD1YNBNZCfYrQjp8YCi1R5fC8/alfred-pkg-npm-opt.png?psid=1" alt="" />
+<img src="https://7nnqba.dm2302.livefilestore.com/y2pWCd9J95EnTh62aMYZ9zHDatkpfUg4qKScGsMpA-Fhy4FBtFBsJ8PkT-flubEWPpzY36rvmSRkv874m_pllj_80s9B0GaEu5XxWonxf6V02o/alfred-pkg-bower-opt.png?psid=1" alt="" />
+<img src="https://7nnqba.dm1.livefilestore.com/y2pQTFJVwQuk4cV5yWHSoFYQCOanTC6JCB5UnfAqtUNouF6M38QLKC-k1d97hzFQi5HOGcI44owdzMcMJJUvmhJS-eLWBgwQjKEe4FDjwh6TWo/alfred-pkg-grunt-opt.png?psid=1" alt="" /></p>
+
+<p>##Colors
+不用再每次想要转换某个颜色格式的时候打开Photoshop了.通过这个workflow可以很轻易在HEX, RGB, HSL这些个颜色格式之间转换.</p>
+
+<ul>
+<li><a href="https://github.com/TylerEich/Alfred-Extras/tree/master/Source/Colors">Colors</a>, developed by <a href="https://github.com/TylerEich/">@TylerEich</a></li>
+<li><a href="http://zno.io/RcFz">下载</a></li>
+<li>触发: <code>#</code> <code>rgb</code> <code>hsl</code> <code>c</code></li>
+</ul>
+
+<p><img src="https://7nnqba.dm2301.livefilestore.com/y2p57G91c-OHhp8vWr5mZDL3mvkawhRy64cCzIWzNEBlqL_EVbapnnvDeZUcVdCVtDJ4ow6hfm0cE1yB5AUViUp2A81StX_YpA7T_5mR_B7Rqk/alfred-colors-opt.png?psid=1" alt="" /></p>
+
+<h2 id="jenkins-workflow">Jenkins Workflow</h2>
+
+<p>做单元测试固然是好,但是每更改一行代码就手动跑一次测试的话会让人抓狂的. 为了得到更好的代码质量,我们需要跑跟更多的测试,或者至少的自动运行那些我们已经在跑的测试. 这就是为嘛<strong>持续集成系统</strong>那么重要.通过这个workflow,你可以列出<a href="http://jenkins-ci.org/">Jenkins</a>的所有工作以及它们的状态.</p>
+
+<ul>
+<li><a href="https://github.com/jeroenseegers/alfred-jenkins-workflow">Jenkins Workflow for Alfred v2</a>, developed by <a href="https://github.com/jeroenseegers/">@jeroenseegers</a></li>
+<li><a href="https://github.com/jeroenseegers/alfred-jenkins-workflow/raw/master/Jenkins.alfredworkflow">下载</a></li>
+<li>触发: <code>jenkins status</code></li>
+</ul>
+
+<p><img src="https://7nnqba.dm2302.livefilestore.com/y2p1OLZbpkCxnoR1-ucaW61I99PIVPvOO_136IItknkfT8GvIGdr9lMaF8P78koNZB9q4_Wxld8CzdfdYegwtcTkOMkdbAtb1A3kPK-8WOlsHw/alfred-jenkins-opt.png?psid=1" alt="" /></p>
+
+<p>XguoX:好吧,这玩意没接触过</p>
+
+<h2 id="open-in-filezilla">Open in FileZilla</h2>
+
+<p>目前来说传输文件到Web服务器的最流行方式还是使用FTP. 而这个workflow可以帮助你快速地通过<a href="https://filezilla-project.org/">FileZilla</a>连接到远程服务器端. FileZilla也是一个免费的应用,所以,在用这个workflow之前请记得先安装之.</p>
+
+<ul>
+<li><a href="https://github.com/jeffmagill/alfred-open-in-filezilla">Open in FileZilla</a>, developed by <a href="https://github.com/jeffmagill/">@jeffmagill</a></li>
+<li><a href="http://zno.io/RnTx">下载</a></li>
+<li>触发: <code>fz</code></li>
+</ul>
+
+<p>在用其他FTP客户端吗?请猛击 <a href="https://github.com/zenorocha/alfred-workflows/wiki/Extras#ftp">Extras</a></p>
+
+<p><img src="https://7nnqba.dm1.livefilestore.com/y2pb9b3kwcHV5UkchYzjh4f-Jw_YMi0uHVYkNeM_0A4g4859bfjcc49jLLQcyTpsOu2f-hOlh2D7sDSGAt65humZvmCuy3QFlH9tJHMAhlgLp4/alfred-fz-opt.png?psid=1" alt="" /></p>
+
+<h2 id="domainr-workflow">Domainr Workflow</h2>
+
+<p>不想错过一些帅气的域名的话,可以通过<a href="https://domai.nr/">Domainr</a> APIs快速查找.</p>
+
+<ul>
+<li><a href="https://github.com/dingyi/Alfred-Workflows/tree/master/Domainr">Domainr Workflow</a>, developed by <a href="https://github.com/dingyi/">@dingyi</a></li>
+<li><a href="http://zno.io/RctP">下载</a></li>
+<li>触发: <code>domainr</code></li>
+</ul>
+
+<p><img src="https://7nnqba.dm2301.livefilestore.com/y2pQl13GHOojZONNNtZnsAeO2IKT6fe1AMAt0uR-SSL5MJQgw-wJ66ZqFNHXS4t7S5X4Osl31-d0jAJ65uishVIPvmNU7L09CfJ19v_Gxi1f7A/alfred-domain-opt.png?psid=1" alt="" /></p>
+
+<h2 id="encode-decode">Encode / Decode</h2>
+
+<p>有时候, 我们需要把一些UTF-8字符转换成HTML编码,或是解码某个URL. 使用 Encode / Decode , 这些杂碎的事情将不再需要浪费那么多的时间了.</p>
+
+<ul>
+<li><a href="https://github.com/willfarrell/alfred-encode-decode-workflow">Encode / Decode</a>, developed by <a href="https://github.com/willfarrell/">@willfarrell</a></li>
+<li><a href="http://zno.io/RcCX">下载</a></li>
+<li>触发: <code>encode</code> <code>decode</code></li>
+</ul>
+
+<p><img src="https://7nnqba.dm2302.livefilestore.com/y2pKvZ6_kJuc6jkwn90DdrOihAOhM5W7fKS7-AoHkhTC41bHpKjagM54XHIYXBYOSPuxivPJ58mAmETym0mdNXAip6qJBJCkxap46HOKzj8W_E/687474703a2f2f662e636c2e6c792f6974656d732f324a336d3147314-e34363035304930453077336e2f616c667265642d656e636f64652e706e67-opt.png?psid=1" alt="" /></p>
+
+<h2 id="font-awesome-workflow">Font Awesome Workflow</h2>
+
+<p>Font icons很好很强大, 只需简单地输入类似的<code>&lt;i class=&quot;my-icon-name&quot;&gt;&lt;/i&gt;</code>. 但问题是,我们经常没能准确地记住我们需要的某个icon的类名,以至于老需要去翻看文档. 现在的话通过这个workflow我们可以很轻易地查找到<a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a>的icon集.</p>
+
+<ul>
+<li><a href="https://github.com/ruedap/alfred2-font-awesome-workflow">Font Awesome Workflow for Alfred 2</a>, developed by <a href="https://github.com/ruedap/">@ruedap</a></li>
+<li><a href="http://zno.io/RcJ3">下载</a></li>
+<li>触发: <code>fonta</code></li>
+</ul>
+
+<p><img src="https://7nnqba.dm2301.livefilestore.com/y2pHAy4Zg3y3qg293hawHzh1DKDkB1ZUd7Ktbw9BtrL7QxRzvJPGIR-B_OUF-fjyx3wq1sn4OrZ72XCQdlHOys6gHOqyjGGbFnwiElSVCkMNxU/alfred-fonta-opt.png?psid=1" alt="" /></p>
+
+<p>XguoX:赞!</p>
+
+<h2 id="source-tree-workflow">Source Tree Workflow</h2>
+
+<p>有人习惯在终端使用Git命令, 也有喜欢使用GUI工具. 如果你属于后者,那么<a href="http://www.sourcetreeapp.com/">Source Tree</a> workflow 可以帮你列出,查找,打开Git仓库. Source Tree 也是需要在使用这个workflow之前先<a href="http://www.sourcetreeapp.com/">下载</a>安装的应用.</p>
+
+<ul>
+<li><a href="https://github.com/zhaocai/alfred2-sourcetree-workflow">Source Tree</a>, developed by <a href="https://github.com/zhaocai/">@zhaocai</a></li>
+<li><a href="http://zno.io/Ro6V">下载</a></li>
+<li>触发: <code>st</code>  <code>stbookmark</code></li>
+</ul>
+
+<p>使用其他的Git客户端吗?请猛击 <a href="https://github.com/zenorocha/alfred-workflows/wiki/Extras#git-client">Extras</a></p>
+
+<p><img src="https://7nnqba.dm2302.livefilestore.com/y2peE5UpatyaBm2USKGJSTP6O-ATHnG5dIkbF_cgAXjVLyUZIJfAjCi-FdRs2E44Me5gKsYygNc6ojyzuCmFfnUnAePfelKmZpB1OmgngYUh1M/alfred-st1-opt.png?psid=1" alt="" /></p>
+
+<h2 id="github-workflow">GitHub Workflow</h2>
+
+<p>如果你最喜欢的社交网站是Github,那你一定会想要看看这个.简单快速地查找并在浏览器打开Github上的仓库.</p>
+
+<ul>
+<li><a href="https://github.com/gharlan/alfred-github-workflow">GitHub Workflow</a>, developed by <a href="https://github.com/gharlan/">@gharlan</a></li>
+<li><a href="http://zno.io/RcPe">下载</a></li>
+<li>触发: <code>gh</code></li>
+</ul>
+
+<p><img src="https://7nnqba.dm2302.livefilestore.com/y2p8Kw5ylIUxXvwnWm1HOp4xQcI2AH9fPU0is_zRQvkLws07H-KINpP86ZbEvywJ8F-IbF4umwGc802UCYyAJwHbXsrQjTD5jR9eni4Hn8v-3Y/alfred-gh-1-opt.png?psid=1" alt="" />
+<img src="https://7nnqba.dm2302.livefilestore.com/y2pAHDVk52bx4FuN7ArITttR0iKhUmXlAenZxif_r6XKjlY7zIdeL57L86L8wTu4a6dHOptenChQ6hdGK12mz4ia1Awc7F1kf42-nF4rKzkbrg/alfred-gh-2-opt.png?psid=1" alt="" />
+<img src="https://7nnqba.dm2301.livefilestore.com/y2pca8u5ITeeKV3q7PAYkeJ26fM5wfHUmFvSjhjS3vfxHWTx8zXT5PQgeZagvY_b6gIUFTMYMdO3B5n-DnWzI-g3Gdxd7A4Tf-BQh75CSKr4UA/alfred-gh-3-opt.png?psid=1" alt="" /></p>
+
+<p>##StackOverflow Workflow
+在<a href="http://stackoverflow.com/">StackOverflow</a>搜寻各类编程问题的答案</p>
+
+<ul>
+<li><a href="https://github.com/xhinking/Alfred">StackOverflow Workflow</a>, developed by <a href="https://github.com/xhinking/">@xhinking</a></li>
+<li><a href="http://zno.io/RceO">下载</a></li>
+<li>触发: <code>st</code></li>
+</ul>
+
+<p><img src="https://7nnqba.dm2302.livefilestore.com/y2pmY5gf1twVGB0cDn-C51fasEXdMo79AFhftB4mJqKzQwshL_a0djKiDcoVu6-NP1QMQ360iBdpNf8Pp7cJ5qxc_XZbcoC_C427S0ty9cdMmI/alfred-st-opt.png?psid=1" alt="" /></p>
+
+<h2 id="timezones-workflow">TimeZones Workflow</h2>
+
+<p>现如今,很多的团队的成员纷纷来自全球各地. 那么,我们不会希望在同事的下班时间去打搅人家.所以,在这之前,我们总会先查看一下对方的当地时间.这个workflow可以巨方便地列出世界各地不同城市的当前时间.</p>
+
+<ul>
+<li><a href="http://www.alfredforum.com/topic/491-timezones-a-world-clock-script-filter-updated-to-v161/">TimeZones Workflow</a>, developed by <a href="http://www.alfredforum.com/topic/491-timezones-a-world-clock-script-filter-updated-to-v161/">@CarlosNZ</a></li>
+<li><a href="http://zno.io/Rce5">下载</a></li>
+<li>触发: <code>tz</code></li>
+</ul>
+
+<p><img src="https://7nnqba.dm2302.livefilestore.com/y2pEw7Fm3pjrusK0c-ihMHdrPo-1oCLOyC6kjipiDXwTsn7OJS3is0zRPDYu6Sy-M80x29f0lVww1ACceNo2LtgksPzQHW-yf0HQ4ZtgilKZVs/alfred-tz-opt.png?psid=1" alt="" /></p>
+
+<h2 id="virtualbox-control">VirtualBox Control</h2>
+
+<p>很不幸地,跨浏览器兼容的仍然是开发人员所面临的一大问题. 测试你的网站在不同浏览器 &amp; 不同操作系统 是否运行正常是件无法逃避的事. 使用虚拟机(比如<a href="https://www.virtualbox.org/">VirtualBox</a>)是当下流行的,可以完成这事的一种方式. 好吧,在用这个workflow之前老规矩,先装上VirtualBox.</p>
+
+<ul>
+<li><a href="https://github.com/aiyodk/Alfred-Extensions/tree/master/AlfredApp_2.x/VirtualBox-Control">VirtualBox Control</a>, developed by <a href="https://github.com/aiyodk">@aiyodk</a></li>
+<li><a href="http://zno.io/RyOE">下载</a></li>
+<li>触发: <code>vm</code></li>
+</ul>
+
+<p>在用其他的虚拟机客户端吗?请猛击 <a href="https://github.com/zenorocha/alfred-workflows/wiki/Extras#virtual-machines">Extras</a></p>
+
+<p><img src="https://7nnqba.dm2301.livefilestore.com/y2psvNKnOmlDIHPBDdt55ZjXGXipYEXF1vywXnx7K0QWXLTlFzs34ntkNcga99mClSZGNzkG2ANop67cWYvEwkJzHDDualJDf7xIPTcKdVy3Og/alfred-vb-1-opt.png?psid=1" alt="" />
+<img src="https://7nnqba.dm2302.livefilestore.com/y2pUUCXsiAOITeTEiZtDeQSoIQdmNUV0CayHgImh1MpczVHPlU-NUC0rIdVZqkztQ3bUBM7EWiu4SAkbl1eL3EMKFSsd2NFTJpjq8kDoCEJfOE/alfred-vb-2-opt.png?psid=1" alt="" /></p>
+
+<h2 id="create-your-own">Create Your Own!</h2>
+
+<p>所有的这些workflows都非常的赞并对于大多数人来说很有帮助. 但是,每个人的工作方式不尽相同. 所以我们需要创建真正属于自己的workflow. 其实这个也很是简单. 以下的这个例子仅需不到10秒,就可以创建一个workflow来自动搜寻Smashing Magazine.</p>
+
+<p><img src="https://7nnqba.dm2301.livefilestore.com/y2p2GeFzQuRTl9E0-rFjNQrAw7qS_a5RAlZpfNQh9tT-P45-le3UY_fNKu7n1K5mIIq9JNdp83flsG9hvRzDHzcfXGuB56sspc6CnmRyDh2ikE/custom-alfred.gif?psid=1" alt="" /></p>
+
+<h2 id="want-more">Want More?</h2>
+
+<p><a href="https://github.com/zenorocha/alfred-workflows/">这是作者收集的一些</a>
+此外,Alfred的<a href="http://www.alfredforum.com/forum/3-share-your-workflows/">官方论坛</a>上也有海量的workflows.</p>
+
+<h2 id="the-end">The End?</h2>
+
+<p>一堆帮助你自动化工作流程的技巧,很赞对吧!希望能够对你有所帮助.可能这些会激发你的一些灵感,从而创造,分享你的隐藏技能.</p>
+
+<p>如果你喜欢的workflow没有在这列出,可以在下边的评论当中跟我们分享. 如果你觉得上边提到的那些赞到爆的话,也可以告诉我们哦!</p>
+
+<p>文章翻译自 <a href="http://coding.smashingmagazine.com/2013/10/25/hidden-productivity-secrets-with-alfred/">Hidden Productivity Secrets With Alfred</a></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/tools/">Tools</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/relearn-ruby.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">重拾Ruby (I)</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/one-piece-recently.html/">
+            <span class="next-text nav-default">由OP最近的拖剧情说起</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

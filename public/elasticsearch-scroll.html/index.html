@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Elasticsearch Scroll (Ruby) - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="Elasticsearch 通过 from 和 size 参数来实现分页. size 表示返回的结果数量, 默认为 10, from 则表示从起始结果算起要跳过的结果数量, 默认为 0. 所以, 默认情况下如果返回结果数是 10" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/elasticsearch-scroll.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Elasticsearch Scroll (Ruby)" />
+<meta property="og:description" content="Elasticsearch 通过 from 和 size 参数来实现分页. size 表示返回的结果数量, 默认为 10, from 则表示从起始结果算起要跳过的结果数量, 默认为 0. 所以, 默认情况下如果返回结果数是 10" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/elasticsearch-scroll.html/" /><meta property="article:published_time" content="2016-04-23T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2016-04-23T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Elasticsearch Scroll (Ruby)">
+<meta itemprop="description" content="Elasticsearch 通过 from 和 size 参数来实现分页. size 表示返回的结果数量, 默认为 10, from 则表示从起始结果算起要跳过的结果数量, 默认为 0. 所以, 默认情况下如果返回结果数是 10">
+
+
+<meta itemprop="datePublished" content="2016-04-23T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2016-04-23T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="1184">
+
+
+
+<meta itemprop="keywords" content="Elasticsearch,Ruby," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Elasticsearch Scroll (Ruby)"/>
+<meta name="twitter:description" content="Elasticsearch 通过 from 和 size 参数来实现分页. size 表示返回的结果数量, 默认为 10, from 则表示从起始结果算起要跳过的结果数量, 默认为 0. 所以, 默认情况下如果返回结果数是 10"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Elasticsearch Scroll (Ruby)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 23 Apr 2016 </span>
+          <span class="more-meta"> 1184 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/elasticsearch/"> Elasticsearch </a>
+          <a href="/categories/ruby/"> Ruby </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      
+
+<p><strong>Elasticsearch</strong> 通过 <code>from</code> 和 <code>size</code> 参数来实现分页. <code>size</code> 表示返回的结果数量, 默认为 10, <code>from</code> 则表示从起始结果算起要跳过的结果数量, 默认为 0. 所以, 默认情况下如果返回结果数是 10 个以上, 我们得到的只有前十个结果.</p>
+
+<p>1.X 的时候不过请求的页数多深, 结果数多大都会給你返回结果, 只是越到后面的页数越大或者结果数越多, 执行的效率会逐渐变慢而已.</p>
+
+<p><strong>页数越大之所以返回效率越差</strong>, 是因为 Elasticsearch 分页的工作方式是从所有主分片的索引中返回排在最前面的 <code>size</code> 数量的结果, 然后再把各个分片结果合并以后再排序, 然后再返回前 <code>size</code> 个结果.</p>
+
+<p>假设还是默认值, 如果想返回第 1000 页的话, 也就是排在 10001 - 10010 的结果. 而并不是直接一拿就拿到排在第 10001 之后的结果集, 而是返回 10010个结果然而排序, 然后丢弃掉前面的 10000 个结果.</p>
+
+<p>这是只有一个主分片的情况是这么工作的, 而如果假设是 5 个主分片的话. 还是请求第 1000页, 那么 Elasticsearch 要在这 5 个主分片下搜索结果, 然后每个分片得到 10010 个结果, 合并以后排序这 50050 个结果, 最后丢弃前面的 50040 个.</p>
+
+<p>所以, 不管是 Google 还是百度, 都会限定返回的结果页数. 用 Google 搜索 <code>Elasticsearch</code> 返回了  466,000 条结果, 然而只给我们前 15 页的.</p>
+
+<p>然后, <strong>升到 2.X 以后</strong>, 如果请求产生的结果数超过一万个的话, 会抛出这样的错误信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span><span class="o">:</span><span class="nx">error</span><span class="p">=&gt;</span>
+ <span class="p">{</span><span class="o">:</span><span class="nx">root_cause</span><span class="p">=&gt;</span>
+   <span class="p">[{</span><span class="o">:</span><span class="nx">type</span><span class="p">=&gt;</span><span class="s2">&#34;query_phase_execution_exception&#34;</span><span class="p">,</span>
+     <span class="o">:</span><span class="nx">reason</span><span class="p">=&gt;</span>
+      <span class="s2">&#34;Result window is too large, from + size must be less than or equal to: [10000] but was [12000]. See the scroll api for a more efficient way to request large data sets. This limit can be set by changing the [index.max_result_window] index level parameter.&#34;</span><span class="p">}],</span>
+  <span class="o">:</span><span class="nx">type</span><span class="p">=&gt;</span><span class="s2">&#34;search_phase_execution_exception&#34;</span><span class="p">,</span>
+  <span class="o">:</span><span class="nx">reason</span><span class="p">=&gt;</span><span class="s2">&#34;all shards failed&#34;</span><span class="p">,</span>
+  <span class="o">:</span><span class="nx">phase</span><span class="p">=&gt;</span><span class="s2">&#34;query_fetch&#34;</span><span class="p">,</span>
+  <span class="o">:</span><span class="nx">grouped</span><span class="p">=&gt;</span><span class="kc">true</span><span class="p">,</span>
+  <span class="o">:</span><span class="nx">failed_shards</span><span class="p">=&gt;</span>
+   <span class="p">[{</span><span class="o">:</span><span class="nx">shard</span><span class="p">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+     <span class="o">:</span><span class="nx">index</span><span class="p">=&gt;</span><span class="s2">&#34;customers&#34;</span><span class="p">,</span>
+     <span class="o">:</span><span class="nx">node</span><span class="p">=&gt;</span><span class="s2">&#34;RZ4Rj4QZQ7G7EIv5Y-CnEw&#34;</span><span class="p">,</span>
+     <span class="o">:</span><span class="nx">reason</span><span class="p">=&gt;</span>
+      <span class="p">{</span><span class="o">:</span><span class="nx">type</span><span class="p">=&gt;</span><span class="s2">&#34;query_phase_execution_exception&#34;</span><span class="p">,</span>
+       <span class="o">:</span><span class="nx">reason</span><span class="p">=&gt;</span>
+        <span class="s2">&#34;Result window is too large, from + size must be less than or equal to: [10000] but was [12000]. See the scroll api for a more efficient way to request large data sets. This limit can be set by changing the [index.max_result_window] index level parameter.&#34;</span><span class="p">}}]},</span>
+<span class="o">:</span><span class="nx">status</span><span class="p">=&gt;</span><span class="mi">500</span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Elasticsearch 也很 nice 的建议我们使用 Scroll API.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">client</span> <span class="o">=</span> <span class="no">Elasticsearch</span><span class="o">::</span><span class="no">Model</span><span class="o">.</span><span class="n">client</span>
+<span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">delete</span> <span class="ss">index</span><span class="p">:</span> <span class="s1">&#39;test&#39;</span>
+<span class="mi">1_000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+  <span class="n">client</span><span class="o">.</span><span class="n">index</span> <span class="ss">index</span><span class="p">:</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span>
+               <span class="ss">type</span><span class="p">:</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span>
+               <span class="nb">id</span><span class="p">:</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+               <span class="ss">body</span><span class="p">:</span> <span class="p">{</span><span class="ss">title</span><span class="p">:</span> <span class="s2">&#34;Test </span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">}</span>
+<span class="k">end</span>
+<span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">refresh</span> <span class="ss">index</span><span class="p">:</span> <span class="s1">&#39;test&#39;</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span> <span class="ss">index</span><span class="p">:</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span>
+                       <span class="ss">scroll</span><span class="p">:</span> <span class="s1">&#39;5m&#39;</span><span class="p">,</span>
+                       <span class="ss">body</span><span class="p">:</span> <span class="p">{</span> <span class="ss">query</span><span class="p">:</span> <span class="p">{</span> <span class="ss">match</span><span class="p">:</span> <span class="p">{</span> <span class="ss">title</span><span class="p">:</span> <span class="s1">&#39;test&#39;</span> <span class="p">}</span> <span class="p">},</span> <span class="ss">sort</span><span class="p">:</span> <span class="s1">&#39;_id&#39;</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">//result
+</span><span class="c1"></span>
+<span class="p">{</span><span class="s2">&#34;_scroll_id&#34;</span><span class="p">=&gt;</span>
+  <span class="s2">&#34;cXVlcnlUaGVuRmV0Y2g7NTs3OlJaNFJqNFFaUTdHN0VJdjVZLUNuRXc7OTpSWjRSajRRWlE3RzdFSXY1WS1DbkV3Ozg6Ulo0Umo0UVpRN0c3RUl2NVktQ25FdzsxMDpSWjRSajRRWlE3RzdFSXY1WS1DbkV3OzExOlJaNFJqNFFaUTdHN0VJdjVZLUNuRXc7MDs=&#34;</span><span class="p">,</span>
+ <span class="s2">&#34;took&#34;</span><span class="p">=&gt;</span><span class="mi">18</span><span class="p">,</span>
+ <span class="s2">&#34;timed_out&#34;</span><span class="p">=&gt;</span><span class="kc">false</span><span class="p">,</span>
+ <span class="s2">&#34;_shards&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;total&#34;</span><span class="p">=&gt;</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&#34;successful&#34;</span><span class="p">=&gt;</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&#34;failed&#34;</span><span class="p">=&gt;</span><span class="mi">0</span><span class="p">},</span>
+ <span class="s2">&#34;hits&#34;</span><span class="p">=&gt;</span>
+  <span class="p">{</span><span class="s2">&#34;total&#34;</span><span class="p">=&gt;</span><span class="mi">1000</span><span class="p">,</span>
+   <span class="s2">&#34;max_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span>
+   <span class="s2">&#34;hits&#34;</span><span class="p">=&gt;</span>
+    <span class="p">[{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;14&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 13&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;19&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 18&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;22&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 21&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;24&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 23&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;25&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 24&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;26&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 25&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;29&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 28&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;40&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 39&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;41&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 40&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;44&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 43&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]}]}}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>可以看到每一次 scroll 返回的结果都带有 <code>_scroll_id</code>, 然后后续接着利用这个 <code>_scroll_id</code> 来滚动搜索.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">scroll</span> <span class="ss">scroll</span><span class="p">:</span> <span class="s1">&#39;5m&#39;</span><span class="p">,</span> <span class="ss">scroll_id</span><span class="p">:</span> <span class="n">result</span><span class="o">[</span><span class="s1">&#39;_scroll_id&#39;</span><span class="o">]</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">=&gt;</span> <span class="p">{</span><span class="s2">&#34;_scroll_id&#34;</span><span class="p">=&gt;</span>
+  <span class="s2">&#34;cXVlcnlUaGVuRmV0Y2g7NTs3OlJaNFJqNFFaUTdHN0VJdjVZLUNuRXc7OTpSWjRSajRRWlE3RzdFSXY1WS1DbkV3Ozg6Ulo0Umo0UVpRN0c3RUl2NVktQ25FdzsxMDpSWjRSajRRWlE3RzdFSXY1WS1DbkV3OzExOlJaNFJqNFFaUTdHN0VJdjVZLUNuRXc7MDs=&#34;</span><span class="p">,</span>
+ <span class="s2">&#34;took&#34;</span><span class="p">=&gt;</span><span class="mi">5</span><span class="p">,</span>
+ <span class="s2">&#34;timed_out&#34;</span><span class="p">=&gt;</span><span class="kc">false</span><span class="p">,</span>
+ <span class="s2">&#34;_shards&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;total&#34;</span><span class="p">=&gt;</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&#34;successful&#34;</span><span class="p">=&gt;</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&#34;failed&#34;</span><span class="p">=&gt;</span><span class="mi">0</span><span class="p">},</span>
+ <span class="s2">&#34;hits&#34;</span><span class="p">=&gt;</span>
+  <span class="p">{</span><span class="s2">&#34;total&#34;</span><span class="p">=&gt;</span><span class="mi">1000</span><span class="p">,</span>
+   <span class="s2">&#34;max_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span>
+   <span class="s2">&#34;hits&#34;</span><span class="p">=&gt;</span>
+    <span class="p">[{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;48&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 47&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;52&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 51&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;60&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 59&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;73&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 72&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;79&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 78&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;84&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 83&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;89&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 88&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;92&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 91&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;98&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 97&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]},</span>
+     <span class="p">{</span><span class="s2">&#34;_index&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;99&#34;</span><span class="p">,</span> <span class="s2">&#34;_score&#34;</span><span class="p">=&gt;</span><span class="nx">nil</span><span class="p">,</span> <span class="s2">&#34;_source&#34;</span><span class="p">=&gt;{</span><span class="s2">&#34;title&#34;</span><span class="p">=&gt;</span><span class="s2">&#34;Test 98&#34;</span><span class="p">},</span> <span class="s2">&#34;sort&#34;</span><span class="p">=&gt;[</span><span class="nx">nil</span><span class="p">]}]}}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p><code>scroll: '5m'</code> 是指这个 _scroll_id 的有效时长为 5分钟, 除了分钟以外, 年月日时分秒都可以.
+btw, 官方说每次 scroll 以后产生新的 _scroll_id, 不知道是不是理解错误, 除非开启一个新的 scroll 会生成新的 _scroll_id, 不然, 如果在有效时间内继续滚动的话返回的 _scroll_id 是一样的.</p>
+
+<p>如果只对查询的结果总体感兴趣而不需要对总体排序的话, 可以使用更为高效的 <code>scan</code> 模式,</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">r</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span> <span class="ss">index</span><span class="p">:</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="ss">search_type</span><span class="p">:</span> <span class="s1">&#39;scan&#39;</span><span class="p">,</span> <span class="ss">scroll</span><span class="p">:</span> <span class="s1">&#39;5m&#39;</span><span class="p">,</span> <span class="ss">size</span><span class="p">:</span> <span class="mi">10</span>
+
+<span class="c1"># Call the `scroll` API until empty results are returned</span>
+<span class="k">while</span> <span class="n">r</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="ss">scroll_id</span><span class="p">:</span> <span class="n">r</span><span class="o">[</span><span class="s1">&#39;_scroll_id&#39;</span><span class="o">]</span><span class="p">,</span> <span class="ss">scroll</span><span class="p">:</span> <span class="s1">&#39;5m&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">r</span><span class="o">[</span><span class="s1">&#39;hits&#39;</span><span class="o">][</span><span class="s1">&#39;hits&#39;</span><span class="o">].</span><span class="n">empty?</span> <span class="k">do</span>
+  <span class="nb">puts</span> <span class="s2">&#34;--- BATCH </span><span class="si">#{</span><span class="n">defined?</span><span class="p">(</span><span class="vg">$i</span><span class="p">)</span> <span class="p">?</span> <span class="vg">$i</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">:</span> <span class="vg">$i</span> <span class="o">=</span> <span class="mi">1</span><span class="si">}</span><span class="s2"> -------------------------------------------------&#34;</span>
+  <span class="nb">puts</span> <span class="n">r</span><span class="o">[</span><span class="s1">&#39;hits&#39;</span><span class="o">][</span><span class="s1">&#39;hits&#39;</span><span class="o">].</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">d</span><span class="o">|</span> <span class="n">d</span><span class="o">[</span><span class="s1">&#39;_source&#39;</span><span class="o">][</span><span class="s1">&#39;title&#39;</span><span class="o">]</span> <span class="p">}</span><span class="o">.</span><span class="n">inspect</span>
+  <span class="nb">puts</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<h5 id="related">Related:</h5>
+
+<p><a href="http://xguox.me/elasticsearch-ik-mmseg-homebrew-ubuntu.html">Elasticsearch 开箱笔记</a></p>
+
+<p><a href="http://xguox.me/elasticsearch-rails.html">Elasticsearch on Rails</a></p>
+
+<p><a href="http://xguox.me/elasticsearch-more-like-this.html">Elasticsearch More Like This 搜索</a></p>
+
+<p><a href="http://xguox.me/elasticsearch-aggregations.html">Elasticsearch Aggregations 聚合分析</a></p>
+
+<p><a href="http://xguox.me/upgrade-elasticsearch-2-3.html">Upgrade Elasticsearch to 2.3</a></p>
+
+<p><a href="https://github.com/elastic/elasticsearch-ruby/blob/master/elasticsearch-api/lib/elasticsearch/api/actions/scroll.rb">https://github.com/elastic/elasticsearch-ruby/blob/master/elasticsearch-api/lib/elasticsearch/api/actions/scroll.rb</a></p>
+
+<p><a href="http://xguox.me/elasticsearch-custom-analyzer.html">Elasticsearch analysis &amp; 自定义 analyzers</a></p>
+
+<p><a href="http://xguox.me/elasticsearch-Changing-Mapping-with-Zero-Downtime.html">Elasticsearch 如何不用停机情况下完成 mapping 的修改</a></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/elasticsearch/">Elasticsearch</a>
+          <a href="/tags/ruby/">Ruby</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/elasticsearch-upstart.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Elasticsearch Upstart</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/upgrade-elasticsearch-2-3.html/">
+            <span class="next-text nav-default">Upgrade Elasticsearch to 2.3</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

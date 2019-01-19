@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>5 Meteor Misconceptions - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="由于某些原因,关于Meteor一直都有着各种各样的误解.或许是因为Meteor刚正式推出的时候, 缺失很多重要的功能.而很多不知道的是,这些缺" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/5-meteor-misconceptions.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="5 Meteor Misconceptions" />
+<meta property="og:description" content="由于某些原因,关于Meteor一直都有着各种各样的误解.或许是因为Meteor刚正式推出的时候, 缺失很多重要的功能.而很多不知道的是,这些缺" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/5-meteor-misconceptions.html/" /><meta property="article:published_time" content="2013-03-14T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2013-03-14T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="5 Meteor Misconceptions">
+<meta itemprop="description" content="由于某些原因,关于Meteor一直都有着各种各样的误解.或许是因为Meteor刚正式推出的时候, 缺失很多重要的功能.而很多不知道的是,这些缺">
+
+
+<meta itemprop="datePublished" content="2013-03-14T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2013-03-14T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="2124">
+
+
+
+<meta itemprop="keywords" content="Translation,JavaScript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="5 Meteor Misconceptions"/>
+<meta name="twitter:description" content="由于某些原因,关于Meteor一直都有着各种各样的误解.或许是因为Meteor刚正式推出的时候, 缺失很多重要的功能.而很多不知道的是,这些缺"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">5 Meteor Misconceptions</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 14 Mar 2013 </span>
+          <span class="more-meta"> 2124 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/translation/"> Translation </a>
+          <a href="/categories/javascript/"> JavaScript </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      
+
+<p>由于某些原因,关于Meteor一直都有着各种各样的误解.或许是因为Meteor刚正式推出的时候, 缺失很多重要的功能.而很多不知道的是,这些缺陷在后来早就被修复了.</p>
+
+<p>为了给Meteor正名,下面列举的是5个最常见的误解.</p>
+
+<h5 id="误解-1-meteor的数据不安全">误解#1:&ldquo;Meteor的数据不安全&rdquo;</h5>
+
+<p>在Meteor的第一个Demo推出之时, 数据安全和用户权限这些东西是没有的.任何客户端的用户都能够访问,修改数据库的数据然后发送返回到服务端.</p>
+
+<p>但这第一个版本只是作为一个提示告诉大家Meteor来了, 并不意味着它可以被用来打造一个真实的应用产品. 打那之后, 现在的Meteor已经有了一个内置的身份认证包(authentication package).</p>
+
+<p><strong>造成误解的另一个原因是, 许多新手为了更容易地快速上手常常在创建Meteor应用的时候, 遵循默认的把所有的数据发布给客户端.</strong></p>
+
+<p>正如Meteor的开发者之一 <strong>Avital Oliver</strong>在<a href="http://stackoverflow.com/questions/10099843/how-secure-is-Meteor">StackOverflow上的回答</a>那样</p>
+
+<blockquote>
+<p>当你使用Meteor的命令行工具创建一个应用的时候, 默认的会包含有两个packages:<strong>AUTOPUBLISH</strong>和<strong>INSECURE</strong>. 这两个packages能使得每个客户端都拥有所有的服务器数据库读写权限效果.这是非常好的原型工具(目的只为了开发),但通常这不适合用于应用的生产环境.当你需要发布到生产环境的时候,请去掉这两个packages</p>
+</blockquote>
+
+<p>类似地,也因为Meteor可以共享服务端和客户端的代码,但实际上,这并不意味着所有的代码都可用于客户端.</p>
+
+<p>所有放在<code>server/</code>目录下的东西都是只能在<a href="http://docs.Meteor.com/#structuringyourapp">服务端</a>执行使用的, 同时Meteor也让你可以定义<a href="http://docs.Meteor.com/#methods_header">服务端安全方法</a>,这些方法可以在客户端调用.</p>
+
+<h5 id="误解-2-meteor对seo不友好">误解#2:&ldquo;Meteor对SEO不友好&rdquo;</h5>
+
+<p>与传统的网页应用不一样,Meteor不会在服务端搭建HTML页面.取而代之, 服务端只发送数据, 然后在客户端决定如何渲染之(这就是Meteor的&rdquo;data on the wire&rdquo;原则)</p>
+
+<p>这种做法的缺点就是, 当JavaScript被禁用的话, 你的网站几乎跟一个空白页面无异.</p>
+
+<p>你或许会觉得这会迷惑搜索引擎.但幸运地是, Meteor有解决的方案,那就是使用<a href="http://docs.Meteor.com/#spiderable">Spiderable</a> Package.</p>
+
+<p><img src="http://theMeteorbook.com/images/phantomjs.png" alt="" /></p>
+
+<p>这个package使用的是<a href="http://phantomjs.org/">PhantomJS </a>在服务端预渲染后提供给网络爬虫.实际上网络爬虫得到的网页跟你看到的是一样的.</p>
+
+<h5 id="误解-3-meteor不支持第三方packages">误解#3:&ldquo;Meteor不支持第三方packages&rdquo;</h5>
+
+<p>有很多的讨论是关于Meteor所用的不是Node的标准包管理&ndash;NPM. 而事实上, Meteor压根就没有不允许使用第三方程序包.</p>
+
+<p>And it&rsquo;s true that the vanilla install of Meteor does not come with a package manager. 但庆幸的是, <a href="http://theMeteorbook.com/">本书</a>的合著者之一Tom Coleman, 同时也是Meteor包管理器<a href="https://github.com/oortcloud/Meteorite">Meteorite</a>和packages资源库<a href="http://atmosphere.Meteor.com/">Atmosphere</a>的开发者.</p>
+
+<p>尽管当下Meteorite 和 Atmosphere还不是Meteor的官方部分, 但它们已经得到广泛的使用并将会在未来被合并到Meteor的核心部分.事实上,这方面的工作已经在Meteor的核心代码的<a href="https://github.com/Meteor/Meteor/tree/engine">engine</a>分支中开展,预期会被很快解决.</p>
+
+<h5 id="误解-4-meteor是完全封闭的-walled-garden">误解#4:&ldquo;Meteor是完全封闭的(walled garden)&rdquo;</h5>
+
+<p>一个密切相关的异议是,Meteor可以支持第三方packages,但这些第三方packages却严格地限制于流星的生态系统.</p>
+
+<p>为什么有成千上万的Node packages 在那还要使用自定义的package呢?这又是否与开源精神相悖呢?</p>
+
+<p>首先,需要意识到一点很重要的就是, 在Meteor中可以任意的使用node packages.尽管在当下这么做可能还会有一些棱角使得接口不那么顺利,但这种情况在<code>engine</code>分支添加<a href="https://groups.google.com/forum/?fromgroups=#!topic/Meteor-talk/b6zQrgk8lYo">Node support</a>
+并发布后将得到很大改善.</p>
+
+<p><img src="http://theMeteorbook.com/images/npm.png" alt="" />
+其次,Meteor不仅仅是Node.js的一个框架, 更是一种全新的网站应用开发方式和构想.</p>
+
+<p>换句话说,想知道为什么Meteor不使用NPM无异于问为什么它不能使用Ruby Gems. 有很多人建议所有的JavaScript代码应该都用NPM来管理, 但这么做的话会有一些细节上的问题, 正如核心开发者<a href="https://github.com/Meteor/Meteor/pull/516#issuecomment-12919473">解释说</a>.</p>
+
+<h5 id="误解-5-meteor只适用于原型">误解#5:&ldquo;Meteor只适用于原型&rdquo;</h5>
+
+<p>&ldquo;Meteor非常适用于小规模快速原型的项目,但它不适合用于大规模的应用.&rdquo;</p>
+
+<p>在某种程度上, 这很难争个谁对谁错.毕竟Meteor的主页的版本号还是以<code>0</code>开头.</p>
+
+<p>但事实是Meteor还没准备到一个黄金时间,比起内在的局限性,在如此青涩的时期(不到一岁)Meteor还有许多需要做的.</p>
+
+<p>再说, 即使是现在, 有时牺牲一点稳定性来做交换得到Meteor带来的轻松且快速的开发还是值得的.如果你希望看到一些具体的Meteor案例,我可以推荐看看<a href="http://telesc.pe/">Telescope</a>吗?</p>
+
+<p>So,我坚信,在Meteor这样快速发展之下,今天的技术原型将会是明天thousand-user 的应用.</p>
+
+<h5 id="总结">总结</h5>
+
+<p>现在,即使我们正在写这本关于Meteor的书, 但我们首先依旧会承认一点, 如同其他的技术那样,Meteor同样也有着自己的缺陷.</p>
+
+<p>But I do believe Meteor has enough potential to make it worth evaluating it on its own merits. 所以如果你犹豫不决是否使用Meteor, 希望我的建议能说服你你选择它.</p>
+
+<p>原文来自 Sacha Greif  <a href="http://theMeteorbook.com/2013/03/12/5-Meteor-misconceptions/">5 Meteor Misconceptions</a></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/translation/">Translation</a>
+          <a href="/tags/javascript/">JavaScript</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/improving-ux-through-front-end-performance.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Improving UX Through Front-End Performance</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/introduction-to-realtime-web-with-meteor-dot-js-and-node-dot-js.html/">
+            <span class="next-text nav-default">Introduction to Realtime Web with Meteor and Node.js</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

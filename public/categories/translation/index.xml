@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Translation on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/categories/translation/</link>
+    <description>Recent content in Translation on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 27 Apr 2017 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/categories/translation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>给 Rubyist 的 Postgresql Explain 教程</title>
+      <link>https://xguox.me/rubyist-guide-to-postgres-explain.html/</link>
+      <pubDate>Thu, 27 Apr 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rubyist-guide-to-postgres-explain.html/</guid>
+      <description>如果想知道你的数据库查询为啥变得越来越慢了， 那没有啥比 postgres 的 EXPLAIN 更好使的了。 其实也没啥神秘的。 就是让 postgres 告诉咱们，它是怎么去执行这个查询的。你甚至</description>
+    </item>
+    
+    <item>
+      <title>[Repost]旅行,写作,编程</title>
+      <link>https://xguox.me/traveling-writing-programming.html/</link>
+      <pubDate>Sat, 13 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/traveling-writing-programming.html/</guid>
+      <description>概括起来,今年到目前为止,我所做的事情包括: 花了10个月的时间做世界环游,途经非洲,东南亚,澳洲,中南美洲里的17个国家和地区.这次旅行的主</description>
+    </item>
+    
+    <item>
+      <title>如何在一年里周游世界</title>
+      <link>https://xguox.me/how-to-travel-around-the-world-for-a-year.html/</link>
+      <pubDate>Sat, 13 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/how-to-travel-around-the-world-for-a-year.html/</guid>
+      <description>在我的上一篇文章traveling, writing and programming中, 涵盖了我前一年的旅行, 写作, 编程. 而在这一篇文章中, 将会具体地对整一个旅程</description>
+    </item>
+    
+    <item>
+      <title>Meteor: Understanding Publications and Subscriptions</title>
+      <link>https://xguox.me/understanding-publications-and-subscriptions.html/</link>
+      <pubDate>Wed, 10 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/understanding-publications-and-subscriptions.html/</guid>
+      <description>LEVEL: INTERMEDIATE Publications &amp;amp; subscriptions 是在Meteor里最基本也是最重要的概念之一, 但同时也是最难理解的. 很大程度上是由于这其中跟传统的构建web的方式有很大的不同. 过</description>
+    </item>
+    
+    <item>
+      <title>Improving UX Through Front-End Performance</title>
+      <link>https://xguox.me/improving-ux-through-front-end-performance.html/</link>
+      <pubDate>Wed, 20 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/improving-ux-through-front-end-performance.html/</guid>
+      <description>想象一下,你正在一个马路口等待着过马路. You push the button to call the walk signal, and you take out your phone. 你想要完成某件事: 可能是查看邮件, 可能是给你的to-do列表添加一条i</description>
+    </item>
+    
+    <item>
+      <title>5 Meteor Misconceptions</title>
+      <link>https://xguox.me/5-meteor-misconceptions.html/</link>
+      <pubDate>Thu, 14 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/5-meteor-misconceptions.html/</guid>
+      <description>由于某些原因,关于Meteor一直都有着各种各样的误解.或许是因为Meteor刚正式推出的时候, 缺失很多重要的功能.而很多不知道的是,这些缺</description>
+    </item>
+    
+    <item>
+      <title>Introduction to Realtime Web with Meteor and Node.js</title>
+      <link>https://xguox.me/introduction-to-realtime-web-with-meteor-dot-js-and-node-dot-js.html/</link>
+      <pubDate>Sun, 10 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/introduction-to-realtime-web-with-meteor-dot-js-and-node-dot-js.html/</guid>
+      <description>最近,有许多关于 Derby.js的激动人心的讨论涌现在了我的Twitter Timeline. 我从未使用过能够帮你做这么多&amp;ndash;实时同步客户端和服务端</description>
+    </item>
+    
+    <item>
+      <title>Meteor 基础与最佳实践</title>
+      <link>https://xguox.me/learn-meteor-fundamentals-and-best-practices.html/</link>
+      <pubDate>Fri, 08 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/learn-meteor-fundamentals-and-best-practices.html/</guid>
+      <description>引言 想知道这个新奇又好玩的东西&amp;ndash; Meteor是如何工作的?那就太好了,你来对地方了. 我会向你展示一个Meteor项目的方方面面 并</description>
+    </item>
+    
+    <item>
+      <title>A Look at a Meteor Template</title>
+      <link>https://xguox.me/a-look-at-a-meteor-template.html/</link>
+      <pubDate>Wed, 06 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/a-look-at-a-meteor-template.html/</guid>
+      <description>LEVEL: BEGINNER 学习一门语言或框架的最好方法之一是从零开始开发一个应用程序. 但是,当你开发了N次的To-do list应用之后, 或许你会想要一些稍微新鲜的</description>
+    </item>
+    
+    <item>
+      <title>Getting Started with Meteor</title>
+      <link>https://xguox.me/getting-started-with-meteor.html/</link>
+      <pubDate>Tue, 05 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/getting-started-with-meteor.html/</guid>
+      <description>LEVEL: BEGINNER 当你看到这,也就说明你听说了Meteor这东西, 并对它产生一些好奇. 那就让我们创建一个最基本的应用来耍一耍吧. 希望能以此学习到一两样东西</description>
+    </item>
+    
+    <item>
+      <title>你应该在生产环境下使用JavaScript的严格模式(strict mode)吗?</title>
+      <link>https://xguox.me/should-you-use-strict-in-your-production-javascript.html/</link>
+      <pubDate>Fri, 08 Feb 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/should-you-use-strict-in-your-production-javascript.html/</guid>
+      <description>ECMAScript 5 中引入了一种定义,可以切换让你的JavaScript代码是否在所谓的 严格模式(strict mode)下执行.因为在strict mode下</description>
+    </item>
+    
+    <item>
+      <title>About My Translation</title>
+      <link>https://xguox.me/about-translation.html/</link>
+      <pubDate>Thu, 07 Feb 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/about-translation.html/</guid>
+      <description>First off,以俺目前的各种水平,想写出一些好的 technical articles 是有点难度的啦.于是乎,我选择了翻译国外一些好的文章.不管多么新鲜的技术,就算找不着中文资料</description>
+    </item>
+    
+    <item>
+      <title>你可能不知道的JSON.stingify()</title>
+      <link>https://xguox.me/what-you-might-not-know-about-json-dot-stringify.html/</link>
+      <pubDate>Fri, 01 Feb 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/what-you-might-not-know-about-json-dot-stringify.html/</guid>
+      <description>几乎所有开发人员都会花一些时间在JavaScript上,有些时候是在使用JSON.stingify(以及与之相对应的,JSON.parse)</description>
+    </item>
+    
+    <item>
+      <title>Rails 3 Remote Links and Forms Part 2: Data-type (With jQuery)</title>
+      <link>https://xguox.me/rails-3-remote-links-and-forms-part-2-data-type-with-jquery.html/</link>
+      <pubDate>Thu, 12 Jul 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-3-remote-links-and-forms-part-2-data-type-with-jquery.html/</guid>
+      <description>自从写了Rails 3 Remote Links &amp;amp; Forms Definitive Guide有一个问题也接踵而至: 我们该如何使远程链接或者表单取回 js.erb而不是一个html的partial</description>
+    </item>
+    
+    <item>
+      <title>Rails 3 Remote Links and Forms: A Definitive Guide</title>
+      <link>https://xguox.me/rails-3-remote-links-and-forms.html/</link>
+      <pubDate>Wed, 11 Jul 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-3-remote-links-and-forms.html/</guid>
+      <description>blahblah: 这些天遇上一些困难请教Larry的时候他没少给我一些英文的资料,虽然能够阅读,但是始终觉得翻译回中文以后再看也方便些.不过有些地方翻的比较</description>
+    </item>
+    
+  </channel>
+</rss>

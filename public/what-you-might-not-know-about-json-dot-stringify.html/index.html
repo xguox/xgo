@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>你可能不知道的JSON.stingify() - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="几乎所有开发人员都会花一些时间在JavaScript上,有些时候是在使用JSON.stingify(以及与之相对应的,JSON.parse)" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/what-you-might-not-know-about-json-dot-stringify.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="你可能不知道的JSON.stingify()" />
+<meta property="og:description" content="几乎所有开发人员都会花一些时间在JavaScript上,有些时候是在使用JSON.stingify(以及与之相对应的,JSON.parse)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/what-you-might-not-know-about-json-dot-stringify.html/" /><meta property="article:published_time" content="2013-02-01T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2013-02-01T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="你可能不知道的JSON.stingify()">
+<meta itemprop="description" content="几乎所有开发人员都会花一些时间在JavaScript上,有些时候是在使用JSON.stingify(以及与之相对应的,JSON.parse)">
+
+
+<meta itemprop="datePublished" content="2013-02-01T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2013-02-01T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="2044">
+
+
+
+<meta itemprop="keywords" content="Translation,JavaScript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="你可能不知道的JSON.stingify()"/>
+<meta name="twitter:description" content="几乎所有开发人员都会花一些时间在JavaScript上,有些时候是在使用JSON.stingify(以及与之相对应的,JSON.parse)"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">你可能不知道的JSON.stingify()</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 1 Feb 2013 </span>
+          <span class="more-meta"> 2044 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/translation/"> Translation </a>
+          <a href="/categories/javascript/"> JavaScript </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>几乎所有开发人员都会花一些时间在JavaScript上,有些时候是在使用JSON.stingify(以及与之相对应的,JSON.parse).JSON - Javascript Object Notation - 已经成为许多开发人员理想的数据交换格式(the go-to data-interchange format)- 并且有许多语言支持序列化为JSON,而不仅仅只有JavaScript本身.如果哪天你半夜起来又无法入睡了,可以查一查关于<a href="http://en.wikipedia.org/wiki/JSON#History">JSON</a>的历史(tl;dr – Douglas Crockford is the brain behind it)</p>
+
+<p>在写JavaScript的时候,我们用<code>JSON.stringify</code>将某个值序列化为一个字符串值来表示一个对象.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Jim Cowart&#34;</span><span class="p">,</span>
+    <span class="nx">country</span><span class="o">:</span> <span class="s2">&#34;Jimbabwe&#34;</span>
+<span class="p">});</span>
+<span class="c1">// 输出结果:  &#34;{&#34;name&#34;:&#34;Jim Cowart&#34;,&#34;country&#34;:&#34;Jimbabwe&#34;}&#34;
+</span><span class="c1"></span>
+<span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="s2">&#34;Oh look, a string!&#34;</span><span class="p">);</span>
+<span class="c1">// 输出结果: &#34;&#34;Oh look, a string!&#34;&#34;
+</span><span class="c1"></span>
+<span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="s2">&#34;open&#34;</span><span class="p">,</span><span class="s2">&#34;the&#34;</span><span class="p">,</span><span class="s2">&#34;door&#34;</span><span class="p">]);</span>
+<span class="c1">// 输出结果: &#34;[1,2,3,4,&#34;open&#34;,&#34;the&#34;,&#34;door&#34;]&#34;
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>我不会反复地讨论关于序列化的规则,在<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/JSON/stringify">这里</a>你可以读到更多相关的.但最基本的,你需要知道下面这些:</p>
+
+<ul>
+<li><code>undefined</code> 值、函数或者XML值会被忽略,除非当&hellip;</li>
+<li>如果你的数组当中含有 <code>undefined</code>值,函数或XML值,该数组中的这些值将会被当成 <code>null</code></li>
+</ul>
+
+<p>Let&rsquo;s see about that:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+    <span class="nx">doStuff</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">},</span>
+    <span class="nx">doThings</span><span class="o">:</span> <span class="p">[</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{},</span> <span class="kc">undefined</span> <span class="p">]</span>
+<span class="p">});</span>
+<span class="c1">// 输出结果:  &#34;{&#34;doThings&#34;:[null,null]}&#34;
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>&ldquo;太棒了,Jim.我知道了.它是一种数据交换格式.而行为是不会被序列化的.这些天我使用的大多数库都是在底层为我处理序列化(Most of the libraries I use these days handle serializing for me under the hood.).那为什么要专门写一篇post关于 JSON.stringify 呢?&rdquo;</p>
+</blockquote>
+
+<p>这个我知道,但是有一些实用的技巧迟早我们会需要用上的.Many of the larger applications I&rsquo;ve worked on recently have had debug flags that can be flipped to enable various console logging from different components active on the page.
+而我们明显不希望总是通过无数行<code>console.log</code>来筛选信息 - 但当这变得有需要的时候,让它的可读性更高是不是更nice呢?</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// what if this:
+</span><span class="c1"></span><span class="s1">&#39;{&#34;name&#34;:&#34;Jim Cowart&#34;,&#34;location&#34;:{&#34;city&#34;:{&#34;name&#34;:&#34;Chattanooga&#34;,&#34;population&#34;:167674},&#34;state&#34;:{&#34;name&#34;:&#34;Tennessee&#34;,&#34;abbreviation&#34;:&#34;TN&#34;,&#34;population&#34;:6403000}},&#34;company&#34;:&#34;appendTo&#34;}&#39;</span>
+
+<span class="c1">// could be formatted like this, automagically?
+</span><span class="c1"></span><span class="s2">&#34;{
+</span><span class="s2">    &#34;</span><span class="nx">name</span><span class="s2">&#34;: &#34;</span><span class="nx">Jim</span> <span class="nx">Cowart</span><span class="s2">&#34;,
+</span><span class="s2">    &#34;</span><span class="nx">location</span><span class="s2">&#34;: {
+</span><span class="s2">        &#34;</span><span class="nx">city</span><span class="s2">&#34;: {
+</span><span class="s2">            &#34;</span><span class="nx">name</span><span class="s2">&#34;: &#34;</span><span class="nx">Chattanooga</span><span class="s2">&#34;,
+</span><span class="s2">            &#34;</span><span class="nx">population</span><span class="s2">&#34;: 167674
+</span><span class="s2">        },
+</span><span class="s2">        &#34;</span><span class="nx">state</span><span class="s2">&#34;: {
+</span><span class="s2">            &#34;</span><span class="nx">name</span><span class="s2">&#34;: &#34;</span><span class="nx">Tennessee</span><span class="s2">&#34;,
+</span><span class="s2">            &#34;</span><span class="nx">abbreviation</span><span class="s2">&#34;: &#34;</span><span class="nx">TN</span><span class="s2">&#34;,
+</span><span class="s2">            &#34;</span><span class="nx">population</span><span class="s2">&#34;: 6403000
+</span><span class="s2">        }
+</span><span class="s2">    },
+</span><span class="s2">    &#34;</span><span class="nx">company</span><span class="s2">&#34;: &#34;</span><span class="nx">appendTo</span><span class="s2">&#34;
+</span><span class="s2">}&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>事实上,<code>JSON.stringify</code>可以传入3个参数 <code>(JSON.stringify(value [, replacer [, space]])</code>.其中,第三个参数 - &ldquo;space&rdquo; - 允许你指定一个字符串字符、或者使用缩进、或是一个数字.如果你传的是一个数字,那相应的空格数(最大为10)会被作为缩进量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Jim Cowart&#34;</span><span class="p">,</span>
+    <span class="nx">location</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">city</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Chattanooga&#34;</span><span class="p">,</span>
+            <span class="nx">population</span><span class="o">:</span> <span class="mi">167674</span>
+        <span class="p">},</span>
+        <span class="nx">state</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Tennessee&#34;</span><span class="p">,</span>
+            <span class="nx">abbreviation</span><span class="o">:</span> <span class="s2">&#34;TN&#34;</span><span class="p">,</span>
+            <span class="nx">population</span><span class="o">:</span> <span class="mi">6403000</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">company</span><span class="o">:</span> <span class="s2">&#34;appendTo&#34;</span>
+<span class="p">};</span>
+<span class="c1">//如果你希望缩进量为2 个空格,
+</span><span class="c1">// 你可以这么干:
+</span><span class="c1"></span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">person</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="cm">/* produces:
+</span><span class="cm">&#34;{
+</span><span class="cm">  &#34;name&#34;: &#34;Jim Cowart&#34;,
+</span><span class="cm">  &#34;location&#34;: {
+</span><span class="cm">    &#34;city&#34;: {
+</span><span class="cm">      &#34;name&#34;: &#34;Chattanooga&#34;,
+</span><span class="cm">      &#34;population&#34;: 167674
+</span><span class="cm">    },
+</span><span class="cm">    &#34;state&#34;: {
+</span><span class="cm">      &#34;name&#34;: &#34;Tennessee&#34;,
+</span><span class="cm">      &#34;abbreviation&#34;: &#34;TN&#34;,
+</span><span class="cm">      &#34;population&#34;: 6403000
+</span><span class="cm">    }
+</span><span class="cm">  },
+</span><span class="cm">  &#34;company&#34;: &#34;appendTo&#34;
+</span><span class="cm">}&#34;
+</span><span class="cm">*/</span>
+<span class="c1">// 如果你希望使用 tab 缩进,那么
+</span><span class="c1">// 你可以传入 \t 作为第三个参数
+</span><span class="c1">// 以此来告别空格缩进
+</span><span class="c1"></span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">person</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;\t&#34;</span><span class="p">);</span>
+<span class="cm">/*输出结果:
+</span><span class="cm">&#34;{
+</span><span class="cm">    &#34;name&#34;: &#34;Jim Cowart&#34;,
+</span><span class="cm">    &#34;location&#34;: {
+</span><span class="cm">        &#34;city&#34;: {
+</span><span class="cm">            &#34;name&#34;: &#34;Chattanooga&#34;,
+</span><span class="cm">            &#34;population&#34;: 167674
+</span><span class="cm">        },
+</span><span class="cm">        &#34;state&#34;: {
+</span><span class="cm">            &#34;name&#34;: &#34;Tennessee&#34;,
+</span><span class="cm">            &#34;abbreviation&#34;: &#34;TN&#34;,
+</span><span class="cm">            &#34;population&#34;: 6403000
+</span><span class="cm">        }
+</span><span class="cm">    },
+</span><span class="cm">    &#34;company&#34;: &#34;appendTo&#34;
+</span><span class="cm">}&#34;
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>那么-第二个参数呢?在上面的例子中简单地传了一个<code>null</code>.关于 &ldquo;replacer&rdquo; 参数-它可以是一个数组或者是一个函数.如果是一个数组,它将只输出你在该数组中所想要包含的keys.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 假定 person对象是上一例子中的那个,
+</span><span class="c1"></span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">person</span><span class="p">,</span> <span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="s2">&#34;company&#34;</span><span class="p">],</span> <span class="mi">4</span><span class="p">);</span>
+<span class="cm">/* 输出结果:
+</span><span class="cm">&#34;{
+</span><span class="cm">    &#34;name&#34;: &#34;Jim Cowart&#34;,
+</span><span class="cm">    &#34;company&#34;: &#34;appendTo&#34;
+</span><span class="cm">}&#34;
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>如果这 &ldquo;replacer&rdquo; 参数传入的是一个函数,那么这个函数需要有两个参数:key 和 value :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// a bit contrived, but it shows what&#39;s possible
+</span><span class="c1">// FYI - 被序列化的值是第一个传给replacerFn的东西, 也即是这个对象的每一个key,因此需要检查key的真假.
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">replacerFn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">key</span> <span class="o">||</span> <span class="nx">key</span> <span class="o">===</span> <span class="s1">&#39;name&#39;</span> <span class="o">||</span> <span class="nx">key</span> <span class="o">===</span> <span class="s1">&#39;company&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span><span class="p">;</span> <span class="c1">//返回 undefined 并忽略
+</span><span class="c1"></span><span class="p">}</span>
+<span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">person</span><span class="p">,</span> <span class="nx">replacerFn</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="cm">/* produces:
+</span><span class="cm">&#34;{
+</span><span class="cm">    &#34;name&#34;: &#34;Jim Cowart&#34;,
+</span><span class="cm">    &#34;company&#34;: &#34;appendTo&#34;
+</span><span class="cm">}&#34;
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>你可以使用替换方法来处理得到 <strong><em>黑名单</em></strong>成员的姓名(与此相对应的是,使用<strong><em>白名单</em></strong>数组作为&rdquo;replacer&rdquo; 参数).我发现这种方法是有用的,尤其当我需要迅速并且有针对性的得到一个DOM元素的值,但我希望阻止一个序列化循环引用的异常(当我drank some antifreeze 或是试图做些荒谬的做法如JSON.stringify(document.body)的时候).Feel free to browse <a href="http://jsfiddle.net/ifandelse/6Yj5h/">this fiddle</a> for a simple example of using a replacer function to blacklist based on member name(s).</p>
+
+<p>当然,另一个得到自定义某个对象的JSON序列化的选择是在对象中使用&rdquo;toJSON&rdquo;方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Jim Cowart&#34;</span><span class="p">,</span>
+    <span class="nx">location</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">city</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Chattanooga&#34;</span><span class="p">,</span>
+            <span class="nx">population</span><span class="o">:</span> <span class="mi">167674</span>
+        <span class="p">},</span>
+        <span class="nx">state</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Tennessee&#34;</span><span class="p">,</span>
+            <span class="nx">abbreviation</span><span class="o">:</span> <span class="s2">&#34;TN&#34;</span><span class="p">,</span>
+            <span class="nx">population</span><span class="o">:</span> <span class="mi">6403000</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">company</span><span class="o">:</span> <span class="s2">&#34;appendTo&#34;</span><span class="p">,</span>
+    <span class="nx">toJSON</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">booyah</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39; , employer: &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">company</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// 上面的toJSON返回的值
+</span><span class="c1">// 实际上被字符串化的:
+</span><span class="c1"></span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">person</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="cm">/* produces:
+</span><span class="cm">&#34;{
+</span><span class="cm">    &#34;booyah&#34;: &#34;Jim Cowart , employer: appendTo&#34;
+</span><span class="cm">}&#34;
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>&ldquo;说真的,Jim.比起在控制台写更漂亮的JSON我们有更重要的事情要做.&rdquo;</p>
+</blockquote>
+
+<p>You don&rsquo;t have to convince me, I&rsquo;m with you 110%. 但我会说,当你为了调试已发布的信息的可视性或者logging websocket payloads而 wire-tapping a message bus 的时候更好看的JSON格式化会让一切都不同.(囧 、o(╯□╰)o)能够通过白名单替换数组(或者黑名单替换函数)来有选择的序列化对象,可以很方便地在DOM元素/事件上帮助你跟踪问题,或者简单地让你在复杂的交互上有更好的可视化,without de-railing you with serialization exceptions.</p>
+
+<p>原文来自 Jim Cowart ,<a href="http://freshbrewedcode.com/jimcowart/2013/01/29/what-you-might-not-know-about-json-stringify/?utm_source=javascriptweekly&amp;utm_medium=email">What You Might Not Know About JSON.stringify()</a></p>
+
+<p>XguoX
+- Actually,其实这个在Nicholas C.Zakas的《JavaScript高级程序设计》第20章关于JSON的介绍讲的也很详细.比我这蹩脚翻译要好得多.</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/translation/">Translation</a>
+          <a href="/tags/javascript/">JavaScript</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/about-translation.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">About My Translation</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/2013-new-year.html/">
+            <span class="next-text nav-default">2013 new year</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

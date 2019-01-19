@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Protobuf on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/categories/protobuf/</link>
+    <description>Recent content in Protobuf on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 10 Aug 2018 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/categories/protobuf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Protobuf, Go, gRPC 的 Hello World 理解</title>
+      <link>https://xguox.me/grpc-go-protobuf-hello-world-example-explain.html/</link>
+      <pubDate>Fri, 10 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/grpc-go-protobuf-hello-world-example-explain.html/</guid>
+      <description>示例代码从官方示例提取过来的. 1 2 3 4 5 6 // addressbook.proto syntax = &amp;#34;proto3&amp;#34;; package tutorial; import &amp;#34;google/protobuf/timestamp.proto&amp;#34;; // 导入 proto3 新加的 timestamp 包 对于目标语言为 Go, 除非显式的提供 option go_package 在 .proto 文件中, 否则, 如果指定了</description>
+    </item>
+    
+    <item>
+      <title>学点 Protocol Buffers</title>
+      <link>https://xguox.me/protocol-buffers-learning.html/</link>
+      <pubDate>Mon, 06 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/protocol-buffers-learning.html/</guid>
+      <description>&lt;h4 id=&#34;what-are-protocol-buffers&#34;&gt;What are protocol buffers?&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;Protocol Buffers(简称为 Protobuf)&lt;/strong&gt; 是一种灵活, 高效, 可自动化, 而又不依赖于语言, 不依赖于平台的, 可扩展的用于序列化结构化数据的存储格式.
+(Google 自己说的, 听完觉得好像很流弊,  不过还是不知道怎么玩.)&lt;/p&gt;
+
+&lt;p&gt;使用后缀为 &lt;code&gt;.proto&lt;/code&gt; 文件定义一次数据结构以后, 就可以用自带的代码生成工具, 自动生成&lt;strong&gt;各种语言&lt;/strong&gt;版本的读写这些数据结构的代码. v2 版本的 Protocol Buffers 原生只支持 c++, java, python, &lt;strong&gt;现在的 v3 可以支持语言还多了有 Go, Ruby, Objective-C, JavaScript, PHP 和 C#&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Protobuf 甚至还可以不用停掉已经部署到线上的程序直接更新数据结构的定义.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

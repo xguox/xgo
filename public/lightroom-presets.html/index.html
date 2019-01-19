@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Lightroom 预设 - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="在网上搜罗了各种 Lightroom 预设一大车, 目测有两三千个了. 之前都是直接的一坨坨的 copy 到 ~/Library/Application Support/Adobe/Lightroom/Develop Presets/, 然后好奇了一下用 Sublime 随意打开来瞧瞧,额,原来长这样,好高端,不" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/lightroom-presets.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Lightroom 预设" />
+<meta property="og:description" content="在网上搜罗了各种 Lightroom 预设一大车, 目测有两三千个了. 之前都是直接的一坨坨的 copy 到 ~/Library/Application Support/Adobe/Lightroom/Develop Presets/, 然后好奇了一下用 Sublime 随意打开来瞧瞧,额,原来长这样,好高端,不" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/lightroom-presets.html/" /><meta property="article:published_time" content="2013-11-14T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2013-11-14T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Lightroom 预设">
+<meta itemprop="description" content="在网上搜罗了各种 Lightroom 预设一大车, 目测有两三千个了. 之前都是直接的一坨坨的 copy 到 ~/Library/Application Support/Adobe/Lightroom/Develop Presets/, 然后好奇了一下用 Sublime 随意打开来瞧瞧,额,原来长这样,好高端,不">
+
+
+<meta itemprop="datePublished" content="2013-11-14T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2013-11-14T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="600">
+
+
+
+<meta itemprop="keywords" content="Photo," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Lightroom 预设"/>
+<meta name="twitter:description" content="在网上搜罗了各种 Lightroom 预设一大车, 目测有两三千个了. 之前都是直接的一坨坨的 copy 到 ~/Library/Application Support/Adobe/Lightroom/Develop Presets/, 然后好奇了一下用 Sublime 随意打开来瞧瞧,额,原来长这样,好高端,不"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Lightroom 预设</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 14 Nov 2013 </span>
+          <span class="more-meta"> 600 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/photo/"> Photo </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>在网上搜罗了各种 Lightroom 预设一大车, 目测有两三千个了. 之前都是直接的一坨坨的 copy 到
+<code>~/Library/Application Support/Adobe/Lightroom/Develop Presets/</code>,   然后好奇了一下用  Sublime  随意打开来瞧瞧,额,原来长这样,好高端,不明觉厉.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">s</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">id</span> <span class="o">=</span> <span class="s2">&#34;DFE17DAE-6240-4CB6-85ED-B41D5B065404&#34;</span><span class="p">,</span>
+  <span class="nx">internalName</span> <span class="o">=</span> <span class="s2">&#34;Toners-Light Mocha&#34;</span><span class="p">,</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="s2">&#34;Toners-Light Mocha&#34;</span><span class="p">,</span>
+  <span class="nx">type</span> <span class="o">=</span> <span class="s2">&#34;Develop&#34;</span><span class="p">,</span>
+  <span class="nx">value</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">settings</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">Blacks2012</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">Contrast2012</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">ConvertToGrayscale</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">EnableGrayscaleMix</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">EnableSplitToning</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">GrayMixerAqua</span> <span class="o">=</span> <span class="o">-</span><span class="mi">18</span><span class="p">,</span>
+      <span class="nx">GrayMixerBlue</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>
+      <span class="nx">GrayMixerGreen</span> <span class="o">=</span> <span class="o">-</span><span class="mi">27</span><span class="p">,</span>
+      <span class="nx">GrayMixerMagenta</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nx">GrayMixerOrange</span> <span class="o">=</span> <span class="o">-</span><span class="mi">19</span><span class="p">,</span>
+      <span class="nx">GrayMixerPurple</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
+      <span class="nx">GrayMixerRed</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span>
+      <span class="nx">GrayMixerYellow</span> <span class="o">=</span> <span class="o">-</span><span class="mi">23</span><span class="p">,</span>
+      <span class="nx">Highlights2012</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">ParametricDarks</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span>
+      <span class="nx">ParametricHighlightSplit</span> <span class="o">=</span> <span class="mi">75</span><span class="p">,</span>
+      <span class="nx">ParametricHighlights</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">ParametricLights</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+      <span class="nx">ParametricMidtoneSplit</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+      <span class="nx">ParametricShadowSplit</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+      <span class="nx">ParametricShadows</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">ProcessVersion</span> <span class="o">=</span> <span class="s2">&#34;6.7&#34;</span><span class="p">,</span>
+      <span class="nx">Shadows2012</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">SplitToningBalance</span> <span class="o">=</span> <span class="o">-</span><span class="mi">59</span><span class="p">,</span>
+      <span class="nx">SplitToningHighlightHue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">SplitToningHighlightSaturation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">SplitToningShadowHue</span> <span class="o">=</span> <span class="mi">37</span><span class="p">,</span>
+      <span class="nx">SplitToningShadowSaturation</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+      <span class="nx">ToneCurveName2012</span> <span class="o">=</span> <span class="s2">&#34;Strong Contrast&#34;</span><span class="p">,</span>
+      <span class="nx">ToneCurvePV2012</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">32</span><span class="p">,</span>
+        <span class="mi">16</span><span class="p">,</span>
+        <span class="mi">64</span><span class="p">,</span>
+        <span class="mi">50</span><span class="p">,</span>
+        <span class="mi">128</span><span class="p">,</span>
+        <span class="mi">128</span><span class="p">,</span>
+        <span class="mi">192</span><span class="p">,</span>
+        <span class="mi">202</span><span class="p">,</span>
+        <span class="mi">255</span><span class="p">,</span>
+        <span class="mi">255</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="nx">ToneCurvePV2012Blue</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">255</span><span class="p">,</span>
+        <span class="mi">255</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="nx">ToneCurvePV2012Green</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">255</span><span class="p">,</span>
+        <span class="mi">255</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="nx">ToneCurvePV2012Red</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">255</span><span class="p">,</span>
+        <span class="mi">255</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="nx">uuid</span> <span class="o">=</span> <span class="s2">&#34;1DF2363E-780A-4C26-9711-D980D505BF0D&#34;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">version</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>然后话说我是不是也可以把这一坨的上千个预设 push 到 <a href="https://github.com/xguox/Lightroom-Presets">Github</a>叻?
+顺便当做个版本控制也好, 虽然我应该不大会去修改这些预设 =  .  = 不过传了也没坏处吧. Github 不一定只能放代码的!</p>
+
+<p>其实多也没什么好的, 倒是这搜罗了略有点多,其中一大坨感觉基本不会用到, 而且还经常让人犯选择困难,那样反而更蛋疼. 还是习惯了形成一些自己的风格好. (但是,又很贪心地想把这全部风格都尝试一遍 XD)</p>
+
+<p>不过, 一张照片如果原图就是好照片的话基本上各种调试之后都会觉得不错,  只是看符不符合自己风格罢了.So, 找个时间整理一遍还是有必要的.(不知道拖延症会把这个整理拖到什么时候 = . =)</p>
+
+<p>借了A7 的样片搞了几下, 有一张是原图,不过忘了是哪张了.</p>
+
+<p><img src="https://dehqla.dm2302.livefilestore.com/y2pTJK3tT7W_F1Qo3SbSEscIannTpX0vhG9sU4Q0wDoxRuM8CHZMnrT7PcHJY1TXDOHCIyG_bjwIlJg27YyyefCAmt4zvlQS00f084NnOAaNHA/A.jpg?psid=1" alt="" /></p>
+
+<p><img src="https://dehqla.dm2301.livefilestore.com/y2pLz4HmEx4IKcbX8Be_51CjD9VHnh8dDbRVAgEJ5c8RCxHsryH68_iUbNSejCSfVo6o52BgnwhZJo4d-dPgRFKm2SrNc83oKbL2sHPFoxYh0Q/B.JPG?psid=1" alt="" /></p>
+
+<p><img src="https://dehqla.dm2301.livefilestore.com/y2pHBrLuf1Zih_AfRHRryDmGA4aojfvcqTTGLv22oQi6nIQixCcD38rIYKxlt7kixDc0o1WkMRRps6SIfuffr0BLXVSqmBVoO5qyDwkkltXzzA/C.jpg?psid=1" alt="" /></p>
+
+<p><img src="https://dehqla.dm2301.livefilestore.com/y2pG1Bv_j8EUGJN6WND-KlCo8c6mg2hgqib4pTdIdgU4wrLI65pqMIYPslE410svRfjFugBOoU3dShMXunfb56kYbY6b68QbHXbfZJ37krKgQg/D.jpg?psid=1" alt="" /></p>
+
+<p><img src="https://dehqla.dm1.livefilestore.com/y2pADOmVwG9-_56XkyzGWrnv89cxAXcmuw2xrV4thuuSWmhvHzw17XczFtZCgtX_pqJuTVH2hfiuVA7D5EJ9oOA3Y_ZL7z-_nRWeBR4VarMhpw/E.jpg?psid=1" alt="" /></p>
+
+<p><img src="https://dehqla.dm2301.livefilestore.com/y2pOA-S3zSmWu3Rlj4PpdgezF9EsYPZIlQCP7ZqKBxec_4OmIalXtfMi9WpcKhiIn8OhGRbVCWED3atgi6wF1uEnghxRA7pL4FHir28zB_bH8g/F.jpg?psid=1" alt="" /></p>
+
+<p><img src="https://dehqla.dm2302.livefilestore.com/y2pG5Lg3JMGBfw4LtcA3Pb-arIAuVoz3xjGKV3tupPtcvO1Ir07MneGHKBQTEY8z-hSidzywV6beAT6sys9XWPEwUWTRnsHAkfrhzSrFbSUnuQ/G.jpg?psid=1" alt="" /></p>
+
+<p><img src="https://dehqla.dm2302.livefilestore.com/y2pp9KS0kMCqh3vrCMrE8OOOEavAN8qXf7CENdXVcJJxS_mTuQdmffQAT9wwT4Dv27YU5AwNayYVbp_zG4NBPVG7CVTllSTe3akHNMoUAY4hSk/I.jpg?psid=1" alt="" /></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/photo/">Photo</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/a7r-iso-unbox-manfrotto.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">用 A7R 玩开箱并各档不严谨不严肃不专业无责任高感测试</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/time-machine-local-snapshot.html/">
+            <span class="next-text nav-default">Time Machine &amp; Local Snapshots</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

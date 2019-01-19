@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Two weeks withs Rails - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="并不是我刚开始接触Rails两周,而是这两周我才能真正的算个入门吧.虽然学校有教C与Java,但就像我之前所说那般,其实Ruby才是我的fi" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/two-weeks-withs-rails.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Two weeks withs Rails" />
+<meta property="og:description" content="并不是我刚开始接触Rails两周,而是这两周我才能真正的算个入门吧.虽然学校有教C与Java,但就像我之前所说那般,其实Ruby才是我的fi" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/two-weeks-withs-rails.html/" /><meta property="article:published_time" content="2012-03-23T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2012-03-23T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Two weeks withs Rails">
+<meta itemprop="description" content="并不是我刚开始接触Rails两周,而是这两周我才能真正的算个入门吧.虽然学校有教C与Java,但就像我之前所说那般,其实Ruby才是我的fi">
+
+
+<meta itemprop="datePublished" content="2012-03-23T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2012-03-23T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="1204">
+
+
+
+<meta itemprop="keywords" content="Ruby," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Two weeks withs Rails"/>
+<meta name="twitter:description" content="并不是我刚开始接触Rails两周,而是这两周我才能真正的算个入门吧.虽然学校有教C与Java,但就像我之前所说那般,其实Ruby才是我的fi"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Two weeks withs Rails</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 23 Mar 2012 </span>
+          <span class="more-meta"> 1204 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/ruby/"> Ruby </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>并不是我刚开始接触Rails两周,而是这两周我才能真正的算个入门吧.虽然学校有教C与Java,但就像我之前所说那般,其实Ruby才是我的first&amp;major.</p>
+
+<p>为嘛说这两周才算真正的入门呢?自认为自己不是什么学习能力超常的人.但是我觉得,一般人能做到的,我也能做到,一般人难以做到的,maybe我加多几把油也能做到.</p>
+
+<p>从去年10月开始接触Ruby,看完《Ruby编程语言》就开始《Ruby on Rails Tutorail Learn Rails by Example》期间也交替翻翻AWDWR中文第三版和英文第四版.前不久的Github被爆事件,那会让我郁闷了好一会,看着社区上好多人在议论纷纷我却什么都不懂.仲使我再关注又如何.直到好久之后才通过各种奋力查资料知道Mass Assignment究竟是怎么回事.</p>
+
+<p>在这两周之前,我的Rails知识点很杂乱,大概是因为我的学习习惯吧.通常都是一般般懂的把整体过一遍,再回头逐个细细推敲.但是,这个整体过一遍的度把握的不太好,于是&hellip;在此之前,我能不用对着官网那个guide搭出同样的博客,但是我之所以能搭出来只是因为我把那些步骤很纯粹的记住了,这一步做完大概下一步要做啥死记了.呃,有时候发觉自己的记忆能力还不错下.</p>
+
+<p>这两周,我想很大原因是有大牛指导着吧.前一周,我做好各种被拒绝的心理准备决定出去找一些用Rails的公司实习,但是很幸运的是,我的第一次面试就成功了.(PS:其实很疑惑为什么会招我,很明显的我并不是个牛X的Railser,当时的笔试题目貌似我答出来的也就一半那样吧；并且,在某网站上我发现我们的头头回复一名求职的实习生时说只招全职之类的.)</p>
+
+<p>相较之以往,如今,我的学习也比较系统一些.虽然在多表关联那一块运用还不太熟练,但Rails的MVC结构算是基本搞明白了.以及很多helper,route,也基本懂了.另外,我们的头头总喜欢问我们一句,有没更好的方法.每次我都只把这个更好的方法了解一半,彻底钻研的精神还不够啊.结果每次都不是最好的方法.泪奔啊&hellip;让头儿失望了.</p>
+
+<p>不过有点小悲催的是,公司的VCS一直都是用SVN,而我只熟悉Git,呃,也不叫熟悉吧,要是我真的了如指掌了一定力劝公司改用Rails.</p>
+
+<p>这两周固然很多以前模模糊糊的都理解了.不过我想,要是没有以前的缓慢前进,也不会有这两周的成果呢?</p>
+
+<p>记得那次面试时候我发现我最大的缺点并不是基础不牢什么的,而是我的学习时间的分配以及计划没有安排好.我每天除了睡觉吃饭等等几乎就是学习Ruby/Rails相关,但其实我的效率可以说是比较低.</p>
+
+<p>哦,还有一个应该算是进步吧,编码的规范.以往只是自己练习写的代码各种凹凹凸凸&hellip;现在都会注意那些空格换行等等格式了.</p>
+
+<p>虽说是进步了不少,但是,公司的代码看起来还是挺吃力的.能不吃力嘛,动不动一个model类或者view页面就5~600行.也不知道几个月的实习下来我能熟悉几成.</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ruby/">Ruby</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/my-vim-config.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">My VIM Config</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/dry.html/">
+            <span class="next-text nav-default">DRY</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

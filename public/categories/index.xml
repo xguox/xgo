@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/categories/</link>
+    <description>Recent content in Categories on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 01 Jul 2014 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CSS</title>
+      <link>https://xguox.me/categories/css/</link>
+      <pubDate>Tue, 01 Jul 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/css/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch</title>
+      <link>https://xguox.me/categories/elasticsearch/</link>
+      <pubDate>Tue, 27 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/elasticsearch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Erlang</title>
+      <link>https://xguox.me/categories/erlang/</link>
+      <pubDate>Wed, 30 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/erlang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go</title>
+      <link>https://xguox.me/categories/go/</link>
+      <pubDate>Fri, 11 Jan 2019 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jabber</title>
+      <link>https://xguox.me/categories/jabber/</link>
+      <pubDate>Mon, 18 Sep 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/jabber/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JavaScript</title>
+      <link>https://xguox.me/categories/javascript/</link>
+      <pubDate>Wed, 26 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lego</title>
+      <link>https://xguox.me/categories/lego/</link>
+      <pubDate>Sat, 03 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/lego/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://xguox.me/categories/linux/</link>
+      <pubDate>Thu, 01 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>https://xguox.me/categories/mysql/</link>
+      <pubDate>Sun, 06 Sep 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nginx</title>
+      <link>https://xguox.me/categories/nginx/</link>
+      <pubDate>Mon, 10 Apr 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Photo</title>
+      <link>https://xguox.me/categories/photo/</link>
+      <pubDate>Mon, 30 Jul 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/photo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Postgres</title>
+      <link>https://xguox.me/categories/postgres/</link>
+      <pubDate>Thu, 27 Apr 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/postgres/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Protobuf</title>
+      <link>https://xguox.me/categories/protobuf/</link>
+      <pubDate>Fri, 10 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/protobuf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RPC</title>
+      <link>https://xguox.me/categories/rpc/</link>
+      <pubDate>Fri, 10 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/rpc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>React</title>
+      <link>https://xguox.me/categories/react/</link>
+      <pubDate>Wed, 26 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ruby</title>
+      <link>https://xguox.me/categories/ruby/</link>
+      <pubDate>Thu, 03 Jan 2019 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/ruby/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tools</title>
+      <link>https://xguox.me/categories/tools/</link>
+      <pubDate>Mon, 07 Jan 2019 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/tools/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Translation</title>
+      <link>https://xguox.me/categories/translation/</link>
+      <pubDate>Thu, 27 Apr 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/translation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>多肉与植物</title>
+      <link>https://xguox.me/categories/%E5%A4%9A%E8%82%89%E4%B8%8E%E6%A4%8D%E7%89%A9/</link>
+      <pubDate>Thu, 20 Dec 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/categories/%E5%A4%9A%E8%82%89%E4%B8%8E%E6%A4%8D%E7%89%A9/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

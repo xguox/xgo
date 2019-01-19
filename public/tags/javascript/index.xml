@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JavaScript on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/tags/javascript/</link>
+    <description>Recent content in JavaScript on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 26 Jul 2017 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rails 5 webpacker 部署时候报错</title>
+      <link>https://xguox.me/rails-webpacker-deploy.html/</link>
+      <pubDate>Wed, 26 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-webpacker-deploy.html/</guid>
+      <description>&lt;hr /&gt;
+
+&lt;p&gt;layout: post
+title: &amp;ldquo;Rails 5 webpacker 部署时候报错&amp;rdquo;
+date: 2017-07-26 13:25:20
+categories: [JavaScript, React, Ruby]&lt;/p&gt;
+
+&lt;h2 id=&#34;tags-javascript-react-ruby&#34;&gt;tags: [JavaScript, React, Ruby]&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Redux 的中 Store 的默认 state</title>
+      <link>https://xguox.me/redux-reducers-default-state.html/</link>
+      <pubDate>Mon, 24 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/redux-reducers-default-state.html/</guid>
+      <description>写了一段时间 React, Redux, 发现之前对 Redux 的 Store 理解偏差了. 每次发生 dispatch 某一个 action, 除去 action.type 的对应的 reducer, 其余都返回默认值通常是 switch 的 default 语句, Redux 在背后做了一些事情, 并不是</description>
+    </item>
+    
+    <item>
+      <title>weixin://preInjectJSBridge/fail [React]</title>
+      <link>https://xguox.me/react-babel-wechat-es6-env.html/</link>
+      <pubDate>Tue, 28 Mar 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/react-babel-wechat-es6-env.html/</guid>
+      <description>Redux 中 reducer 返回 state 的时候经常用到 Object.assign， 然后几乎所有现代浏览器都试过能正常运行以后， 发现在微信的内置浏览器里边就报这玩意， weixin://preInjectJSBridge/fail babel</description>
+    </item>
+    
+    <item>
+      <title>Meteor: Understanding Publications and Subscriptions</title>
+      <link>https://xguox.me/understanding-publications-and-subscriptions.html/</link>
+      <pubDate>Wed, 10 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/understanding-publications-and-subscriptions.html/</guid>
+      <description>LEVEL: INTERMEDIATE Publications &amp;amp; subscriptions 是在Meteor里最基本也是最重要的概念之一, 但同时也是最难理解的. 很大程度上是由于这其中跟传统的构建web的方式有很大的不同. 过</description>
+    </item>
+    
+    <item>
+      <title>最近在折腾 -- deploy Meteor on heroku</title>
+      <link>https://xguox.me/deploy-meteor-on-heroku.html/</link>
+      <pubDate>Sat, 06 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/deploy-meteor-on-heroku.html/</guid>
+      <description>貌似有好一段时间没有在这儿小发一些闷骚或者情感泛滥什么的, 都是用自己蹩脚的英语水平翻译些英文post. 这些天想部署个Meteor app玩一玩</description>
+    </item>
+    
+    <item>
+      <title>5 Meteor Misconceptions</title>
+      <link>https://xguox.me/5-meteor-misconceptions.html/</link>
+      <pubDate>Thu, 14 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/5-meteor-misconceptions.html/</guid>
+      <description>由于某些原因,关于Meteor一直都有着各种各样的误解.或许是因为Meteor刚正式推出的时候, 缺失很多重要的功能.而很多不知道的是,这些缺</description>
+    </item>
+    
+    <item>
+      <title>Introduction to Realtime Web with Meteor and Node.js</title>
+      <link>https://xguox.me/introduction-to-realtime-web-with-meteor-dot-js-and-node-dot-js.html/</link>
+      <pubDate>Sun, 10 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/introduction-to-realtime-web-with-meteor-dot-js-and-node-dot-js.html/</guid>
+      <description>最近,有许多关于 Derby.js的激动人心的讨论涌现在了我的Twitter Timeline. 我从未使用过能够帮你做这么多&amp;ndash;实时同步客户端和服务端</description>
+    </item>
+    
+    <item>
+      <title>Meteor 基础与最佳实践</title>
+      <link>https://xguox.me/learn-meteor-fundamentals-and-best-practices.html/</link>
+      <pubDate>Fri, 08 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/learn-meteor-fundamentals-and-best-practices.html/</guid>
+      <description>引言 想知道这个新奇又好玩的东西&amp;ndash; Meteor是如何工作的?那就太好了,你来对地方了. 我会向你展示一个Meteor项目的方方面面 并</description>
+    </item>
+    
+    <item>
+      <title>A Look at a Meteor Template</title>
+      <link>https://xguox.me/a-look-at-a-meteor-template.html/</link>
+      <pubDate>Wed, 06 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/a-look-at-a-meteor-template.html/</guid>
+      <description>LEVEL: BEGINNER 学习一门语言或框架的最好方法之一是从零开始开发一个应用程序. 但是,当你开发了N次的To-do list应用之后, 或许你会想要一些稍微新鲜的</description>
+    </item>
+    
+    <item>
+      <title>Getting Started with Meteor</title>
+      <link>https://xguox.me/getting-started-with-meteor.html/</link>
+      <pubDate>Tue, 05 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/getting-started-with-meteor.html/</guid>
+      <description>LEVEL: BEGINNER 当你看到这,也就说明你听说了Meteor这东西, 并对它产生一些好奇. 那就让我们创建一个最基本的应用来耍一耍吧. 希望能以此学习到一两样东西</description>
+    </item>
+    
+    <item>
+      <title>你可能不知道的JSON.stingify()</title>
+      <link>https://xguox.me/what-you-might-not-know-about-json-dot-stringify.html/</link>
+      <pubDate>Fri, 01 Feb 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/what-you-might-not-know-about-json-dot-stringify.html/</guid>
+      <description>几乎所有开发人员都会花一些时间在JavaScript上,有些时候是在使用JSON.stingify(以及与之相对应的,JSON.parse)</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Git Bisect Debug 利器 - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="老早就听说过用 Git 的 bisect, 二分查找问题 commit, 只是一直都没机会实践运用. (项目都跑的太正常了, 手动斜眼) 其实, 只是绝大部分时候总可以通过各种 Log 来追踪到问" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/git-bisect-debug.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Git Bisect Debug 利器" />
+<meta property="og:description" content="老早就听说过用 Git 的 bisect, 二分查找问题 commit, 只是一直都没机会实践运用. (项目都跑的太正常了, 手动斜眼) 其实, 只是绝大部分时候总可以通过各种 Log 来追踪到问" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/git-bisect-debug.html/" /><meta property="article:published_time" content="2017-02-25T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2017-02-25T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Git Bisect Debug 利器">
+<meta itemprop="description" content="老早就听说过用 Git 的 bisect, 二分查找问题 commit, 只是一直都没机会实践运用. (项目都跑的太正常了, 手动斜眼) 其实, 只是绝大部分时候总可以通过各种 Log 来追踪到问">
+
+
+<meta itemprop="datePublished" content="2017-02-25T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2017-02-25T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="762">
+
+
+
+<meta itemprop="keywords" content="Tools," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git Bisect Debug 利器"/>
+<meta name="twitter:description" content="老早就听说过用 Git 的 bisect, 二分查找问题 commit, 只是一直都没机会实践运用. (项目都跑的太正常了, 手动斜眼) 其实, 只是绝大部分时候总可以通过各种 Log 来追踪到问"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Git Bisect Debug 利器</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 25 Feb 2017 </span>
+          <span class="more-meta"> 762 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/tools/"> Tools </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>老早就听说过用 <strong>Git 的 bisect, 二分查找问题 commit</strong>, 只是一直都没机会实践运用. (项目都跑的太正常了, 手动斜眼)</p>
+
+<p>其实, 只是绝大部分时候总可以通过各种 <strong>Log</strong> 来追踪到问题所在. 今个儿遇到了个实在没法看日志的问题.</p>
+
+<p>团队的成员提交了各自提交了各种代码并合并到了 master 分支, 正准备发测试环境, 发现部署的时候 <strong>precompile</strong> 崩掉了, 一看报错日志. 一脸懵逼了&hellip;</p>
+
+<p>这只说了某个等号附近有语法错误, 具体在哪一个文件哪一行也没个说法, 只给出了这一大坨, 加起来单是当天新增的 commit 少说二三十个, 总不能一个个去 reset 看哪儿改的 JavaScript 引起吧 = . =</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">ExecJS</span><span class="o">::</span><span class="ss">ProgramError</span><span class="p">:</span> <span class="ss">SyntaxError</span><span class="p">:</span> <span class="no">Unexpected</span> <span class="n">token</span> <span class="n">operator</span> <span class="err">«</span><span class="o">=</span><span class="err">»</span><span class="p">,</span> <span class="n">expected</span> <span class="n">punc</span> <span class="err">«</span><span class="p">,</span><span class="err">»</span> <span class="p">(</span><span class="ss">line</span><span class="p">:</span> <span class="mi">58005</span><span class="p">,</span> <span class="ss">col</span><span class="p">:</span> <span class="mi">69</span><span class="p">,</span> <span class="ss">pos</span><span class="p">:</span> <span class="mi">2186981</span><span class="p">)</span>
+
+<span class="no">Error</span>
+    <span class="n">at</span> <span class="kp">new</span> <span class="no">JS_Parse_Error</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3623</span><span class="p">:</span><span class="mi">11948</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">js_error</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3623</span><span class="p">:</span><span class="mi">12167</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">croak</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3623</span><span class="p">:</span><span class="mi">22038</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">token_error</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3623</span><span class="p">:</span><span class="mi">22175</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">expect_token</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3623</span><span class="p">:</span><span class="mi">22411</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">expect</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3623</span><span class="p">:</span><span class="mi">22562</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">ctor</span><span class="o">.</span><span class="n">argnames</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3623</span><span class="p">:</span><span class="mi">27486</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">function_</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3623</span><span class="p">:</span><span class="mi">27550</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">expr_atom</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3623</span><span class="p">:</span><span class="mi">31068</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">maybe_unary</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3624</span><span class="p">:</span><span class="mi">1752</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">expr_ops</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3624</span><span class="p">:</span><span class="mi">2523</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">maybe_conditional</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3624</span><span class="p">:</span><span class="mi">2615</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">maybe_assign</span> <span class="p">(</span><span class="o">&lt;</span><span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">3624</span><span class="p">:</span><span class="mi">3058</span><span class="p">)</span>
+<span class="kp">new</span> <span class="no">JS_Parse_Error</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3623</span><span class="p">:</span><span class="mi">11948</span><span class="p">)</span>
+<span class="n">js_error</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3623</span><span class="p">:</span><span class="mi">12167</span><span class="p">)</span>
+<span class="n">croak</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3623</span><span class="p">:</span><span class="mi">22038</span><span class="p">)</span>
+<span class="n">token_error</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3623</span><span class="p">:</span><span class="mi">22175</span><span class="p">)</span>
+<span class="n">expect_token</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3623</span><span class="p">:</span><span class="mi">22411</span><span class="p">)</span>
+<span class="n">expect</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3623</span><span class="p">:</span><span class="mi">22562</span><span class="p">)</span>
+<span class="n">ctor</span><span class="o">.</span><span class="n">argnames</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3623</span><span class="p">:</span><span class="mi">27486</span><span class="p">)</span>
+<span class="n">function_</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3623</span><span class="p">:</span><span class="mi">27550</span><span class="p">)</span>
+<span class="n">expr_atom</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3623</span><span class="p">:</span><span class="mi">31068</span><span class="p">)</span>
+<span class="n">maybe_unary</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3624</span><span class="p">:</span><span class="mi">1752</span><span class="p">)</span>
+<span class="n">expr_ops</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3624</span><span class="p">:</span><span class="mi">2523</span><span class="p">)</span>
+<span class="n">maybe_conditional</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3624</span><span class="p">:</span><span class="mi">2615</span><span class="p">)</span>
+<span class="n">maybe_assign</span> <span class="p">((</span><span class="n">execjs</span><span class="p">):</span><span class="mi">3624</span><span class="p">:</span><span class="mi">3058</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>还好可以在本地用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">RAILS_ENV</span><span class="o">=</span><span class="n">staging</span> <span class="n">rake</span> <span class="ss">assets</span><span class="p">:</span><span class="n">precompile</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>还原 precompile 的错误,</p>
+
+<hr />
+
+<p>想起 git bisect, 看样子可以用上了.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">bisect</span> <span class="n">start</span>
+<span class="n">git</span> <span class="n">bisect</span> <span class="n">good</span> <span class="n">be835ca5ce4755ea106701587c308d6add8d4f7</span>
+<span class="c1"># be835ca5ce4755ea106701587c308d6add8d4f7 是该分支上确定不会出现这个 bug 的 commit,</span>
+<span class="c1"># 其实, 只是随意在昨天的 commit 里面捞一条出来而已</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>标记好了以后跑一次</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">RAILS_ENV</span><span class="o">=</span><span class="n">staging</span> <span class="n">rake</span> <span class="ss">assets</span><span class="p">:</span><span class="n">precompile</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>发现还是编译不过, 于是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># 标记为 bad</span>
+<span class="n">git</span> <span class="n">bisect</span> <span class="n">bad</span>
+
+<span class="ss">Bisecting</span><span class="p">:</span> <span class="mi">36</span> <span class="n">revisions</span> <span class="n">left</span> <span class="n">to</span> <span class="n">master</span> <span class="n">after</span> <span class="n">this</span> <span class="p">(</span><span class="n">roughly</span> <span class="mi">5</span> <span class="n">steps</span><span class="p">)</span>
+<span class="o">[</span><span class="mi">76</span><span class="n">dbb96bc3b5bfb1465f81081aeebb9a34e6f92b</span><span class="o">]</span>
+
+<span class="err">➜</span>  <span class="no">Cherry</span> <span class="ss">git</span><span class="p">:(</span><span class="mi">76</span><span class="n">dbb96</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>76dbb96</strong> 这个 commit 正好是 先前设定的 <strong>be835ca5ce4755ea106701587c308d6add8d4f7</strong> 跟当前最新 commit 的中间节点.</p>
+
+<p>git 此时已经 <strong>checkout</strong> 到 76dbb96</p>
+
+<p><strong>说明问题出在最新 commit 到 76dbb96 commit 之间.</strong></p>
+
+<p>刚刚已经标记好了 bad, 再继续跑</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">RAILS_ENV</span><span class="o">=</span><span class="n">staging</span> <span class="n">rake</span> <span class="ss">assets</span><span class="p">:</span><span class="n">precompile</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>发现没有问题, 能编译过, 所以,</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">bisect</span> <span class="n">good</span>
+
+<span class="ss">Bisecting</span><span class="p">:</span> <span class="mi">18</span> <span class="n">revisions</span> <span class="n">left</span> <span class="n">to</span> <span class="n">master</span> <span class="n">after</span> <span class="n">this</span> <span class="p">(</span><span class="n">roughly</span> <span class="mi">4</span> <span class="n">steps</span><span class="p">)</span>
+<span class="o">[</span><span class="n">cdc07fc05a85465797086dc0f9fe5c663b7ffcf6</span><span class="o">]</span>
+<span class="err">➜</span>  <span class="no">Cherry</span> <span class="ss">git</span><span class="p">:(</span><span class="n">cdc07fc</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>再一次 checkout</p>
+
+<p>标记为 good 以后可以看到, 问题出在从 cdc07fc 到当前最新的代码之间某个 commit. 继续重复上述的步骤, 其实 git 有给提示最多还要 4 次就可以找出问题 commit 在哪了.</p>
+
+<p>实际可能更少. 更快就找到了问题所在的 commit 了.</p>
+
+<p>最后, 发现是 Javascript 方法默认值这里出的问题 = . =</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">DrawCarState</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">single_car_state</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">car_id</span><span class="p">,</span> <span class="nx">begin_at</span><span class="p">,</span> <span class="nx">end_at</span><span class="p">,</span> <span class="nx">draw_target</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">format</span> <span class="o">=</span> <span class="s1">&#39;html&#39;</span><span class="p">){</span>
+      <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+      <span class="p">...</span>
+      <span class="p">})</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}).</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>定位好问题分支以后可以通过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">bisect</span> <span class="n">reset</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>恢复到 bisect 前的状态</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/tools/">Tools</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/react-babel-wechat-es6-env.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">weixin://preInjectJSBridge/fail [React]</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/28mm-trip-to-yun-nan.html/">
+            <span class="next-text nav-default">28mm &amp; 云南</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

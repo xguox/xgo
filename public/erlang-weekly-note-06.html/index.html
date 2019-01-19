@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Erlang weekly note 06 - Exceptions 异常 - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="Let it crash! Erlang 的异常有三类: 出错(error), 退出(exit), 抛出(throw), 针对每种异常, 都有一个与之对应的用于抛出异常内置函数, throw(Exception), ex" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/erlang-weekly-note-06.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Erlang weekly note 06 - Exceptions 异常" />
+<meta property="og:description" content="Let it crash! Erlang 的异常有三类: 出错(error), 退出(exit), 抛出(throw), 针对每种异常, 都有一个与之对应的用于抛出异常内置函数, throw(Exception), ex" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/erlang-weekly-note-06.html/" /><meta property="article:published_time" content="2017-08-26T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2017-08-26T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Erlang weekly note 06 - Exceptions 异常">
+<meta itemprop="description" content="Let it crash! Erlang 的异常有三类: 出错(error), 退出(exit), 抛出(throw), 针对每种异常, 都有一个与之对应的用于抛出异常内置函数, throw(Exception), ex">
+
+
+<meta itemprop="datePublished" content="2017-08-26T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2017-08-26T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="1741">
+
+
+
+<meta itemprop="keywords" content="Erlang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Erlang weekly note 06 - Exceptions 异常"/>
+<meta name="twitter:description" content="Let it crash! Erlang 的异常有三类: 出错(error), 退出(exit), 抛出(throw), 针对每种异常, 都有一个与之对应的用于抛出异常内置函数, throw(Exception), ex"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Erlang weekly note 06 - Exceptions 异常</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 26 Aug 2017 </span>
+          <span class="more-meta"> 1741 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/erlang/"> Erlang </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      
+
+<p>Let it crash!</p>
+
+<p>Erlang 的异常有三类: 出错(error), 退出(exit), 抛出(throw), 针对每种异常, 都有一个与之对应的用于抛出异常内置函数,  <strong>throw(Exception)</strong>, <strong>exit(Exception)</strong>或者 <strong>error(Exception)</strong> 触发.</p>
+
+<ul>
+<li>error: 这类是运行时异常, 在发生除零错误, 匹配运算失败, 找不到匹配的函数子句等情况时触发, 这些异常的特点在于一旦它们促使某个进程崩溃, Erlang 的错误日志管理器便会将之记录在案.</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="mi">2</span> <span class="ow">div</span> <span class="mi">0</span><span class="p">.</span>
+<span class="o">**</span> <span class="n">exception</span> <span class="nn">error</span><span class="p">:</span> <span class="n">an</span> <span class="n">error</span> <span class="n">occurred</span> <span class="k">when</span> <span class="n">evaluating</span> <span class="n">an</span> <span class="n">arithmetic</span> <span class="n">expression</span>
+    <span class="n">in</span> <span class="n">operator</span>  <span class="ow">div</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">called</span> <span class="n">as</span> <span class="mi">2</span> <span class="ow">div</span> <span class="mi">0</span>
+
+<span class="nn">lists</span><span class="p">:</span><span class="nf">reverse</span><span class="p">(</span><span class="mi">123</span><span class="p">).</span>
+<span class="o">**</span> <span class="n">exception</span> <span class="nn">error</span><span class="p">:</span> <span class="n">no</span> <span class="n">function</span> <span class="n">clause</span> <span class="n">matching</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">reverse</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span> <span class="p">(</span><span class="n">lists</span><span class="p">.</span><span class="n">erl</span><span class="p">,</span> <span class="n">line</span> <span class="mi">147</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><p>exit: 这类异常用于通报 「进程即将停止」. 它们会在迫使进程崩溃的同时将进程崩溃的原因告知给其他进程,  exit 也在进程正常终止的时候使用. 当你确定想要终止当前进程时就用 <code>exit(Why)</code>, 如果这个异常错误没有被捕获到,  信号 <code>{'EXIT', Pid, Why}</code> 就会被广播给当前进程链接的所有进程</p></li>
+
+<li><p>throw: 当期望程序员处理所发生的异常时, 可以使用抛出（throw）异常. 与错误异常和退出异常不同, 抛出异常并没有&rdquo;Let it crash!&ldquo;的意思, 只是为了改变控制流. 如果进程没能捕获 <code>throw</code> 异常便会转变为一个原因为 <strong>nocatch</strong> 的 <strong>error</strong> 异常,  迫使异常终止并记录日志</p></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="mi">1</span><span class="o">&gt;</span> <span class="nf">throw</span><span class="p">(</span><span class="n">permission_denied</span><span class="p">).</span>
+<span class="o">**</span> <span class="n">exception</span> <span class="nn">throw</span><span class="p">:</span> <span class="n">permission_denied</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>抛出异常, 出错异常和退出异常都可以使用<code>try ... catch</code>来处理. 跟很多语言类似,  after 相当于 finally, ensure 的.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="k">try</span> <span class="nv">Expression</span> <span class="k">of</span>
+    <span class="nv">SuccessfulPattern1</span> <span class="p">[</span><span class="nv">Guards</span><span class="p">]</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">        E</span><span class="ni">xpression1</span><span class="p">;</span>
+    <span class="nv">SuccessfulPattern2</span> <span class="p">[</span><span class="nv">Guards</span><span class="p">]</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">        E</span><span class="ni">xpression2</span>
+<span class="k">catch</span>
+    <span class="nv">TypeOfError</span><span class="p">:</span><span class="nv">ExceptionPattern1</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">        E</span><span class="ni">xpression3</span><span class="p">;</span>
+    <span class="nv">TypeOfError</span><span class="p">:</span><span class="nv">ExceptionPattern2</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">        E</span><span class="ni">xpression4</span>
+<span class="k">after</span>
+    <span class="nv">AfterExpr</span>
+<span class="k">end</span><span class="p">.</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>或者</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="k">try</span>
+    <span class="nv">Expression1</span><span class="p">,</span>
+    <span class="nv">Expression2</span><span class="p">,</span>
+    <span class="nv">Expression3</span>
+<span class="k">catch</span>
+<span class="k">end</span><span class="p">.</span></code></pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<p><a href="http://xguox.me/erlang-weekly-note-07.html">Erlang weekly note 07 - Processes 进程</a></p>
+
+<h5 id="并发程序中的异常">并发程序中的异常</h5>
+
+<p>设想一个只有单一顺序进程的系统. 如果这个进程挂了, 麻烦可能就大了, 因为没有其他进 程能够帮忙. 出于这个原因, 顺序语言把重点放在故障预防上, 强调进行防御式编程.</p>
+
+<p>而 Erlang 关于构建容错式软件的理念可以总结成两个容易记忆的短句:&ldquo;让其他进程修复错 误”(link 和 monitor)和&rdquo;任其崩溃&rdquo;.</p>
+
+<p>在 Erlang 里, 我们有大量的进程可供支配, 因此任何单进程故障都不算特别重要. 通常只需 编写少量的防御性代码, 而把重点放在编写纠正性代码上.</p>
+
+<h6 id="捕捉退出信号">捕捉退出信号</h6>
+
+<p>跨进程的错误(崩溃)传播对进程来说和消息传递类似, 不过使用的是一种称为信号(signal)的特殊消息.</p>
+
+<p>Erlang 的进程有两种: <strong>普通进程</strong>和<strong>系统进程</strong>. spawn 创建的是普通进程. 普通进程可以通过执行内置函数 <code>process_flag(trap_exit, true).</code> 变成系统进程.</p>
+
+<p>当系统进程收到错误信号时, 该信号会被转换成 <code>{'EXIT', Pid, Why}</code> 形式的消息. Pid 是终止进程的标识, Why 是终止原因(有时候被称为退出原因). 如果进程是无错误终止,  Why 就会是原子 <strong>normal</strong>, 否则 Why 会是错误的描述.</p>
+
+<p>当普通进程收到错误信号时, 如果退出原因不是normal, 该进程就会终止. 当它终止时, 同样会向它的连接组广播一个退出信号.</p>
+
+<p>默认情况下, 一旦接收到来自相互链接的其他进程的退出信号, 进程也就会跟着退出. 而变为系统进程以后, 除了无法捕捉的信号(<strong>kill</strong>)以外, 外来的退出信号都会被转换成无害的消息. 系统进程收到摧毁信号(kill signal)时会终止. 摧毁信号是通过调用 <code>exit(Pid, kill)</code>生成的. 这种信号会绕过常规的错误信号处理机制, 不会被转换成消息. 摧毁信号只应该 用在其他错误处理机制无法终止的顽固进程上.</p>
+
+<p>任何执行 <code>exit(Why)</code> 的进程都会终止(如果代码不是在 catch 或 try 的范围内执行的话),  并向它的连接组广播一个带有原因 Why 的退出信号.
+此外, 进程可以通过执行 <code>exit(Pid, Why)</code> 来发送一个 <strong>虚假</strong> 的错误信号. 在这种情况下, Pid 会收到一个带有原因 Why 的退出信号. 调用<code>exit/2</code>的进程则不会终止.</p>
+
+<h6 id="异常和退出信号捕获">异常和退出信号捕获</h6>
+
+<ul>
+<li>异常源：<code>spawn_link(fun() -&gt; ok end)</code></li>
+</ul>
+
+<p>未捕获时的结果：无任何结果</p>
+
+<p>捕获时的结果：<code>{'EXIT', &lt; 0.61.0&gt;, normal}</code></p>
+
+<ul>
+<li>异常源：<code>spawn_link(fun() -&gt; exit(reason) end)</code></li>
+</ul>
+
+<p>未捕获时的结果：** exception exit: reason</p>
+
+<p>捕获时的结果：<code>{'EXIT', &lt; 0.55.0&gt;, reason}</code></p>
+
+<ul>
+<li>异常源：<code>spawn_link(fun() -&gt; exit(normal) end)</code></li>
+</ul>
+
+<p>未捕获时的结果：无任何结果</p>
+
+<p>捕获时的结果：<code>{'EXIT', &lt; 0.58.0&gt;, normal}</code></p>
+
+<ul>
+<li>异常源：<code>spawn_link(fun() -&gt; 1/0 end)</code></li>
+</ul>
+
+<p>未捕获时的结果：<code>Error in process &lt; 0.44.0&gt; with exit value: {badarith, [{erlang, '/', [1,0]}]}</code></p>
+
+<p>捕获时的结果：<code>{'EXIT', &lt; 0.52.0&gt;, {badarith, [{erlang, '/', [1,0]}]}}</code></p>
+
+<ul>
+<li>异常源：<code>spawn_link(fun() -&gt; erlang:error(reason) end)</code></li>
+</ul>
+
+<p>未捕获时的结果：<code>Error in process &lt; 0.47.0&gt; with exit value: {reason, [{erlang, apply, 2}]}</code></p>
+
+<p>捕获时的结果：<code>{'EXIT', &lt; 0.74.0&gt;, {reason, [{erlang, apply, 2}]}}</code></p>
+
+<ul>
+<li>异常源：<code>spawn_link(fun() -&gt; throw(rocks) end)</code></li>
+</ul>
+
+<p>未捕获时的结果：<code>Error in process &lt; 0.51.0&gt; with exit value: { {nocatch, rocks},[{erlang, apply, 2}]}</code></p>
+
+<p>捕获时的结果：<code>{'EXIT', &lt; 0.79.0&gt;, { {nocatch, rocks}, [{erlang, apply, 2}]}}</code></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/erlang/">Erlang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/erlang-weekly-note-07.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Erlang weekly note 07 - Processes 进程</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/erlang-weekly-note-05.html/">
+            <span class="next-text nav-default">Erlang weekly note 05 - Records &amp; Maps 记录与键值对</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

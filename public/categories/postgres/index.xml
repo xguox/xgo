@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Postgres on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/categories/postgres/</link>
+    <description>Recent content in Postgres on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 27 Apr 2017 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/categories/postgres/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>给 Rubyist 的 Postgresql Explain 教程</title>
+      <link>https://xguox.me/rubyist-guide-to-postgres-explain.html/</link>
+      <pubDate>Thu, 27 Apr 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rubyist-guide-to-postgres-explain.html/</guid>
+      <description>如果想知道你的数据库查询为啥变得越来越慢了， 那没有啥比 postgres 的 EXPLAIN 更好使的了。 其实也没啥神秘的。 就是让 postgres 告诉咱们，它是怎么去执行这个查询的。你甚至</description>
+    </item>
+    
+  </channel>
+</rss>

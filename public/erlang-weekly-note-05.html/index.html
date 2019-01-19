@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Erlang weekly note 05 - Records &amp; Maps 记录与键值对 - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="元组是大部分 Erlang 结构化数据的基石, 而 Erlang 的记录(Record)是元组之上的语法糖, 记录可以让你避免了使用元组时增减字段所带来的麻烦以及必须记住各" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/erlang-weekly-note-05.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Erlang weekly note 05 - Records &amp; Maps 记录与键值对" />
+<meta property="og:description" content="元组是大部分 Erlang 结构化数据的基石, 而 Erlang 的记录(Record)是元组之上的语法糖, 记录可以让你避免了使用元组时增减字段所带来的麻烦以及必须记住各" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/erlang-weekly-note-05.html/" /><meta property="article:published_time" content="2017-08-21T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2017-08-21T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Erlang weekly note 05 - Records &amp; Maps 记录与键值对">
+<meta itemprop="description" content="元组是大部分 Erlang 结构化数据的基石, 而 Erlang 的记录(Record)是元组之上的语法糖, 记录可以让你避免了使用元组时增减字段所带来的麻烦以及必须记住各">
+
+
+<meta itemprop="datePublished" content="2017-08-21T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2017-08-21T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="1038">
+
+
+
+<meta itemprop="keywords" content="Erlang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Erlang weekly note 05 - Records &amp; Maps 记录与键值对"/>
+<meta name="twitter:description" content="元组是大部分 Erlang 结构化数据的基石, 而 Erlang 的记录(Record)是元组之上的语法糖, 记录可以让你避免了使用元组时增减字段所带来的麻烦以及必须记住各"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Erlang weekly note 05 - Records &amp; Maps 记录与键值对</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 21 Aug 2017 </span>
+          <span class="more-meta"> 1038 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/erlang/"> Erlang </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>元组是大部分 Erlang 结构化数据的基石, 而 Erlang 的记录(Record)是元组之上的语法糖, 记录可以让你避免了使用元组时增减字段所带来的麻烦以及必须记住各个字段在元组中的顺序的问题.</p>
+
+<p>使用记录之前首先要定义记录, 记录是以模块属性的形式来声明的, 比如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="p">-</span><span class="ni">record</span><span class="p">(</span><span class="nl">user</span><span class="p">,</span> <span class="p">{</span><span class="n">uuid</span><span class="o">=</span><span class="s">&#34;&lt;xguox&gt;&#34;</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">phone</span><span class="p">}).</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这里的 user 相当于记录的名称, 这个记录有三个字段, 分别是: uuid, address, phone, 其中 uuid 具有默认值 <code>&quot;&lt;xguox&gt;&quot;</code>.</p>
+
+<p>接着就可以这么使用记录:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nl">#user</span><span class="p">{}</span>
+
+<span class="nl">#user</span><span class="p">{</span><span class="n">phone</span><span class="o">=</span><span class="s">&#34;10086&#34;</span><span class="p">}</span>
+
+<span class="nl">#user</span><span class="p">{</span><span class="n">uuid</span><span class="o">=</span><span class="s">&#34;&lt;another&gt;&#34;</span><span class="p">,</span> <span class="n">phone</span><span class="o">=</span><span class="s">&#34;10086&#34;</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="s">&#34;Mars&#34;</span><span class="p">}</span>
+
+<span class="nv">T</span> <span class="o">=</span> <span class="nl">#user</span><span class="p">{</span><span class="n">phone</span><span class="o">=</span><span class="s">&#34;10086&#34;</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="s">&#34;Earth&#34;</span><span class="p">}</span>
+<span class="nv">T</span><span class="nl">#user.address</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>记录可以直接在函数头中对它们进行模式匹配, 譬如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="p">-</span><span class="ni">record</span><span class="p">(</span><span class="nl">user</span><span class="p">,</span> <span class="p">{</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">age</span><span class="p">}).</span>
+
+<span class="c">%% 使用模式匹配进行过滤
+</span><span class="c"></span><span class="nf">admin_panel</span><span class="p">(</span><span class="nl">#user</span><span class="p">{</span><span class="n">name</span><span class="o">=</span><span class="nv">Name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">admin</span><span class="p">})</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">     N</span><span class="ni">ame</span> <span class="o">++</span> <span class="s">&#34; is allowed!&#34;</span><span class="p">;</span>
+<span class="nf">admin_panel</span><span class="p">(</span><span class="nl">#user</span><span class="p">{</span><span class="n">name</span><span class="o">=</span><span class="nv">Name</span><span class="p">})</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">     N</span><span class="ni">ame</span> <span class="o">++</span> <span class="s">&#34; is not allowed&#34;</span><span class="p">.</span>
+
+<span class="c">%% 可以随意扩展 user 记录, 函数无需修改
+</span><span class="c"></span>
+<span class="nf">adult_section</span><span class="p">(</span><span class="nv">U</span> <span class="o">=</span> <span class="nl">#user</span><span class="p">{})</span> <span class="k">when</span> <span class="nv">U</span><span class="nl">#user.age</span> <span class="o">&gt;=</span> <span class="mi">18</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">     </span><span class="ni">allowed</span><span class="p">;</span>
+<span class="nf">adult_section</span><span class="p">(_)</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">     </span><span class="ni">forbidden</span><span class="p">.</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>编译以后运行:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nn">records</span><span class="p">:</span><span class="nf">admin_panel</span><span class="p">(</span><span class="nl">#user</span><span class="p">{</span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#34;ferd&#34;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">admin</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">96</span><span class="p">}).</span>
+<span class="c">%% &#34;ferd is allowed!&#34;
+</span><span class="c"></span><span class="nn">records</span><span class="p">:</span><span class="nf">admin_panel</span><span class="p">(</span><span class="nl">#user</span><span class="p">{</span><span class="n">id</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#34;you&#34;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">users</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">66</span><span class="p">}).</span>
+<span class="c">%% &#34;you is not allowed&#34;
+</span><span class="c"></span><span class="nn">records</span><span class="p">:</span><span class="nf">adult_section</span><span class="p">(</span><span class="nl">#user</span><span class="p">{</span><span class="n">id</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#34;Bill&#34;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">users</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">72</span><span class="p">}).</span>
+<span class="c">%% allowed
+</span><span class="c"></span><span class="nn">records</span><span class="p">:</span><span class="nf">adult_section</span><span class="p">(</span><span class="nl">#user</span><span class="p">{</span><span class="n">id</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#34;Noah&#34;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">users</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">13</span><span class="p">}).</span>
+<span class="err">%%</span> <span class="n">forbidden</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>更新记录</strong></p>
+
+<p>因为记录都定义都是在编译时, 而不是运行时, 所以,  要在 erl 中使用记录,  需要用 <strong>rd</strong> 手工来定义一次.</p>
+
+<p><code>rd(Name,Definition)</code>, 定义一个记录, 方式和模块中使用的 <code>-record(Name,Definition)</code>类似.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nv">U1</span> <span class="o">=</span> <span class="nl">#user</span><span class="p">{</span><span class="n">uuid</span><span class="o">=</span><span class="s">&#34;XguoX&#34;</span><span class="p">,</span> <span class="n">phone</span><span class="o">=</span><span class="s">&#34;10000&#34;</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="s">&#34;Test address&#34;</span><span class="p">}.</span>
+<span class="nl">#user</span><span class="p">{</span><span class="n">uuid</span> <span class="o">=</span> <span class="s">&#34;XguoX&#34;</span><span class="p">,</span><span class="n">address</span> <span class="o">=</span> <span class="s">&#34;Test address&#34;</span><span class="p">,</span><span class="n">phone</span> <span class="o">=</span> <span class="s">&#34;10000&#34;</span><span class="p">}</span>
+<span class="nv">U2</span> <span class="o">=</span> <span class="nv">U1</span><span class="nl">#user</span><span class="p">{</span><span class="n">uuid</span><span class="o">=</span><span class="s">&#34;MM&#34;</span><span class="p">,</span><span class="n">phone</span><span class="o">=</span><span class="s">&#34;12345&#34;</span><span class="p">}.</span>
+<span class="nl">#user</span><span class="p">{</span><span class="n">uuid</span> <span class="o">=</span> <span class="s">&#34;MM&#34;</span><span class="p">,</span><span class="n">address</span> <span class="o">=</span> <span class="s">&#34;Test address&#34;</span><span class="p">,</span><span class="n">phone</span> <span class="o">=</span> <span class="s">&#34;12345&#34;</span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>官方长示例</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="c">%% File: person.hrl
+</span><span class="c"></span>
+<span class="c">%%-----------------------------------------------------------
+</span><span class="c">%% Data Type: person
+</span><span class="c">%% where:
+</span><span class="c">%%    name:  A string (default is undefined).
+</span><span class="c">%%    age:   An integer (default is undefined).
+</span><span class="c">%%    phone: A list of integers (default is []).
+</span><span class="c">%%    dict:  A dictionary containing various information
+</span><span class="c">%%           about the person.
+</span><span class="c">%%           A {Key, Value} list (default is the empty list).
+</span><span class="c">%%------------------------------------------------------------
+</span><span class="c"></span><span class="p">-</span><span class="ni">record</span><span class="p">(</span><span class="nl">person</span><span class="p">,</span> <span class="p">{</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">phone</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">dict</span> <span class="o">=</span> <span class="p">[]}).</span>
+<span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">person</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">include</span><span class="p">(</span><span class="s">&#34;person.hrl&#34;</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span> <span class="c">% For test purposes only.
+</span><span class="c"></span>
+<span class="c">%% This creates an instance of a person.
+</span><span class="c">%%   Note: The phone number is not supplied so the
+</span><span class="c">%%         default value [] will be used.
+</span><span class="c"></span>
+<span class="nf">make_hacker_without_phone</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">Age</span><span class="p">)</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">   #</span><span class="ni">person</span><span class="p">{</span><span class="n">name</span> <span class="o">=</span> <span class="nv">Name</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="nv">Age</span><span class="p">,</span>
+           <span class="n">dict</span> <span class="o">=</span> <span class="p">[{</span><span class="n">computer_knowledge</span><span class="p">,</span> <span class="n">excellent</span><span class="p">},</span>
+                   <span class="p">{</span><span class="n">drinks</span><span class="p">,</span> <span class="n">coke</span><span class="p">}]}.</span>
+
+<span class="c">%% This demonstrates matching in arguments
+</span><span class="c"></span>
+<span class="nf">print</span><span class="p">(</span><span class="nl">#person</span><span class="p">{</span><span class="n">name</span> <span class="o">=</span> <span class="nv">Name</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="nv">Age</span><span class="p">,</span>
+              <span class="n">phone</span> <span class="o">=</span> <span class="nv">Phone</span><span class="p">,</span> <span class="n">dict</span> <span class="o">=</span> <span class="nv">Dict</span><span class="p">})</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">  </span><span class="ni">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;Name: </span><span class="si">~s</span><span class="s">, Age: </span><span class="si">~w</span><span class="s">, Phone: </span><span class="si">~w</span><span class="s"> </span><span class="si">~n</span><span class="s">&#34;</span>
+            <span class="s">&#34;Dictionary: </span><span class="si">~w</span><span class="s">.</span><span class="si">~n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">[</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">Age</span><span class="p">,</span> <span class="nv">Phone</span><span class="p">,</span> <span class="nv">Dict</span><span class="p">]).</span>
+
+<span class="c">%% Demonstrates type testing, selector, updating.
+</span><span class="c"></span>
+<span class="nf">birthday</span><span class="p">(</span><span class="nv">P</span><span class="p">)</span> <span class="k">when</span> <span class="nf">record</span><span class="p">(</span><span class="nv">P</span><span class="p">,</span> <span class="n">person</span><span class="p">)</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">   P#</span><span class="ni">person</span><span class="p">{</span><span class="n">age</span> <span class="o">=</span> <span class="nv">P</span><span class="nl">#person.age</span> <span class="o">+</span> <span class="mi">1</span><span class="p">}.</span>
+
+<span class="nf">register_two_hackers</span><span class="p">()</span> <span class="p">-</span><span class="err">&gt;
+</span><span class="err">   H</span><span class="ni">acker1</span> <span class="o">=</span> <span class="nf">make_hacker_without_phone</span><span class="p">(</span><span class="s">&#34;Joe&#34;</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
+   <span class="nv">OldHacker</span> <span class="o">=</span> <span class="nf">birthday</span><span class="p">(</span><span class="nv">Hacker1</span><span class="p">),</span>
+   <span class="c">% The central_register_server should have
+</span><span class="c"></span>   <span class="c">% an interface function for this.
+</span><span class="c"></span>   <span class="n">central_register_server</span> <span class="o">!</span> <span class="p">{</span><span class="n">register_person</span><span class="p">,</span> <span class="nv">Hacker1</span><span class="p">},</span>
+   <span class="n">central_register_server</span> <span class="o">!</span> <span class="p">{</span><span class="n">register_person</span><span class="p">,</span>
+             <span class="nv">OldHacker</span><span class="nl">#person</span><span class="p">{</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;Robert&#34;</span><span class="p">,</span>
+                              <span class="n">phone</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]}}.</span></code></pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<p><strong>键值映射(Maps), 又叫映射组</strong>(<em>Programming Erlang</em>). 是从 Erlang R17 开始时新增的一种数据类型.</p>
+
+<p>映射组的语法与记录相似, 不同之处是省略了记路名,  并且键值分隔符是 <code>=&gt;</code> 或 <code>:=</code>, 此外,  映射组有着明确的顺序,</p>
+
+<p>举个例子, 假设要创建一个包含a, b两个键的映射组.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nv">M1</span> <span class="o">=</span> <span class="p">#{</span><span class="n">a</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">}.</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>映射组在系统内部是作为有序集合存储的, 打印时总是使用各键排序后的顺序, 与映射组的 创建方式无关.譬如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nv">M1</span> <span class="o">=</span> <span class="p">#{</span><span class="n">a</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">}.</span>
+<span class="c">%% #{a =&gt; 1,b =&gt; 10}
+</span><span class="c"></span><span class="nv">M2</span> <span class="o">=</span> <span class="p">#{</span><span class="n">b</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}.</span>
+<span class="c">%% #{a =&gt; 1,b =&gt; 10}
+</span><span class="c"></span><span class="nv">M1</span> <span class="o">=</span> <span class="nv">M2</span><span class="p">.</span>
+<span class="err">%%</span> <span class="p">#{</span><span class="n">a</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span><span class="n">b</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>分隔符号 <code>=&gt;</code> 或 <code>:=</code> 的区别在于</p>
+
+<p>表达式<code>K =&gt; V</code>有两种用途, 一种是将现有键 K 的值更新为新值 V, 另一种是给映射组添加一 个全新的 K-V 键值对. 这个操作总是成功的.</p>
+
+<p>表达式<code>K := V</code>的作用是将现有键 K 的值更新为新值 V. 如果被更新的映射组不包含键 K, 这个 操作就会失败.</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/erlang/">Erlang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/erlang-weekly-note-06.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Erlang weekly note 06 - Exceptions 异常</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/rails-render-collection.html/">
+            <span class="next-text nav-default">Rails render collection 的魔法</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

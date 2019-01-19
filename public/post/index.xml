@@ -1,0 +1,1854 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/post/</link>
+    <description>Recent content in Posts on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 11 Jan 2019 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Gin RouterGroup 与 middleware 相关源码</title>
+      <link>https://xguox.me/gin-routergroup-and-middleware-walkthrough.html/</link>
+      <pubDate>Fri, 11 Jan 2019 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/gin-routergroup-and-middleware-walkthrough.html/</guid>
+      <description>拿上一篇用的例子改一下, 看看 Gin 的RouterGroup 与 middleware 是怎么工作的. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 package main import ( &amp;#34;github.com/gin-gonic/gin&amp;#34; &amp;#34;net/http&amp;#34; ) func main() { r :=</description>
+    </item>
+    
+    <item>
+      <title>从 net/http 入门到 Gin 源码梳理</title>
+      <link>https://xguox.me/gin-source-code.html/</link>
+      <pubDate>Thu, 10 Jan 2019 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/gin-source-code.html/</guid>
+      <description>通过 Go 的标准库 net/http 可以轻松几行运行起一个简单的 web 服务, 比如: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 package main import &amp;#34;net/http&amp;#34; func main() { http.Handle(&amp;#34;/&amp;#34;, &amp;amp;MyHandler{}) http.Handle(&amp;#34;/hello&amp;#34;, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { w.Write([]byte(&amp;#34;world&amp;#34;)) })) http.HandleFunc(&amp;#34;/ping&amp;#34;,</description>
+    </item>
+    
+    <item>
+      <title>用 Goland 阅读代码是真 6</title>
+      <link>https://xguox.me/goland-is-awesome-for-reading.html/</link>
+      <pubDate>Mon, 07 Jan 2019 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/goland-is-awesome-for-reading.html/</guid>
+      <description>曾几何时也不喜欢 IDE, 启动超慢, 风扇呼呼的转. 写 Ruby 以后更甚, 因为 Ruby / Rails 的很多魔法在 IDE 里边会水土不服. 虽然据说 Rubymine 挺好的, 不过尝试的欲望还是不高. 之</description>
+    </item>
+    
+    <item>
+      <title>Go 的指针与数组</title>
+      <link>https://xguox.me/golang-pointer-array-slice-map-copy.html/</link>
+      <pubDate>Fri, 04 Jan 2019 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/golang-pointer-array-slice-map-copy.html/</guid>
+      <description>上一篇 在用 Go 实现 Trie 结构时候踩了个坑, 1 2 3 4 type Node struct { Char rune Children []*Node } 最开始这里 Children 字段用的是 []Node 而不是 []*Node, 结果数据只塞进了一层以后, 每一结点的这个 Children 都为</description>
+    </item>
+    
+    <item>
+      <title>Trie 的实现, Ruby vs Go</title>
+      <link>https://xguox.me/trie-implementing-ruby-vs-golang.html/</link>
+      <pubDate>Thu, 03 Jan 2019 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/trie-implementing-ruby-vs-golang.html/</guid>
+      <description>上一篇看到 Trie 的数据结构, 想着用 Ruby 和 Go 大概实现一下对比看看, 顺便看看一下 Benchmark. (挺没意义的一个事 = 。 =) 普通的 trie 是一个字符一个结点, 压缩 trie 的结点可</description>
+    </item>
+    
+    <item>
+      <title>Gin 路由冲突</title>
+      <link>https://xguox.me/gin-router-conflicts.html/</link>
+      <pubDate>Sat, 29 Dec 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/gin-router-conflicts.html/</guid>
+      <description>Gin 或者说 httprouter 的路由使用的数据结构是动态压缩的 trie. 每个 HTTP 方法维护着一个 trie. 不像 Rails 遇到路由冲突的时候, 定义在前的会覆盖后面的, Gin 在 build 的时候就会 panic. 几种冲</description>
+    </item>
+    
+    <item>
+      <title>理解 Goroutine 的调度</title>
+      <link>https://xguox.me/golang-scheduler.html/</link>
+      <pubDate>Fri, 21 Dec 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/golang-scheduler.html/</guid>
+      <description>最开始学的时候看的一本书, 当时只是通读看语法的阶段, 其中有几个像下面这样关于 goroutine 调度的图并没有什么概念, 那个章节是关于 Go 的并发的. 现在回头理一</description>
+    </item>
+    
+    <item>
+      <title>Ruby on earth</title>
+      <link>https://xguox.me/ruby-on-earth.html/</link>
+      <pubDate>Thu, 20 Dec 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ruby-on-earth.html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go build timeout in docker</title>
+      <link>https://xguox.me/golang-111-vendor-dockerfile.html/</link>
+      <pubDate>Wed, 12 Dec 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/golang-111-vendor-dockerfile.html/</guid>
+      <description>尝试用 docker 部署个简单的 go 应用, 然后发现 build 不起来. 因为一些神秘力量, 会出现类似下面的一些错误信息. unrecognized import path &amp;ldquo;cloud.google.com/go&amp;rdquo; unrecognized import path &amp;ldquo;golang.org/x/sync&amp;rdquo; i/o timeout 想着总不能在服务器上用神秘</description>
+    </item>
+    
+    <item>
+      <title>sync.Pool</title>
+      <link>https://xguox.me/golang-sync-pool.html/</link>
+      <pubDate>Wed, 05 Dec 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/golang-sync-pool.html/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 package main import ( &amp;#34;bytes&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;runtime&amp;#34; &amp;#34;sync&amp;#34; ) func main() { var pool = &amp;amp;sync.Pool{ New: func() interface{} { return new(bytes.Buffer) }} b := pool.Get().(*bytes.Buffer) b.Write([]byte(&amp;#34;hello&amp;#34;)) pool.Put(b) b =</description>
+    </item>
+    
+    <item>
+      <title>Logstash 的日志输出</title>
+      <link>https://xguox.me/elk-logstash-conf.html/</link>
+      <pubDate>Tue, 27 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elk-logstash-conf.html/</guid>
+      <description>Logstash 配置文件的 output 加了一句 1 2 stdout { codec =&amp;gt; rubydebug } 本地测试时候看输出用的, 发上去没把这句删掉然后差点把服务器的硬盘撑坏了. =。 = 去掉这句就不在把正常输出</description>
+    </item>
+    
+    <item>
+      <title>sync.Mutex, sync.RWMutex, snyc.Cond</title>
+      <link>https://xguox.me/sync-in-go.html/</link>
+      <pubDate>Wed, 21 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/sync-in-go.html/</guid>
+      <description>当两个(或以上)的 goroutine 并发访问同一个变量, 且至少其中一个是写操作的时候就会发生数据竞争. 像其他语言比如 Ruby 一样, Go 也提供了互斥锁 Mutex 来避免发生这一</description>
+    </item>
+    
+    <item>
+      <title>Go 的指针</title>
+      <link>https://xguox.me/go-pointer.html/</link>
+      <pubDate>Wed, 14 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/go-pointer.html/</guid>
+      <description>与 Ruby 一样, Go 在调用函数(方法)的时候都是值传递的, 即参数的副本. 在 Go 里边, 即使传的是指针类型的变量也一样, 实际上传的是指针的副本, 指向的是同</description>
+    </item>
+    
+    <item>
+      <title>Go 实现 Skip List(跳表)</title>
+      <link>https://xguox.me/go-skip-list.html/</link>
+      <pubDate>Sat, 10 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/go-skip-list.html/</guid>
+      <description>在链表中查找数据的时间复杂度是 O(n), 在上面这个链表, 假设要查找到节点 37, 就得从第一个节点开始, 遍历 7 次, 如果通过给链表节点加一层索引, 每两个节点提</description>
+    </item>
+    
+    <item>
+      <title>Sitting</title>
+      <link>https://xguox.me/sitting.html/</link>
+      <pubDate>Tue, 06 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/sitting.html/</guid>
+      <description>坐</description>
+    </item>
+    
+    <item>
+      <title>入坑乐高 42077</title>
+      <link>https://xguox.me/lego-42077-open-box.html/</link>
+      <pubDate>Sat, 03 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/lego-42077-open-box.html/</guid>
+      <description>买礼物送亲戚小孩, 想来想去适合的最后还是乐高, 然后给买了 42075, 收到货时候发现自己拉自己下水了, 购物车已经填满了好几款喜欢的. 综合各种考虑, 最后入</description>
+    </item>
+    
+    <item>
+      <title>查看 TCP 端口号占用</title>
+      <link>https://xguox.me/tcp-port-pid.html/</link>
+      <pubDate>Thu, 01 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/tcp-port-pid.html/</guid>
+      <description>查看 TCP 端口被哪个进程(PID)占用了 1 lsof -nP -i4TCP:$PORT | grep LISTEN</description>
+    </item>
+    
+    <item>
+      <title>Gorm 笔记</title>
+      <link>https://xguox.me/gorm-model-primary-key.html/</link>
+      <pubDate>Wed, 31 Oct 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/gorm-model-primary-key.html/</guid>
+      <description>有一些 model 结构没有嵌套 gorm.Model, 只是自己自定义了 CreatedAt UpdatedAt, 然后插入数据的时候都会插两次, 原因是漏了 ID, 准确的说是漏了 primary_key = . =</description>
+    </item>
+    
+    <item>
+      <title>NSQ 笔记</title>
+      <link>https://xguox.me/go-nsq-note-i.html/</link>
+      <pubDate>Mon, 22 Oct 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/go-nsq-note-i.html/</guid>
+      <description>NSQ 是一个基于 Go 写的实时分布式消息平台, 打开 NSQ 的官网可以看到简单粗暴的排版介绍四大优势, Distributed(分布式), Scalable(可</description>
+    </item>
+    
+    <item>
+      <title>Golang, 链表, LRU 缓存淘汰策略</title>
+      <link>https://xguox.me/go-linked-list-lru-cache.html/</link>
+      <pubDate>Mon, 15 Oct 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/go-linked-list-lru-cache.html/</guid>
+      <description>当缓存的空间即将达到临界值的时候, 需要将一些旧的数据清理掉, 哪些该去, 哪些该留, 常用的缓存淘汰策略有下面三种: FIFO(First In，First Out) 先进先出策</description>
+    </item>
+    
+    <item>
+      <title>Farewell 2</title>
+      <link>https://xguox.me/farewell-2.html/</link>
+      <pubDate>Sun, 14 Oct 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/farewell-2.html/</guid>
+      <description>因为两位大佬的相继离开, 加之最近不太平, 想起从又一客走的时候, 然后倒回去一看, 2016-10-14, 两年后的 10 月 14, 又来说一句 Farewell, 只是这一次不是我离开. 大概是 2016 的9</description>
+    </item>
+    
+    <item>
+      <title>Golang 类型声明与类型别名</title>
+      <link>https://xguox.me/go-type-alias-vs-type-definition.html/</link>
+      <pubDate>Tue, 09 Oct 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/go-type-alias-vs-type-definition.html/</guid>
+      <description>Go 可以给任何的常量, 变量, 函数, 类型设置别名. 对于写惯 Ruby 的 Alias(其实用的也不多), 第一感觉应该是不带等号的才是类型别名, 然后, Go 的累习</description>
+    </item>
+    
+    <item>
+      <title>第一批来到的多肉 I</title>
+      <link>https://xguox.me/succulent-plant-i.html/</link>
+      <pubDate>Mon, 08 Oct 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/succulent-plant-i.html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>第一批来到的多肉 II</title>
+      <link>https://xguox.me/succulent-plant-ii.html/</link>
+      <pubDate>Mon, 08 Oct 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/succulent-plant-ii.html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>第一批来到的多肉 III</title>
+      <link>https://xguox.me/succulent-plant-iii.html/</link>
+      <pubDate>Mon, 08 Oct 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/succulent-plant-iii.html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go 的修饰模式(Decorator Pattern)</title>
+      <link>https://xguox.me/go-decorator-design-pattern.html/</link>
+      <pubDate>Fri, 28 Sep 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/go-decorator-design-pattern.html/</guid>
+      <description>Decorator(修饰, 装饰, 虽然都是这么翻译, 但是怎么看怎么别扭, 所以还是用英文好了) Pattern, 是之前提到的代理模式(Proxy Pattern)</description>
+    </item>
+    
+    <item>
+      <title>Go 的代理模式(Proxy Pattern)</title>
+      <link>https://xguox.me/go-proxy-design-pattern.html/</link>
+      <pubDate>Fri, 21 Sep 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/go-proxy-design-pattern.html/</guid>
+      <description>相比之前写的组合模式, 代理模式实现起来并不需要太费劲. 主要特性: 隐藏或限制被代理对象 易于为被代理的对象提供新的抽象层(拦截, 重定义) https://github.com/tmrts/go-patterns/blob/master/structural/proxy.md 1 2 3</description>
+    </item>
+    
+    <item>
+      <title>Go 的组合模式(Composite Pattern)</title>
+      <link>https://xguox.me/go-composite-design-pattern.html/</link>
+      <pubDate>Thu, 13 Sep 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/go-composite-design-pattern.html/</guid>
+      <description>Go 没有传统面向对象语言(如 Ruby, Java) 的继承特性, 取而代之, 更多的是用 组合模式 来达到类似效果. 组合设计模式 Composite Design Pattern 组合构建的是一个树形的层级对象, 一个</description>
+    </item>
+    
+    <item>
+      <title>Gin 模型验证 Validator</title>
+      <link>https://xguox.me/go-gin-validator.html/</link>
+      <pubDate>Mon, 03 Sep 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/go-gin-validator.html/</guid>
+      <description>一个简单的示例 Gin 默认用就是 go-playground/validator 这个库, 通过 tag 可以设置结构体字段的校验规则, go-playground/validator 自带了差不多一百种吧, 比如必须有值(required), 验证长度(</description>
+    </item>
+    
+    <item>
+      <title>Go 1.11 modules</title>
+      <link>https://xguox.me/go-111-modules-vgo.html/</link>
+      <pubDate>Tue, 28 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/go-111-modules-vgo.html/</guid>
+      <description>Go 的包依赖管理, 终于在前几天发布的 1.11 有了一个初步官方定数. 再也不用纠结于离不开 $GOPATH, 1.11 发布之前试用了一下 vgo, 文档比较少, 踩了一些坑就没深入继续了.</description>
+    </item>
+    
+    <item>
+      <title>Turn Over</title>
+      <link>https://xguox.me/turn-over.html/</link>
+      <pubDate>Mon, 20 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/turn-over.html/</guid>
+      <description>翻身</description>
+    </item>
+    
+    <item>
+      <title>gin-gonic/gin Hot Reload</title>
+      <link>https://xguox.me/golang-gin-hot-reload.html/</link>
+      <pubDate>Thu, 16 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/golang-gin-hot-reload.html/</guid>
+      <description>用 Gin 开始写点 API 的东西, 然后就陷入了不断 ⌘ + c go build . ./xxx = . = 然后搜索一把发现有不少推荐 realize 这个工具的, 刚开始看文档半天都不知道这是怎么个玩意, 用</description>
+    </item>
+    
+    <item>
+      <title>new 与 make 的区别 [Go]</title>
+      <link>https://xguox.me/golang-new-make-diff.html/</link>
+      <pubDate>Tue, 14 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/golang-new-make-diff.html/</guid>
+      <description>Effective Go new 用来分配内存的内建函数, 不会初始化内存, 只会将内存置零. new(T) 会为类型为 T 的新项分配已置零的内存空间, 并返回它的地址, 也就是一个类型为 *T 的</description>
+    </item>
+    
+    <item>
+      <title>Protobuf, Go, gRPC 的 Hello World 理解</title>
+      <link>https://xguox.me/grpc-go-protobuf-hello-world-example-explain.html/</link>
+      <pubDate>Fri, 10 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/grpc-go-protobuf-hello-world-example-explain.html/</guid>
+      <description>示例代码从官方示例提取过来的. 1 2 3 4 5 6 // addressbook.proto syntax = &amp;#34;proto3&amp;#34;; package tutorial; import &amp;#34;google/protobuf/timestamp.proto&amp;#34;; // 导入 proto3 新加的 timestamp 包 对于目标语言为 Go, 除非显式的提供 option go_package 在 .proto 文件中, 否则, 如果指定了</description>
+    </item>
+    
+    <item>
+      <title>学点 Protocol Buffers</title>
+      <link>https://xguox.me/protocol-buffers-learning.html/</link>
+      <pubDate>Mon, 06 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/protocol-buffers-learning.html/</guid>
+      <description>&lt;h4 id=&#34;what-are-protocol-buffers&#34;&gt;What are protocol buffers?&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;Protocol Buffers(简称为 Protobuf)&lt;/strong&gt; 是一种灵活, 高效, 可自动化, 而又不依赖于语言, 不依赖于平台的, 可扩展的用于序列化结构化数据的存储格式.
+(Google 自己说的, 听完觉得好像很流弊,  不过还是不知道怎么玩.)&lt;/p&gt;
+
+&lt;p&gt;使用后缀为 &lt;code&gt;.proto&lt;/code&gt; 文件定义一次数据结构以后, 就可以用自带的代码生成工具, 自动生成&lt;strong&gt;各种语言&lt;/strong&gt;版本的读写这些数据结构的代码. v2 版本的 Protocol Buffers 原生只支持 c++, java, python, &lt;strong&gt;现在的 v3 可以支持语言还多了有 Go, Ruby, Objective-C, JavaScript, PHP 和 C#&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Protobuf 甚至还可以不用停掉已经部署到线上的程序直接更新数据结构的定义.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch 5/6 的 Web UI 管理工具</title>
+      <link>https://xguox.me/web-ui-admin-elasticsearch.html/</link>
+      <pubDate>Wed, 01 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/web-ui-admin-elasticsearch.html/</guid>
+      <description>许久没仔细使用 Elasticsearch 以后, 发现版本号已经从之前用的 2.X 升级到 6.3, 发布 5 的时候有关注过一会. 之前那堆管理工具打开一看也都好久没更新了, 可能是因为 Site plugins are</description>
+    </item>
+    
+    <item>
+      <title>Golang 笔记</title>
+      <link>https://xguox.me/golang-note.html/</link>
+      <pubDate>Tue, 31 Jul 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/golang-note.html/</guid>
+      <description>main 函数保存在名为 main 的包里. 如果 main 函数不在 main 包里, 构建工具就不会生成可执行的文件. 常量只能是 numeric 或者 string There are boolean constants, rune constants, integer constants, floating-point constants, complex constants, and string constants. Rune, integer, floating-point, and complex constants</description>
+    </item>
+    
+    <item>
+      <title>长草颜萌萌</title>
+      <link>https://xguox.me/budding-pop-baby.html/</link>
+      <pubDate>Mon, 30 Jul 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/budding-pop-baby.html/</guid>
+      <description>能睡是福 像团团一样简单可爱, 成长</description>
+    </item>
+    
+    <item>
+      <title>Golang, Delve &amp; Visual Studio Code</title>
+      <link>https://xguox.me/golang-delve-visual-studio-code.html/</link>
+      <pubDate>Mon, 23 Jul 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/golang-delve-visual-studio-code.html/</guid>
+      <description>从 Ruby 切换到 Go 一个不顺手的地方是没有 REPL 随手实验, 虽说有 Go Playground, 但还是喜欢 Local 多一些, 而且有一些操作线上很难甚至完成不了的. 另外一个不顺手地方是「没有</description>
+    </item>
+    
+    <item>
+      <title>用 FUJIFILM X-H1 拍了一些视频以后</title>
+      <link>https://xguox.me/x-h1-about-video.html/</link>
+      <pubDate>Fri, 23 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/x-h1-about-video.html/</guid>
+      <description>又花了一些时间研究 X-H1 的视频拍摄, 因为是新手入坑, 上手还是慢, 零零碎碎的拍了一些以后, 看来没入手柄应该是正确的, 增强的连拍, 视频半小时基本都用</description>
+    </item>
+    
+    <item>
+      <title>FUJIFILM X-H1 with XF 16mm f/1.4 R WR</title>
+      <link>https://xguox.me/x-h1-unboxing-simple-review.html/</link>
+      <pubDate>Thu, 15 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/x-h1-unboxing-simple-review.html/</guid>
+      <description>接上一篇 经过几个月的观察思考后, 最后还是选择了 FUJIFILM X-H1. 顺丰陆运运了两天总算拿到手了. 这一次比之前拿到 A7R 要更兴奋一些, 也许是因为太久没机子在身边(</description>
+    </item>
+    
+    <item>
+      <title>长草 Fujifilm</title>
+      <link>https://xguox.me/being-addicted-to-fujifilm.html/</link>
+      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/being-addicted-to-fujifilm.html/</guid>
+      <description>因为觉得未来一大段时间(至少半年以上)不强烈需要相机所以就把 A7R 给出掉了. 结果发现手头上没有一台相机就经常跑去关注新产品. 随时都想着要端一台回</description>
+    </item>
+    
+    <item>
+      <title>记第二次在 500px 上卖出照片</title>
+      <link>https://xguox.me/sold-photo-on-500px.html/</link>
+      <pubDate>Sat, 04 Nov 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/sold-photo-on-500px.html/</guid>
+      <description>大约两年前, 日常打开邮箱无意中发现, 500px 上有一张照片的 license 被买下了? 加起来好像还是 $100+, 照片是这 https://500px.com/photo/70067871/working-in-the-dark-by-xguox 拍于 2014.05.11 两年后的今天, 还是一如往常的打开邮箱, 无意中</description>
+    </item>
+    
+    <item>
+      <title>RubyConf China 2017 杭州</title>
+      <link>https://xguox.me/rubyconf-china-2017.html/</link>
+      <pubDate>Mon, 18 Sep 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rubyconf-china-2017.html/</guid>
+      <description>写在前面, 在 9 月 12 Apple 的发布会前一天, 入了 iPhone 7 plus, 不折腾了. 第一次买票 RubyConf China 是 2012 还在上海的时候, 然后就呵呵哒了没去成, 直到 2014 才真正参加了一次, 在北</description>
+    </item>
+    
+    <item>
+      <title>Nexus 6p 让我失望透了</title>
+      <link>https://xguox.me/nexus-6p-broke-my-android-heart.html/</link>
+      <pubDate>Tue, 05 Sep 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/nexus-6p-broke-my-android-heart.html/</guid>
+      <description>手机像往常一样, 还剩 20% 左右的电量, 插上充电没在意. 回头一看, 不对劲, 怎么一直重启进不去系统. 搜了一下才发现貌似是 Nexus 5X 和 6p 的通病？ WTF! 搜索并没带</description>
+    </item>
+    
+    <item>
+      <title>Ruby 的并发, 进程, 线程, GIL, EventMachine, Celluloid</title>
+      <link>https://xguox.me/concurrency-in-ruby.html/</link>
+      <pubDate>Thu, 31 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/concurrency-in-ruby.html/</guid>
+      <description>关于并发与并行, 前不久刚好真实发生. 同事一行人去 Family Mart 买午餐, 拿回来公司只有一个微波炉加热, 在 Family Mart 有两个微波炉可以加热. 也就是说, 我们一行人一</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 07 - Processes 进程</title>
+      <link>https://xguox.me/erlang-weekly-note-07.html/</link>
+      <pubDate>Wed, 30 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-07.html/</guid>
+      <description>为了让几十个任务能同时执行, Erlang 采用了 Actor 模型, 每个 actor 都是虚拟机中的一个独立进程. 在 Erlang 中, 并发的基本单位是进程(Actor). 每个进程代表一个持</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 06 - Exceptions 异常</title>
+      <link>https://xguox.me/erlang-weekly-note-06.html/</link>
+      <pubDate>Sat, 26 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-06.html/</guid>
+      <description>Let it crash! Erlang 的异常有三类: 出错(error), 退出(exit), 抛出(throw), 针对每种异常, 都有一个与之对应的用于抛出异常内置函数, throw(Exception), ex</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 05 - Records &amp; Maps 记录与键值对</title>
+      <link>https://xguox.me/erlang-weekly-note-05.html/</link>
+      <pubDate>Mon, 21 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-05.html/</guid>
+      <description>元组是大部分 Erlang 结构化数据的基石, 而 Erlang 的记录(Record)是元组之上的语法糖, 记录可以让你避免了使用元组时增减字段所带来的麻烦以及必须记住各</description>
+    </item>
+    
+    <item>
+      <title>Rails render collection 的魔法</title>
+      <link>https://xguox.me/rails-render-collection.html/</link>
+      <pubDate>Thu, 17 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-render-collection.html/</guid>
+      <description>都知道的, 在 Rails 的 View 里边渲染集合的时候, 会用到 render 方法参数的 collection 选项 1 &amp;lt;%= render partial: &amp;#34;product&amp;#34;, collection: @products %&amp;gt; 而不是遍历集合来渲染单个模板. 渲染集合还有个简写形式. 假设 @products 是</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 04 - Recursion 递归</title>
+      <link>https://xguox.me/erlang-weekly-note-04.html/</link>
+      <pubDate>Mon, 14 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-04.html/</guid>
+      <description>尾递归 Erlang 没有 for 或者 each 之类的循环迭代结构, 循环迭代靠的是递归(Recursion). 比如, 计算 0 到 N 的累加和, 循环迭代可以这么写: 1 2 3 4 5 6</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 03 - Function 函数</title>
+      <link>https://xguox.me/erlang-weekly-note-03.html/</link>
+      <pubDate>Mon, 07 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-03.html/</guid>
+      <description>这是一段 Ruby 方法的定义, 主流的语言语法都差不多. 1 2 3 4 5 6 7 8 9 10 def greet(gender, name) case gender when :male puts(&amp;#34;Hello, Mr. #{name}!&amp;#34;) when :female puts(&amp;#34;Hello, Mrs. #{name}!&amp;#34;) else print(&amp;#34;Hello, #{name}!&amp;#34;) end end 但是, 如果换做 Erlang 来写的话: 1 2 3 4</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 02 - Module 模块</title>
+      <link>https://xguox.me/erlang-weekly-note-02.html/</link>
+      <pubDate>Sun, 30 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-02.html/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 % erl % Eshell V9.0 (abort with ^G) % 列表中的第一个元素称为头(head) hd([1,2,3,4]). 1 % 剩余的部分称为尾(tail) tl([1,2,3,4]). [2,3,4] % 列表的长度 length([1,2,3,4]). 4</description>
+    </item>
+    
+    <item>
+      <title>Rails 5 webpacker 部署时候报错</title>
+      <link>https://xguox.me/rails-webpacker-deploy.html/</link>
+      <pubDate>Wed, 26 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-webpacker-deploy.html/</guid>
+      <description>&lt;hr /&gt;
+
+&lt;p&gt;layout: post
+title: &amp;ldquo;Rails 5 webpacker 部署时候报错&amp;rdquo;
+date: 2017-07-26 13:25:20
+categories: [JavaScript, React, Ruby]&lt;/p&gt;
+
+&lt;h2 id=&#34;tags-javascript-react-ruby&#34;&gt;tags: [JavaScript, React, Ruby]&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Redux 的中 Store 的默认 state</title>
+      <link>https://xguox.me/redux-reducers-default-state.html/</link>
+      <pubDate>Mon, 24 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/redux-reducers-default-state.html/</guid>
+      <description>写了一段时间 React, Redux, 发现之前对 Redux 的 Store 理解偏差了. 每次发生 dispatch 某一个 action, 除去 action.type 的对应的 reducer, 其余都返回默认值通常是 switch 的 default 语句, Redux 在背后做了一些事情, 并不是</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 01</title>
+      <link>https://xguox.me/this-week-with-erlang.html/</link>
+      <pubDate>Thu, 20 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/this-week-with-erlang.html/</guid>
+      <description>一些意料之外但又在情理之中的语法. 为什么不是「如日中天」的 Elixir 呢? 我也想问, 也不知道. 就只是想先入坑 Erlang呢. 因为「主流」的语法先入为主</description>
+    </item>
+    
+    <item>
+      <title>停更的两个月</title>
+      <link>https://xguox.me/last-two-months.html/</link>
+      <pubDate>Thu, 13 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/last-two-months.html/</guid>
+      <description>上一篇是四月份, 至今两个多月没更新. 两个月好像做了很多事情， 却又感觉没收获什么值得写的样子. 工作上, 写前端 React 比写 Ruby 的时间还多, 课余又捣腾了一</description>
+    </item>
+    
+    <item>
+      <title>给 Rubyist 的 Postgresql Explain 教程</title>
+      <link>https://xguox.me/rubyist-guide-to-postgres-explain.html/</link>
+      <pubDate>Thu, 27 Apr 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rubyist-guide-to-postgres-explain.html/</guid>
+      <description>如果想知道你的数据库查询为啥变得越来越慢了， 那没有啥比 postgres 的 EXPLAIN 更好使的了。 其实也没啥神秘的。 就是让 postgres 告诉咱们，它是怎么去执行这个查询的。你甚至</description>
+    </item>
+    
+    <item>
+      <title>Nginx 默认不允许 header 的 key 带下划线</title>
+      <link>https://xguox.me/nginx-underscore_in_header.html/</link>
+      <pubDate>Mon, 10 Apr 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/nginx-underscore_in_header.html/</guid>
+      <description>本地开发正常的很, 上到 staging 发现歇菜了, request.env 没找着自定义的 key, 折腾老久原来是 Nginx 给抹了. = . = 解决办法: 要不换个名, 要不加一句配置 1 underscores_in_headers: on</description>
+    </item>
+    
+    <item>
+      <title>weixin://preInjectJSBridge/fail [React]</title>
+      <link>https://xguox.me/react-babel-wechat-es6-env.html/</link>
+      <pubDate>Tue, 28 Mar 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/react-babel-wechat-es6-env.html/</guid>
+      <description>Redux 中 reducer 返回 state 的时候经常用到 Object.assign， 然后几乎所有现代浏览器都试过能正常运行以后， 发现在微信的内置浏览器里边就报这玩意， weixin://preInjectJSBridge/fail babel</description>
+    </item>
+    
+    <item>
+      <title>Git Bisect Debug 利器</title>
+      <link>https://xguox.me/git-bisect-debug.html/</link>
+      <pubDate>Sat, 25 Feb 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/git-bisect-debug.html/</guid>
+      <description>老早就听说过用 Git 的 bisect, 二分查找问题 commit, 只是一直都没机会实践运用. (项目都跑的太正常了, 手动斜眼) 其实, 只是绝大部分时候总可以通过各种 Log 来追踪到问</description>
+    </item>
+    
+    <item>
+      <title>28mm &amp; 云南</title>
+      <link>https://xguox.me/28mm-trip-to-yun-nan.html/</link>
+      <pubDate>Sat, 14 Jan 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/28mm-trip-to-yun-nan.html/</guid>
+      <description>Only ILCE 7R + FE 28mm F2 滇池 民族村 大理洱海 丽江古城 玉龙雪山 蓝月谷</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch 5.X(Lucene 6) 的 BM25 相关度算法</title>
+      <link>https://xguox.me/how-elasticsearch-5-scoring-with-bm25.html/</link>
+      <pubDate>Mon, 19 Dec 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/how-elasticsearch-5-scoring-with-bm25.html/</guid>
+      <description>上次写了关于 Elasticsearch 的分数(_score)是怎么计算得出, 不过那是在 Elasticsearch 5.0 以前的版本用的, Elasticsearch 前不久发布了 5.0 版本, 基于 Lucene 6, 默认使用了 BM25 评分算法. BM25 的 BM</description>
+    </item>
+    
+    <item>
+      <title>与开发相关的一些 iOS App (通勤时间太长怪我咯?)</title>
+      <link>https://xguox.me/ios-developer-tools.html/</link>
+      <pubDate>Mon, 12 Dec 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ios-developer-tools.html/</guid>
+      <description>在路上的时间超长如我, 不是果粉, 只是有一台 iPad Air 2. 这货屏幕比手中的大法机大得多, 平日看电子书较多, 最近折腾起一些开发相关的工具, 好像还是很好玩</description>
+    </item>
+    
+    <item>
+      <title>坪田的银杏...还没黄（ ＴДＴ）</title>
+      <link>https://xguox.me/shaoguan-nanxiong-pingtian-yinxing-photo.html/</link>
+      <pubDate>Sun, 13 Nov 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/shaoguan-nanxiong-pingtian-yinxing-photo.html/</guid>
+      <description>说走就走的&amp;hellip;郊游 珠三角这些天雾霾也严重了不少, 随口一说就跑到韶关南雄, 坪田银杏森林公园. 只是辛苦了老司机开车. 银杏树, 小一些幼</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch 的分数(_score)是怎么计算得出</title>
+      <link>https://xguox.me/how-elasticsearch-scoring-document.html/</link>
+      <pubDate>Fri, 04 Nov 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/how-elasticsearch-scoring-document.html/</guid>
+      <description>上次写了关于 Elasticsearch 如何分词索引, 接着继续写 Elasticsearch 怎么计算搜索结果的得分(_score). Elasticsearch 默认是按照文档与查询的相关度(匹配度)的得分倒序返回结果的</description>
+    </item>
+    
+    <item>
+      <title>Ruby 老司机也未必 Gotcha </title>
+      <link>https://xguox.me/ruby-old-driver-may-not-gotcha.html/</link>
+      <pubDate>Sat, 22 Oct 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ruby-old-driver-may-not-gotcha.html/</guid>
+      <description>原 Google Docs 1 2 3 4 5 6 7 8 9 10 11 12 13 14 2.3.1 056 &amp;gt; str = &amp;#34;foo&amp;#34; =&amp;gt; &amp;#34;foo&amp;#34; str.upcase =&amp;gt; &amp;#34;FOO&amp;#34; str =&amp;gt; &amp;#34;foo&amp;#34; str.upcase! =&amp;gt; &amp;#34;FOO&amp;#34; str =&amp;gt; &amp;#34;FOO&amp;#34; str.upcase! # 这返回值惊呆了 =&amp;gt; nil str =&amp;gt; &amp;#34;FOO&amp;#34; Constant 1 2 3 4 5 6 7 8 FOO = 5 =&amp;gt; 5 2.3.1 002 &amp;gt; FOO =</description>
+    </item>
+    
+    <item>
+      <title>语法补习: Ruby 方法 source_location 和奇葩的逗号(,)</title>
+      <link>https://xguox.me/ruby-method-source_location-and-comma.html/</link>
+      <pubDate>Sun, 16 Oct 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ruby-method-source_location-and-comma.html/</guid>
+      <description>1 2 3 4 5 User.new.method(:order_commissions).source_location # =&amp;gt; [&amp;#34;....../vendor/bundle/gems/activerecord-4.2.6/lib/active_record/associations/builder/association.rb&amp;#34;, 114] User.method(:generate_token).source_location # [&amp;#34;....../app/models/user.rb&amp;#34;, 50] 这真的没有语法错误 = . = 1 2 3 4 v1, = [[&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;], &amp;#34;d&amp;#34;, &amp;#34;e&amp;#34;] v2, = v1 [33] pry(main)&amp;gt; v2 =&amp;gt; &amp;#34;a&amp;#34;</description>
+    </item>
+    
+    <item>
+      <title>Farewell</title>
+      <link>https://xguox.me/farewell.html/</link>
+      <pubDate>Fri, 14 Oct 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/farewell.html/</guid>
+      <description>真是矫情啊, 发个告别邮件都琢磨老久, 结果也就那么几个字而已. 遗憾的是还差那么两个月多一些就呆够两年了. 朝十上班, 晚五下班, 中休一小时, 周末双</description>
+    </item>
+    
+    <item>
+      <title>本地用 Vagrant 搭建 Elasticsearch 集群</title>
+      <link>https://xguox.me/elasticsearch-build-development-cluster-with-vagrant.html/</link>
+      <pubDate>Tue, 27 Sep 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-build-development-cluster-with-vagrant.html/</guid>
+      <description>Vagrant 在 Ruby/Rails 社区老早之前就听的挺多的, 但今天才开始尝试折腾. 当前下载的版本是 1.8.5, 虚拟机用的是 VirtualBox 5.1. 一开始尝试用 &amp;lsquo;hashicorp/precise32&amp;rsquo; 这个 box, 但是, 在设置 private_network 的时候貌似有 bug, 1 2</description>
+    </item>
+    
+    <item>
+      <title>Rails 5 belongs_to 默认 required</title>
+      <link>https://xguox.me/rails-5-belongs_to-association-required-by-default.html/</link>
+      <pubDate>Sat, 24 Sep 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-5-belongs_to-association-required-by-default.html/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 class Team &amp;lt; ApplicationRecord has_many :projects end class Project &amp;lt; ApplicationRecord belongs_to :team end [1] pry(main)&amp;gt; Project.create(name: &amp;#39;project_1&amp;#39;) (0.2ms) BEGIN (0.2ms) ROLLBACK =&amp;gt; #&amp;lt;Project:0x007fb8462ddf10 id: nil, team_id: nil, name: &amp;#34;project_1&amp;#34;, created_at: nil, updated_at: nil&amp;gt; [2] pry(main)&amp;gt; _.errors =&amp;gt; #&amp;lt;ActiveModel::Errors:0x007fb84634c500 @base=#&amp;lt;Project:0x007fb8462ddf10 id: nil, team_id: nil, name: &amp;#34;project_1&amp;#34;, created_at: nil, updated_at: nil&amp;gt;, @details={:team=&amp;gt;[{:error=&amp;gt;:blank}]}, @messages={:team=&amp;gt;[&amp;#34;must exist&amp;#34;]}&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch 如何不用停机情况下完成 mapping 的修改</title>
+      <link>https://xguox.me/elasticsearch-changing-mapping-with-zero-downtime.html/</link>
+      <pubDate>Sat, 13 Aug 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-changing-mapping-with-zero-downtime.html/</guid>
+      <description>添加新的 fields 可以不需要重新索引 reindex 的背后 真正的 0 downtime 最近使用 searchkick 这个 Gem 才发现, 之前用的 elasticsearch-rails 要更灵(jian)活(lou)的多. 为了让数据可以被查询到,</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch analysis &amp; 自定义 analyzers</title>
+      <link>https://xguox.me/elasticsearch-custom-analyzer.html/</link>
+      <pubDate>Mon, 01 Aug 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-custom-analyzer.html/</guid>
+      <description>当一个 document 被索引时, 通常是对应每个 field 都生成一个倒排索引(Inverted Index)用于作为存储的数据结构, 关于倒排索引, 推荐炮哥之前写的一篇</description>
+    </item>
+    
+    <item>
+      <title>Rails autoload_paths &amp; eager_load_paths</title>
+      <link>https://xguox.me/eager_load_paths.html/</link>
+      <pubDate>Tue, 19 Jul 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/eager_load_paths.html/</guid>
+      <description>autoload_paths 假设 Rails 项目根目录下有如下目录以及 .rb 文件, (root/)extras/foo.rb 如果啥也不干, 直接打开 rails console: 1 2 3 4 5 6 [1] pry(main)&amp;gt; defined?(Foo) =&amp;gt; nil [2] pry(main)&amp;gt; Foo NameError: uninitialized constant Foo from (pry):2:in `&amp;lt;main&amp;gt;&amp;#39; 在 application.rb 中加入一行: config.autoload_paths += %W(#{config.root}/extras) 再重启</description>
+    </item>
+    
+    <item>
+      <title>语法补习: Refinements in Ruby 2.1</title>
+      <link>https://xguox.me/ruby-2-refinements.html/</link>
+      <pubDate>Sat, 16 Jul 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ruby-2-refinements.html/</guid>
+      <description>Ruby 可以随时打开一个类进行 Monkey Patch, 但是这是一个比较危险的动作, 很容易引发一些意外, 而 2.0 开始, 加入的 refinements 则是为了让这一动作变得相对安全一些. 举个只为理</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch Monitor</title>
+      <link>https://xguox.me/elasticsearch-monitor.html/</link>
+      <pubDate>Fri, 08 Jul 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-monitor.html/</guid>
+      <description>#懒人系列 Elasticsearch 的所有监控管理查询等等操作几乎都可以在命令行里边用 curl 之类的工具完成, 只要记住一大堆形态各异的 url 就可以了. 如果经常用倒还好, 要是不</description>
+    </item>
+    
+    <item>
+      <title>Trip to Japan (Hakone, Tokyo)</title>
+      <link>https://xguox.me/trip-japan-3-hakone-tokyo.html/</link>
+      <pubDate>Sat, 11 Jun 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/trip-japan-3-hakone-tokyo.html/</guid>
+      <description>&lt;h5 id=&#34;2016-5-27&#34;&gt;2016.5.27&lt;/h5&gt;
+
+&lt;h6 id=&#34;day8&#34;&gt;Day8&lt;/h6&gt;
+
+&lt;p&gt;箱根, 芦之湖, 雾&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ww1.sinaimg.cn/large/62fdd4d5jw1f5qd9muagmj21kw11yats.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Trip to Japan (Kyoto, Osaka)</title>
+      <link>https://xguox.me/trip-japan-2-kyoto-osaka.html/</link>
+      <pubDate>Sat, 11 Jun 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/trip-japan-2-kyoto-osaka.html/</guid>
+      <description>&lt;h5 id=&#34;2016-5-23&#34;&gt;2016.5.23&lt;/h5&gt;
+
+&lt;h6 id=&#34;day4&#34;&gt;Day4&lt;/h6&gt;
+
+&lt;p&gt;新干线, 伏见稻荷&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ww4.sinaimg.cn/large/62fdd4d5gw1f5qc2bcousj21kw11ydri.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Trip to Japan (Tokyo)</title>
+      <link>https://xguox.me/trip-japan-1-tokyo.html/</link>
+      <pubDate>Sat, 11 Jun 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/trip-japan-1-tokyo.html/</guid>
+      <description>&lt;h5 id=&#34;2016-5-20&#34;&gt;2016.5.20&lt;/h5&gt;
+
+&lt;h6 id=&#34;day1&#34;&gt;Day1&lt;/h6&gt;
+
+&lt;p&gt;Airline&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ww4.sinaimg.cn/large/62fdd4d5gw1f5qanwif18j21kw11y490.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch Upstart</title>
+      <link>https://xguox.me/elasticsearch-upstart.html/</link>
+      <pubDate>Wed, 18 May 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-upstart.html/</guid>
+      <description>Elasticsearch(2.3.1) Upstart Script
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37  # Elasticsearch Upstart Script description &amp;#34;Elasticsearch upstart script&amp;#34; start on (net-device-up and local-filesystems and runlevel [2345] and startup) stop on runlevel [016] respawn respawn limit 10 30 # NB: Upstart scripts do not respect # /etc/security/limits.</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch Scroll (Ruby)</title>
+      <link>https://xguox.me/elasticsearch-scroll.html/</link>
+      <pubDate>Sat, 23 Apr 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-scroll.html/</guid>
+      <description>Elasticsearch 通过 from 和 size 参数来实现分页. size 表示返回的结果数量, 默认为 10, from 则表示从起始结果算起要跳过的结果数量, 默认为 0. 所以, 默认情况下如果返回结果数是 10</description>
+    </item>
+    
+    <item>
+      <title>Upgrade Elasticsearch to 2.3</title>
+      <link>https://xguox.me/upgrade-elasticsearch-2-3.html/</link>
+      <pubDate>Tue, 12 Apr 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/upgrade-elasticsearch-2-3.html/</guid>
+      <description>&lt;p&gt;正式环境和本地一直跑的 1.X, 最近在用 Elasticsearch 的 Aggregations 功能, 发现有一些个语法在 2.X 版本变了, 想来也要跟上潮流了. 于是着手各种升级事宜.&lt;/p&gt;
+
+&lt;p&gt;官方有专门的 &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/rolling-upgrades.html#upgrade-node&#34;&gt;Rolling upgrades 链接&lt;/a&gt;讲如何升级的, 不过, 对于目前在用的情况来说, 貌似也用不上那么麻烦. 好吧, 其实有点谈不上升级, 感觉像是直接卸载了重装差不多 = . =&lt;/p&gt;
+
+&lt;p&gt;{% highlight ruby %}&lt;/p&gt;
+
+&lt;h1 id=&#34;ubuntu&#34;&gt;Ubuntu&lt;/h1&gt;
+
+&lt;p&gt;sudo service elasticsearch stop
+wget &lt;a href=&#34;https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-2.3.1.deb&#34;&gt;https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-2.3.1.deb&lt;/a&gt;
+sudo dpkg -P elasticsearch
+sudo dpkg -i elasticsearch-2.3.1.deb
+sudo service elasticsearch start
+{% endhighlight %}&lt;/p&gt;
+
+&lt;p&gt;理论上应该无痛可以跑起来的, 不过, 有一台服务器上, 安装好了以后, Elasticsearch 一直跑不起来
+&lt;code&gt;sudo service elasticsearch start&lt;/code&gt; 一直 fail~fail~fail&lt;/p&gt;
+
+&lt;p&gt;elasticsearch.log 又啥也没输出. 折腾了半天才发现原来是 Java 的版本没跟上. 本地的 Java 8 和另一台 Java 7 都没事, 唯独这台, &lt;code&gt;java -version&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;n&#34;&gt;java&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;version&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;1.6.0_65&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;no&#34;&gt;Java&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;TM&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;SE&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Runtime&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Environment&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;build&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mo&#34;&gt;0_65&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b14&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;468&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;M4833&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;no&#34;&gt;Java&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;HotSpot&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;TM&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;64&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;Bit&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Server&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;VM&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;build&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;65&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b04&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;468&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mixed&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Elasticsearch 的官方 requirements 说最低是要 Java 7, 像之前一直跑的这个 Java 6 很可能会有各种已知的 bugs, 虽然, 1.X 还是能在这种情况下跑起来, 不过升级到 2.X 就歇菜了.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;升级完以后查看了一下状态&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;curl -XGET http://localhost:9200/_cluster/health\?pretty\=true&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;发现一直以来 Elasticsearch 的这个 status 都是黄的, 印象中好像没绿过&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;err&#34;&gt;➜&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;curl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;XGET&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;ss&#34;&gt;localhost&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9200&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_cluster&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;/health\?pretty\=true
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;{
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;cluster_name&amp;#34; : &amp;#34;elasticsearch_xguox&amp;#34;,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;status&amp;#34; : &amp;#34;yellow&amp;#34;,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;timed_out&amp;#34; : false,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;number_of_nodes&amp;#34; : 1,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;number_of_data_nodes&amp;#34; : 1,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;active_primary_shards&amp;#34; : 6,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;active_shards&amp;#34; : 6,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;relocating_shards&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;initializing_shards&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;unassigned_shards&amp;#34; : 1,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;delayed_unassigned_shards&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;number_of_pending_tasks&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;number_of_in_flight_fetch&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;task_max_waiting_in_queue_millis&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;active_shards_percent_as_number&amp;#34; : 85.71428571428571
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;elasticsearch.yml 配置文件中有一段注释: 修改 &lt;code&gt;index.number_of_replicas: 0&lt;/code&gt; 然后 reindex 就绿了.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Note, that for development on a local machine, with small indices, it usually&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# makes sense to &amp;#34;disable&amp;#34; the distributed features:&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;#index.number_of_shards: 1&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;#index.number_of_replicas: 0&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# These settings directly affect the performance of index and search operations&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# in your cluster. Assuming you have enough machines to hold shards and&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# replicas, the rule of thumb is:&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# 1. Having more *shards* enhances the _indexing_ performance and allows to&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;#    _distribute_ a big index across machines.&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# 2. Having more *replicas* enhances the _search_ performance and improves the&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;#    cluster _availability_.&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# The &amp;#34;number_of_shards&amp;#34; is a one-time setting for an index.&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# The &amp;#34;number_of_replicas&amp;#34; can be increased or decreased anytime,&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# by using the Index Update Settings API.&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;err&#34;&gt;➜&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;curl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;XGET&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;ss&#34;&gt;localhost&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9200&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_cluster&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;/health\?pretty\=true
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;{
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;cluster_name&amp;#34; : &amp;#34;elasticsearch_xguox&amp;#34;,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;status&amp;#34; : &amp;#34;green&amp;#34;,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;timed_out&amp;#34; : false,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;number_of_nodes&amp;#34; : 1,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;number_of_data_nodes&amp;#34; : 1,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;active_primary_shards&amp;#34; : 6,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;active_shards&amp;#34; : 6,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;relocating_shards&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;initializing_shards&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;unassigned_shards&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;delayed_unassigned_shards&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;number_of_pending_tasks&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;number_of_in_flight_fetch&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;task_max_waiting_in_queue_millis&amp;#34; : 0,
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;  &amp;#34;active_shards_percent_as_number&amp;#34; : 100.0
+&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;还有就是, 查看 elasticsearch.log 的时候经常看到类似这样的信息,&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;n&#34;&gt;high&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;disk&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;watermark&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;90&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;%] exceeded on [VopDVS8uRPurOowYR78xkQ]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;Marvel&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Boy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;/usr/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;/var/e&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lasticsearch&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;/elasticsearch_xguox/no&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;des&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;/0] free: 23gb[9.9%], shards will be relocated away from this node&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;也是在 配置文件 &lt;code&gt;elasticsearch.yml&lt;/code&gt; 添加下面几句就搞定了:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;n&#34;&gt;cluster&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;routing&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;allocation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;disk&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;threshold_enabled&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kp&#34;&gt;true&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;cluster&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;routing&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;allocation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;disk&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;watermark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;low&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;97&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;cluster&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;routing&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;allocation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;disk&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;watermark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;high&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;99&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;BTW, 现在都流行飙版本号了?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ww4.sinaimg.cn/large/62fdd4d5gw1f2ua8tdd6mj20h80imab9.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;React 直接跳到 15.X, 这&amp;hellip;&lt;/p&gt;
+
+&lt;hr /&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用 Ruby 处理大型 CSV 文件</title>
+      <link>https://xguox.me/processing-large-csv-with-ruby.html/</link>
+      <pubDate>Tue, 05 Apr 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/processing-large-csv-with-ruby.html/</guid>
+      <description>处理大文件是一项非常耗内存的操作, 有时候甚至会跑光服务器上的物理内存和虚拟内存. 下面来看看使用 Ruby 来处理大型 CSV 文件的几种方式, 同时测试一下这几</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch Aggregations 聚合分析</title>
+      <link>https://xguox.me/elasticsearch-aggregations.html/</link>
+      <pubDate>Thu, 31 Mar 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-aggregations.html/</guid>
+      <description>Elasticsearch 除了全文搜索以外还有一个主要功能, 就是数据的聚合分析, Aggregations. 有点类似于 SQL 中的 GROUP BY. Elasticsearch 的 Aggregations API 给出了一大堆的用法. 1.X 主要分两类: Bucket Aggregations 和 Metrics Aggregations, 2.X 多了一类</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch More Like This 搜索</title>
+      <link>https://xguox.me/elasticsearch-more-like-this.html/</link>
+      <pubDate>Mon, 29 Feb 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-more-like-this.html/</guid>
+      <description>Elasticsearch 封装好了More Like This 搜索功能, 用来基于给定的某个或某组文档, 返回与之相似的文档. 语法如下: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 { &amp;#34;more_like_this&amp;#34; : { &amp;#34;fields&amp;#34;</description>
+    </item>
+    
+    <item>
+      <title>Sony A7R on 适马 Sigma 24mm F1.4 Art, Sample</title>
+      <link>https://xguox.me/sigma-24mm-f14-art-a7r-sample.html/</link>
+      <pubDate>Sat, 27 Feb 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/sigma-24mm-f14-art-a7r-sample.html/</guid>
+      <description>先评再放片, 光圈几乎都是在 F1.4 ~ F2.0 总得来说, 分辨率杠杠的, 色彩的话, 还是跟以前一样, 玩后期的几乎不在意直出色彩. 即便是 F1.4 也别指望虚化能力有多强</description>
+    </item>
+    
+    <item>
+      <title>Sony A7R on 适马 Sigma 24mm F1.4 Art</title>
+      <link>https://xguox.me/a7r-sigma-24mm-f14-art.html/</link>
+      <pubDate>Wed, 24 Feb 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/a7r-sigma-24mm-f14-art.html/</guid>
+      <description>索蔡 Sonnar T* FE 55mm F1.8 ZA** 其实用的还是挺不错的. 只是, 用来挂机的话 55mm 还是稍稍长了点, 最后又是出了, 用了才2个月不到, 对自己也是有点服了. 好吧, 其实这个</description>
+    </item>
+    
+    <item>
+      <title>红专厂 FE 55mm F1.8 ZA 试镜</title>
+      <link>https://xguox.me/fe55-f18-redtory.html/</link>
+      <pubDate>Sat, 26 Dec 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/fe55-f18-redtory.html/</guid>
+      <description>如传闻一样, 真的很锐. 至于焦外, 没什么特别吧, 中规中矩, 木眼感觉不出什么. 洋葱圈什么的也没多在乎. 目前见识过最养眼的散景应该是 135mm F2.8[T4.5] STF . 好吧,</description>
+    </item>
+    
+    <item>
+      <title>Sonnar T* FE 55mm F1.8 ZA 开箱</title>
+      <link>https://xguox.me/fe55-f18-open-box.html/</link>
+      <pubDate>Fri, 25 Dec 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/fe55-f18-open-box.html/</guid>
+      <description>先是出掉了 FE 28-70mm f/3.5-5.6 OSS 和 Nikon AF-S NIKKOR 85mm f/1.8G 以后, 就剩下一台光杆 A7R 了. 然后是大法门下的 Sonnar T* FE 55mm F1.8 ZA 广受好评, 再然后, 就是收到镜头啦~ ヾ(=^▽^=)ノ 高高</description>
+    </item>
+    
+    <item>
+      <title>Git 合并 commits</title>
+      <link>https://xguox.me/git-squashing-commits-with-rebase.html/</link>
+      <pubDate>Tue, 22 Dec 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/git-squashing-commits-with-rebase.html/</guid>
+      <description>很多时候, 为了方便别人帮忙 review 代码, 习惯喜欢把某个 todo 任务的提交合并作为一个. 如果想直接合到前一个 commit 的话, 一般都是用 git commit --amend 很多时候 typo 都这么干, 省</description>
+    </item>
+    
+    <item>
+      <title>查看 VPS 上打开/关闭的端口号</title>
+      <link>https://xguox.me/check-opened-closed-port.html/</link>
+      <pubDate>Mon, 23 Nov 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/check-opened-closed-port.html/</guid>
+      <description>Mark 一下一个有用的命令, 运维比较渣没有系统研究过, 唯有见一个标一个 = . = 1 netstat -lpn list current enable port 输出一般如下: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 Proto Recv-Q Send-Q Local Address</description>
+    </item>
+    
+    <item>
+      <title>Linux 的 2&gt;&amp;1</title>
+      <link>https://xguox.me/linux-shell-2-1.html/</link>
+      <pubDate>Tue, 10 Nov 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/linux-shell-2-1.html/</guid>
+      <description>Shell 命令缓慢的学习中&amp;hellip; Shell 脚本的 &amp;gt; 表示输出重定向, 而 0 1 2 则分别代表标准输入(stdin), 标准输出(stdout)和标准错误(s</description>
+    </item>
+    
+    <item>
+      <title>拍照在台湾</title>
+      <link>https://xguox.me/taiwan-tour.html/</link>
+      <pubDate>Tue, 10 Nov 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/taiwan-tour.html/</guid>
+      <description>一直以来主力机都用的是 A7R + FE 28-70, 因为某些缘故, 前个月入了 Nikon AF-S NIKKOR 85mm f/1.8G, (不是拿来配 A7R 的, 虽然有想过玩转接) 这次去台湾粗略的浏览了一遍, 转了小半圈,</description>
+    </item>
+    
+    <item>
+      <title>[Rails] Model 关联选项之 :inverse_of</title>
+      <link>https://xguox.me/rails-model-association-inverse_of.html/</link>
+      <pubDate>Sat, 17 Oct 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-model-association-inverse_of.html/</guid>
+      <description>在小项目没怎么遇见过的 model 之间的 has_many 关联选项 :inverse_of, 用来指定相对应的 belongs_to 关联的名字, (反之对于 belongs_to 也一样,文邹邹的 (・_・ヾ ). 不能与 :through , :as, :polymorphic 一起使用. 1 2</description>
+    </item>
+    
+    <item>
+      <title>Rails.cache.fetch Relation 的&#39;坑&#39;</title>
+      <link>https://xguox.me/rails-cache-fetch-scope.html/</link>
+      <pubDate>Tue, 29 Sep 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-cache-fetch-scope.html/</guid>
+      <description>除了页面(Page), 动作(Action), 片段(Fragment)等这三种 Rails 所支持的缓存以外, Rails 还提供了更底层的, 对于特定值或者查询结果缓</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch on Rails</title>
+      <link>https://xguox.me/elasticsearch-rails.html/</link>
+      <pubDate>Wed, 16 Sep 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-rails.html/</guid>
+      <description>上一篇扯了一大通都只是 Elasticsearch 的安装配置, 现在扯点集成到 Rails 上的东西. elasticsearch-rails 这个 Repository 是由三个 Gem 组成, 1 2 3 gem &amp;#39;elasticsearch-model&amp;#39; gem &amp;#39;elasticsearch-rails&amp;#39; gem &amp;#39;elasticsearch-persistence&amp;#39; 总觉得这里起名略蛋疼 = . = 一般用到前</description>
+    </item>
+    
+    <item>
+      <title>MySQL 的 TRUNCATE</title>
+      <link>https://xguox.me/mysql-truncate-vs-delete.html/</link>
+      <pubDate>Sun, 06 Sep 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/mysql-truncate-vs-delete.html/</guid>
+      <description>1 TRUNCATE [TABLE] tbl_name TRUNCATE 语句可以用来清空一个表格里面的数据. 跟使用 DELETE 语句来删除所有行相似, 又或者也跟 DROP TABLE + CREATE TABLE 连用的效果相似. 为了达到更高的性能, 它绕过了</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch 开箱笔记</title>
+      <link>https://xguox.me/elasticsearch-ik-mmseg-homebrew-ubuntu.html/</link>
+      <pubDate>Mon, 31 Aug 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/elasticsearch-ik-mmseg-homebrew-ubuntu.html/</guid>
+      <description>和 Solr 一样, Elasticsearch 是一个基于全文搜索引擎 Apache Lucene&amp;trade; 基础上的搜索引擎. 没怎么用 Solr, 所以不好做各方面比较. 而厂里的 CRM 系统用的就是 Elasticsearch. Elasticsearch 不仅可以支持全文搜索, 同时</description>
+    </item>
+    
+    <item>
+      <title>提问的智慧</title>
+      <link>https://xguox.me/ask-intelligently.html/</link>
+      <pubDate>Thu, 30 Apr 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ask-intelligently.html/</guid>
+      <description>最经常被炮哥说的一句就是, &amp;ldquo;看错误提示啊&amp;rdquo; 今天又是一个奇葩问题, 同样的代码, 居然正式环境上正常的跑, 但是本地一直报错</description>
+    </item>
+    
+    <item>
+      <title>理解 Unix 进程</title>
+      <link>https://xguox.me/ruby-unix-fork.html/</link>
+      <pubDate>Tue, 28 Apr 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ruby-unix-fork.html/</guid>
+      <description>推荐 Rubyist 看 &amp;lt;理解Unix进程&amp;gt;, 至少, 像我这种不是科班出身的, 可以好好补补一些计算机系统的那些基础知识. 虽然还没看完, 虽然书中的例</description>
+    </item>
+    
+    <item>
+      <title>2015 first post</title>
+      <link>https://xguox.me/2015-first-post.html/</link>
+      <pubDate>Sat, 25 Apr 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/2015-first-post.html/</guid>
+      <description>荒废了许久, 不过这儿没有杂草丛生. 老早前还说总结 2014 的. 还有早之前参加 2014 RubyConf China. 从上一篇的北上回来, 就把这里给落了. 即便至今也没有信心能坚持再拾起</description>
+    </item>
+    
+    <item>
+      <title>One day in Nanjing</title>
+      <link>https://xguox.me/one-day-in-nanjing.html/</link>
+      <pubDate>Fri, 31 Oct 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/one-day-in-nanjing.html/</guid>
+      <description>喜欢散步这个词, 是从 Aokiji 那儿学来的, 懒散的正义! 该逗比的时候毫无大将之风, 该流弊的时候却流弊的轰轰. 这一次是散到了南京. 定南京是因为这里交通方</description>
+    </item>
+    
+    <item>
+      <title>只说没有做到的</title>
+      <link>https://xguox.me/things-fail-to-do.html/</link>
+      <pubDate>Tue, 07 Oct 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/things-fail-to-do.html/</guid>
+      <description>应该会是这么多年以来印象最深刻的一个国庆长假(这不扯淡吗? 刚刚过去还能不印象深刻?). 有些事情就是那么的奇怪, 如果我当初了解多了, 或者多问了</description>
+    </item>
+    
+    <item>
+      <title>[repost]怒赞!</title>
+      <link>https://xguox.me/bull-shit-about-jobs-and-apple.html/</link>
+      <pubDate>Tue, 09 Sep 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/bull-shit-about-jobs-and-apple.html/</guid>
+      <description>明儿要貌似要发布 iPhone 6, 不关我事, 我买不起. 不过每每这个时候看到某些关于 Apple 的言论会让我这个伪谷粉觉得蛋疼, 但自己才疏学浅, 偶见这则评论, 不能同意</description>
+    </item>
+    
+    <item>
+      <title>琐碎杂事一记</title>
+      <link>https://xguox.me/something-trivial.html/</link>
+      <pubDate>Thu, 21 Aug 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/something-trivial.html/</guid>
+      <description>不是个喜欢做好事的热心人, 但是今天的正能量却是杠杠的. 午觉碎醒走去上班的路上, 忽然就飙起倾盆大雨. 走到祈福湖附近的时候, 身旁一个小盆友喊道「</description>
+    </item>
+    
+    <item>
+      <title>@import vs require</title>
+      <link>https://xguox.me/import-vs-require.html/</link>
+      <pubDate>Tue, 01 Jul 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/import-vs-require.html/</guid>
+      <description>因为项目是我中途参入进来的, 所以并没有注意到 CSS(Sass) 的组织一直都是用的 Sprockets 的方式去 require, 尽管这期间写了不少的CSS(Sass), 包括后来当添加一些个变量</description>
+    </item>
+    
+    <item>
+      <title>新玩具 AKG Q701</title>
+      <link>https://xguox.me/akg-q701.html/</link>
+      <pubDate>Tue, 01 Jul 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/akg-q701.html/</guid>
+      <description>深感无力烧镜头, 于是, 新入了个玩具, AKG Q701 骚绿骚绿的, 他们说, 敢戴着出街是需要强大的勇气的说! 额&amp;hellip; 绝大多数时候我应该不会戴着出街</description>
+    </item>
+    
+    <item>
+      <title>Ruby 中的 &amp;</title>
+      <link>https://xguox.me/ampersand-in-ruby.html/</link>
+      <pubDate>Fri, 20 Jun 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ampersand-in-ruby.html/</guid>
+      <description>才发现, &amp;amp; 还是一个按位与运算符, 好像应该用才想起, 貌似以前看 &amp;lsquo;Ruby 编程语言&amp;rsquo; 内本书的时候有看到过, 不过感觉比较少用到, 没怎么去记住.</description>
+    </item>
+    
+    <item>
+      <title>线下 Coding 六月之儿童节与端午节</title>
+      <link>https://xguox.me/early-june-coding.html/</link>
+      <pubDate>Tue, 03 Jun 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/early-june-coding.html/</guid>
+      <description>很久很久以前, 大概是 2012.5 , 应该是 第6次 GZRuby Meetup, 那时候还是在客村那边打杂, 本想去 那一次 的 Meetup, 结果就忽然发烧了, 结果也就是没去成. 错过了那一次之后, 就滚</description>
+    </item>
+    
+    <item>
+      <title>Plannar 1.4/50 T*   (50mm 的毕业季)</title>
+      <link>https://xguox.me/plannar-50mm-t.html/</link>
+      <pubDate>Tue, 20 May 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/plannar-50mm-t.html/</guid>
+      <description>新识的小伙伴也喜欢摄影, 尤爱把玩一些老镜头, 前不久发现他有一枚康泰时 T* 50&amp;frasl;1.4(MM) Planar , 恰好, 偶的 7R 也号称有容纳一切镜头的力量 (法兰距小, 各种转接撸起)</description>
+    </item>
+    
+    <item>
+      <title>祈福一个周末</title>
+      <link>https://xguox.me/clifford-jabber.html/</link>
+      <pubDate>Sun, 13 Apr 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/clifford-jabber.html/</guid>
+      <description>这些天, 祈福不太安宁, 比如, 昨天的小游行, 还有今天, 原本周末想大睡特睡, 结果两天很快就没了. 大早的又去了耕田大学, 一是给 Mac 贴膜, 二是拷贝让朋</description>
+    </item>
+    
+    <item>
+      <title>A Song of Ice and Fire</title>
+      <link>https://xguox.me/a-song-of-ice-and-fire.html/</link>
+      <pubDate>Mon, 07 Apr 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/a-song-of-ice-and-fire.html/</guid>
+      <description>关于&amp;rsquo;冰与火之歌&amp;rsquo;(A Song of Ice and Fire),&amp;lsquo;权力的游戏&amp;rsquo; 早就于1996年在英国出版, 然后20</description>
+    </item>
+    
+    <item>
+      <title>New Mac</title>
+      <link>https://xguox.me/new-mac.html/</link>
+      <pubDate>Wed, 02 Apr 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/new-mac.html/</guid>
+      <description>Air 用了 一年略多, 又被我换成了 Pro. 15&amp;rsquo; 的 ME293, 开箱之后端起来那一刻, 我是多么的怀念 我的Air, ME293也就2.02kg, 看上去比以前的MD231也就</description>
+    </item>
+    
+    <item>
+      <title>Welcome to Jekyll!</title>
+      <link>https://xguox.me/welcome-to-jekyll.html/</link>
+      <pubDate>Fri, 21 Mar 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/welcome-to-jekyll.html/</guid>
+      <description>说不清为嘛要转到 Jekyll, 原本的 Octopress 也就是基于 Jekyll 的, 这个三栏单页的主题看着就想到简书, 也几乎直接秒了IE, 只支持到 IE10 习惯了的 Octopress 要转过来还是遇上不少麻烦</description>
+    </item>
+    
+    <item>
+      <title>OneNote or Evernote?</title>
+      <link>https://xguox.me/onenote-or-evernote.html/</link>
+      <pubDate>Tue, 18 Mar 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/onenote-or-evernote.html/</guid>
+      <description>近日, 微软发布了 Mac 版 OneNote. 原本没想着装来耍耍的, 只是看了下大概, 发觉 UI 相较之 Evernote 更符合我的胃口, 于是, OOXX 话说, 以前用 Lumia 的 Windows Phone 的时候玩过一会. 其实我</description>
+    </item>
+    
+    <item>
+      <title>a new day has come</title>
+      <link>https://xguox.me/a-new-day-has-come.html/</link>
+      <pubDate>Tue, 11 Mar 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/a-new-day-has-come.html/</guid>
+      <description>一切都跟那时候的上海那么像, 我还是在一家创业公司, 当着&amp;rdquo;全栈&amp;rdquo;新手. 住的地儿跟上班的地儿也是步行的节奏. 稍稍不同的是</description>
+    </item>
+    
+    <item>
+      <title>css3 之 column-*</title>
+      <link>https://xguox.me/css3-column-star.html/</link>
+      <pubDate>Thu, 13 Feb 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/css3-column-star.html/</guid>
+      <description>原本想要使用 CSS3 中的多栏属性实现类似报纸那样的排版, 或者 pinterest 那样的瀑布流, 但结果跟预想相去较远. 原以为用 column-count 或 column-width 来将 HTML 元素变成多栏, 再 column-gap 定义为 0 让</description>
+    </item>
+    
+    <item>
+      <title>New Relic T&#39; 开箱!</title>
+      <link>https://xguox.me/new-relic-t-shirt-unbox.html/</link>
+      <pubDate>Thu, 30 Jan 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/new-relic-t-shirt-unbox.html/</guid>
+      <description>一件 T&amp;rsquo; 而已, 我是不是很无聊? 而且明明就没箱子 = . = 其实是因为之前忘了在哪看到的, 有一篇牙签盒什么的开箱. 更鸡碎的东西 = . = 不要吐槽没事找渣儿</description>
+    </item>
+    
+    <item>
+      <title>2014!</title>
+      <link>https://xguox.me/2013-2014.html/</link>
+      <pubDate>Tue, 31 Dec 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/2013-2014.html/</guid>
+      <description>单曲循环从以前的陈奕迅换成了郑秀文. 截图来自http://xguox.me/blog/2013/01/01/2013-new-year/ 身体</description>
+    </item>
+    
+    <item>
+      <title>自动更换 Sublime Text 主题 by Automator IFTTT Dropbox</title>
+      <link>https://xguox.me/automator-ifttt-dropbox-sublime-theme.html/</link>
+      <pubDate>Tue, 24 Dec 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/automator-ifttt-dropbox-sublime-theme.html/</guid>
+      <description>没事喜欢折腾下 Sublime Text 的主题, 当然可能看习惯一种主题对编码也有帮助的, 对各种语法匹配各种颜色形成了习惯, 出现 typo 或者其他的一些错误也较容易发现吧.</description>
+    </item>
+    
+    <item>
+      <title>Rails 4 Devise Strong Parameters</title>
+      <link>https://xguox.me/rails4-devise-strong-parameters.html/</link>
+      <pubDate>Fri, 20 Dec 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails4-devise-strong-parameters.html/</guid>
+      <description>重拾 Rails, 然后用了 devise 这个 Gem ,遂继续笔记之 Devise 在 ruby 社区里头几乎都称之为一门重炮, 当然了, 重换来的是功能丰富, 用户注册登录相关的一个 Gem 搞定, 只是要把源</description>
+    </item>
+    
+    <item>
+      <title>One Piece Chapter 731</title>
+      <link>https://xguox.me/sabo-and-koala-and-one-piece.html/</link>
+      <pubDate>Wed, 11 Dec 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/sabo-and-koala-and-one-piece.html/</guid>
+      <description>尾田大神一下子, 「唔声唔声吓你一惊」 其实德雷斯罗萨已经很激动了, 连毕古麻姆都来了!!! 只是这激动归激动, 但都是各种不利草帽的因素!! 整个德雷</description>
+    </item>
+    
+    <item>
+      <title>Diary: 22 西涌</title>
+      <link>https://xguox.me/hello-22.html/</link>
+      <pubDate>Mon, 09 Dec 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/hello-22.html/</guid>
+      <description>前奏 原本是要长叹自己从20岁病到现在22了。发觉消沉的东西太多了，还是不发神经扯淡了。 不是特地计划生日当天跑来深圳大鹏半岛这边。不过我却的确</description>
+    </item>
+    
+    <item>
+      <title>解决 Lightroom 闪退</title>
+      <link>https://xguox.me/lightroom-flash-quit-because-of-too-many-presets.html/</link>
+      <pubDate>Thu, 28 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/lightroom-flash-quit-because-of-too-many-presets.html/</guid>
+      <description>接上一篇, 想着在网上搞了那么多的预设,不用放着也不碍事. 结果没些时间, Lightroom 就各种闪退各种编辑不能. 按理说应该不是跟 Maverick 兼容问题吧,如果那样的话升</description>
+    </item>
+    
+    <item>
+      <title>用 A7R 玩开箱并各档不严谨不严肃不专业无责任高感测试</title>
+      <link>https://xguox.me/a7r-iso-unbox-manfrotto.html/</link>
+      <pubDate>Sat, 23 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/a7r-iso-unbox-manfrotto.html/</guid>
+      <description>http://hq.update.sony.net.edgesuite.net/united/clock/assets/sound/a_clock_main_theme2012.mp3 接上一篇, 按理说, 应该是给刚到手新鲜热辣略烫手(都几天了还烫手= . =)的 A7R 玩儿开箱, 不过以 A7/R 这一系列的火爆程度, 开箱文从15号左右开始, 一</description>
+    </item>
+    
+    <item>
+      <title>Lightroom 预设</title>
+      <link>https://xguox.me/lightroom-presets.html/</link>
+      <pubDate>Thu, 14 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/lightroom-presets.html/</guid>
+      <description>在网上搜罗了各种 Lightroom 预设一大车, 目测有两三千个了. 之前都是直接的一坨坨的 copy 到 ~/Library/Application Support/Adobe/Lightroom/Develop Presets/, 然后好奇了一下用 Sublime 随意打开来瞧瞧,额,原来长这样,好高端,不</description>
+    </item>
+    
+    <item>
+      <title>Time Machine &amp; Local Snapshots</title>
+      <link>https://xguox.me/time-machine-local-snapshot.html/</link>
+      <pubDate>Tue, 12 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/time-machine-local-snapshot.html/</guid>
+      <description>因为 Air 的硬盘只有 120G,所以总习惯性地  - 关于本机 - 更多信息 然后每次都看着那蛋疼的数字, 然后这次略离谱了 有一段时间没 check, 话说之前一般都维持在</description>
+    </item>
+    
+    <item>
+      <title>不折腾会死玩相机星人</title>
+      <link>https://xguox.me/camera-geek.html/</link>
+      <pubDate>Mon, 11 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/camera-geek.html/</guid>
+      <description>http://hq.update.sony.net.edgesuite.net/united/clock/assets/sound/a_clock_main_theme2012.mp3 先赞上一个 bgm, 来自 Sony Global - &amp;ldquo;α&amp;rdquo; CLOCK: WORLD TIME, CAPTURED BY &amp;ldquo;α&amp;rdquo; 那个对焦声音以前听 A77 听习惯了, 现在蛮有感觉的.</description>
+    </item>
+    
+    <item>
+      <title>一本书和一个杯子</title>
+      <link>https://xguox.me/a-sudden-consciousness.html/</link>
+      <pubDate>Sat, 09 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/a-sudden-consciousness.html/</guid>
+      <description>http://m1.file.xiami.com/259/58259/515557/1771031189_3321387_l.mp3 忽然发现, 曾经买过一本Rails书, AWDWR. 然后,落了在上海. 第四版的,这一版本的中译本封面真心难看,跟英文原书完全不同了. 其次还落了的是一个杯</description>
+    </item>
+    
+    <item>
+      <title>重拾Ruby (III)</title>
+      <link>https://xguox.me/relearn-ruby-iii.html/</link>
+      <pubDate>Thu, 07 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/relearn-ruby-iii.html/</guid>
+      <description>不把这些当做笔记卸写下来总隐隐约约觉得自己没掌握, 所以还是继续做笔记. Proc lambda 在1.9之后的写法(之前的也可以用) 1 lamb = -&amp;gt; { } proc 对象 和 block 对象之间</description>
+    </item>
+    
+    <item>
+      <title>重拾Ruby (II)</title>
+      <link>https://xguox.me/relearn-ruby-2.html/</link>
+      <pubDate>Tue, 05 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/relearn-ruby-2.html/</guid>
+      <description>继续复习 + 笔记, 今天要写的是 Dynamic Classes &amp;amp; Methods Struct 一般的, 定义一个类的做法如下： 1 2 3 4 5 6 7 8 9 class Game attr_accessor :name, :year, :system def initialize(name, year, system) self.name = name self.year = year self.system = system end end 而鉴于以上这</description>
+    </item>
+    
+    <item>
+      <title>重拾Ruby (I)</title>
+      <link>https://xguox.me/relearn-ruby.html/</link>
+      <pubDate>Mon, 04 Nov 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/relearn-ruby.html/</guid>
+      <description>真心尴尬,学习并使用了一年多的 Ruby/Rails,然后些个月不碰就忘了大半了.原本就不高端,这一回滚跟重头再来差不多了. 语法还能快速过了一</description>
+    </item>
+    
+    <item>
+      <title>Hidden Productivity Secrets With Alfred</title>
+      <link>https://xguox.me/hidden-productivity-secrets-with-alfred.html/</link>
+      <pubDate>Mon, 28 Oct 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/hidden-productivity-secrets-with-alfred.html/</guid>
+      <description>好的开发人员总是在寻找可以让自己的工作流程更快速,更自动化的方法. 这次,我们带来的是Alfred的一系列workflows,它们可以极大的提</description>
+    </item>
+    
+    <item>
+      <title>由OP最近的拖剧情说起</title>
+      <link>https://xguox.me/one-piece-recently.html/</link>
+      <pubDate>Fri, 11 Oct 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/one-piece-recently.html/</guid>
+      <description>尽管在我的个人Tags里边经常标的无非那几个,Code,摄影,One Piece, 也无碍接下来抱怨几句最近的OP(动画). 追着OP的看官不难发现,最近动</description>
+    </item>
+    
+    <item>
+      <title>Back to Code</title>
+      <link>https://xguox.me/back-to-code.html/</link>
+      <pubDate>Fri, 27 Sep 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/back-to-code.html/</guid>
+      <description>好多年以前,在「街头篮球」这款游戏看到过的一句,「一天不碰球,就一天没长进」. 而今,我是好几个月没真正意义的code,所以,这状态,想不ro</description>
+    </item>
+    
+    <item>
+      <title>照片的故事</title>
+      <link>https://xguox.me/photos-and-stories.html/</link>
+      <pubDate>Mon, 03 Jun 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/photos-and-stories.html/</guid>
+      <description>那时候,你们在想着什么,仅仅只是摆着姿势那么简单吗? 你说我穿的太colorful了,没有你那么忧伤 要是我的最深处也这般colorful那该多</description>
+    </item>
+    
+    <item>
+      <title>[Repost]关于D一族的真相以及历史文本的分析</title>
+      <link>https://xguox.me/record-of-the-void-century-and-d.html/</link>
+      <pubDate>Sun, 12 May 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/record-of-the-void-century-and-d.html/</guid>
+      <description>关于D一族的真相: 路飞等人,一出场就有了与众不同的名字,即在名字当中比所有的普通人都多了一个D字,而海贼里不像现实中的美国等国,有Middl</description>
+    </item>
+    
+    <item>
+      <title>[Repost]与父亲在一起的日子 (组图)</title>
+      <link>https://xguox.me/repost-days-with-my-father.html/</link>
+      <pubDate>Sat, 11 May 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/repost-days-with-my-father.html/</guid>
+      <description>昨天是父亲节. 半夜里,我突然想起来,曾经推荐过一个美国摄影师的作品.母亲去世后,他就拍他的父亲,还写下自己的感想. 这组作品,我看过多次,昨天</description>
+    </item>
+    
+    <item>
+      <title>[Repost]旅行,写作,编程</title>
+      <link>https://xguox.me/traveling-writing-programming.html/</link>
+      <pubDate>Sat, 13 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/traveling-writing-programming.html/</guid>
+      <description>概括起来,今年到目前为止,我所做的事情包括: 花了10个月的时间做世界环游,途经非洲,东南亚,澳洲,中南美洲里的17个国家和地区.这次旅行的主</description>
+    </item>
+    
+    <item>
+      <title>如何在一年里周游世界</title>
+      <link>https://xguox.me/how-to-travel-around-the-world-for-a-year.html/</link>
+      <pubDate>Sat, 13 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/how-to-travel-around-the-world-for-a-year.html/</guid>
+      <description>在我的上一篇文章traveling, writing and programming中, 涵盖了我前一年的旅行, 写作, 编程. 而在这一篇文章中, 将会具体地对整一个旅程</description>
+    </item>
+    
+    <item>
+      <title>扯点Sublime</title>
+      <link>https://xguox.me/jabber-sublime.html/</link>
+      <pubDate>Thu, 11 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/jabber-sublime.html/</guid>
+      <description>Fxxk Jabber 回想起初初接触编程语言的时候, 特喜欢折腾IDE的玩意, 什么visual studio啊, Eclipse啊, Netbeans, Aptana的会不会用好不好用</description>
+    </item>
+    
+    <item>
+      <title>Meteor: Understanding Publications and Subscriptions</title>
+      <link>https://xguox.me/understanding-publications-and-subscriptions.html/</link>
+      <pubDate>Wed, 10 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/understanding-publications-and-subscriptions.html/</guid>
+      <description>LEVEL: INTERMEDIATE Publications &amp;amp; subscriptions 是在Meteor里最基本也是最重要的概念之一, 但同时也是最难理解的. 很大程度上是由于这其中跟传统的构建web的方式有很大的不同. 过</description>
+    </item>
+    
+    <item>
+      <title>继续折腾 -- Hexo版Blog</title>
+      <link>https://xguox.me/hexo-blog-node-octopress.html/</link>
+      <pubDate>Mon, 08 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/hexo-blog-node-octopress.html/</guid>
+      <description>早之前就听说了Hexo, 也就是Octopress的node.js版本, 不过是源自台湾. setup的话其实中文英文都无妨吧. 尽管阅读起来肯定是</description>
+    </item>
+    
+    <item>
+      <title>最近在折腾 -- deploy Meteor on heroku</title>
+      <link>https://xguox.me/deploy-meteor-on-heroku.html/</link>
+      <pubDate>Sat, 06 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/deploy-meteor-on-heroku.html/</guid>
+      <description>貌似有好一段时间没有在这儿小发一些闷骚或者情感泛滥什么的, 都是用自己蹩脚的英语水平翻译些英文post. 这些天想部署个Meteor app玩一玩</description>
+    </item>
+    
+    <item>
+      <title>Improving UX Through Front-End Performance</title>
+      <link>https://xguox.me/improving-ux-through-front-end-performance.html/</link>
+      <pubDate>Wed, 20 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/improving-ux-through-front-end-performance.html/</guid>
+      <description>想象一下,你正在一个马路口等待着过马路. You push the button to call the walk signal, and you take out your phone. 你想要完成某件事: 可能是查看邮件, 可能是给你的to-do列表添加一条i</description>
+    </item>
+    
+    <item>
+      <title>5 Meteor Misconceptions</title>
+      <link>https://xguox.me/5-meteor-misconceptions.html/</link>
+      <pubDate>Thu, 14 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/5-meteor-misconceptions.html/</guid>
+      <description>由于某些原因,关于Meteor一直都有着各种各样的误解.或许是因为Meteor刚正式推出的时候, 缺失很多重要的功能.而很多不知道的是,这些缺</description>
+    </item>
+    
+    <item>
+      <title>Introduction to Realtime Web with Meteor and Node.js</title>
+      <link>https://xguox.me/introduction-to-realtime-web-with-meteor-dot-js-and-node-dot-js.html/</link>
+      <pubDate>Sun, 10 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/introduction-to-realtime-web-with-meteor-dot-js-and-node-dot-js.html/</guid>
+      <description>最近,有许多关于 Derby.js的激动人心的讨论涌现在了我的Twitter Timeline. 我从未使用过能够帮你做这么多&amp;ndash;实时同步客户端和服务端</description>
+    </item>
+    
+    <item>
+      <title>Meteor 基础与最佳实践</title>
+      <link>https://xguox.me/learn-meteor-fundamentals-and-best-practices.html/</link>
+      <pubDate>Fri, 08 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/learn-meteor-fundamentals-and-best-practices.html/</guid>
+      <description>引言 想知道这个新奇又好玩的东西&amp;ndash; Meteor是如何工作的?那就太好了,你来对地方了. 我会向你展示一个Meteor项目的方方面面 并</description>
+    </item>
+    
+    <item>
+      <title>A Look at a Meteor Template</title>
+      <link>https://xguox.me/a-look-at-a-meteor-template.html/</link>
+      <pubDate>Wed, 06 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/a-look-at-a-meteor-template.html/</guid>
+      <description>LEVEL: BEGINNER 学习一门语言或框架的最好方法之一是从零开始开发一个应用程序. 但是,当你开发了N次的To-do list应用之后, 或许你会想要一些稍微新鲜的</description>
+    </item>
+    
+    <item>
+      <title>Getting Started with Meteor</title>
+      <link>https://xguox.me/getting-started-with-meteor.html/</link>
+      <pubDate>Tue, 05 Mar 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/getting-started-with-meteor.html/</guid>
+      <description>LEVEL: BEGINNER 当你看到这,也就说明你听说了Meteor这东西, 并对它产生一些好奇. 那就让我们创建一个最基本的应用来耍一耍吧. 希望能以此学习到一两样东西</description>
+    </item>
+    
+    <item>
+      <title>你应该在生产环境下使用JavaScript的严格模式(strict mode)吗?</title>
+      <link>https://xguox.me/should-you-use-strict-in-your-production-javascript.html/</link>
+      <pubDate>Fri, 08 Feb 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/should-you-use-strict-in-your-production-javascript.html/</guid>
+      <description>ECMAScript 5 中引入了一种定义,可以切换让你的JavaScript代码是否在所谓的 严格模式(strict mode)下执行.因为在strict mode下</description>
+    </item>
+    
+    <item>
+      <title>About My Translation</title>
+      <link>https://xguox.me/about-translation.html/</link>
+      <pubDate>Thu, 07 Feb 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/about-translation.html/</guid>
+      <description>First off,以俺目前的各种水平,想写出一些好的 technical articles 是有点难度的啦.于是乎,我选择了翻译国外一些好的文章.不管多么新鲜的技术,就算找不着中文资料</description>
+    </item>
+    
+    <item>
+      <title>你可能不知道的JSON.stingify()</title>
+      <link>https://xguox.me/what-you-might-not-know-about-json-dot-stringify.html/</link>
+      <pubDate>Fri, 01 Feb 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/what-you-might-not-know-about-json-dot-stringify.html/</guid>
+      <description>几乎所有开发人员都会花一些时间在JavaScript上,有些时候是在使用JSON.stingify(以及与之相对应的,JSON.parse)</description>
+    </item>
+    
+    <item>
+      <title>2013 new year</title>
+      <link>https://xguox.me/2013-new-year.html/</link>
+      <pubDate>Tue, 01 Jan 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/2013-new-year.html/</guid>
+      <description>回看2011的最后一篇,2012的那个元旦,上一次的夜游白云山看那看不到的日出,想来,我的这两元旦都&amp;rdquo;不平淡&amp;rdquo;呀.只</description>
+    </item>
+    
+    <item>
+      <title>Positive Energy</title>
+      <link>https://xguox.me/positive-energy.html/</link>
+      <pubDate>Sun, 02 Dec 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/positive-energy.html/</guid>
+      <description>前天,新装了win8,还是因为技术各种不到位,结果原本的ubuntu活生生的被干掉了.于是乎,我就总安慰自己,哎,毕竟不是计算机专业的,是菜</description>
+    </item>
+    
+    <item>
+      <title>最近有感,关于玩</title>
+      <link>https://xguox.me/recently-feeling.html/</link>
+      <pubDate>Wed, 26 Sep 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/recently-feeling.html/</guid>
+      <description>101假期临近了,前不久,Larry刚去了张家界回来,Linux也准备去青海,好是羡慕呀.时间再往前推一些,班级刚组织了一趟毕业旅游,是去阳</description>
+    </item>
+    
+    <item>
+      <title>写在 Maleskine 上线前夕</title>
+      <link>https://xguox.me/writing-before-the-maleskine-release.html/</link>
+      <pubDate>Sat, 25 Aug 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/writing-before-the-maleskine-release.html/</guid>
+      <description>简书前身: Maleskine 首先,我木有想到的是linux居然比我还早写了一篇Maleskine相关的,不过我应该要猜到的.不过我写的可能与他写的不太相同(</description>
+    </item>
+    
+    <item>
+      <title>....sickness</title>
+      <link>https://xguox.me/the-past.html/</link>
+      <pubDate>Sat, 11 Aug 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/the-past.html/</guid>
+      <description>每一个礼拜都没带着什么意识就来到了周五、周末,接着又没带什么意识的进入工作日. 这个周末有点不同的是煽情的神经又崩了.因为毫无意识地在网上很蛋</description>
+    </item>
+    
+    <item>
+      <title>About a Month</title>
+      <link>https://xguox.me/about-a-month.html/</link>
+      <pubDate>Fri, 27 Jul 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/about-a-month.html/</guid>
+      <description>还差个几天,来到上海就一个月了.又想写写东西了. 昨天大炮他们刚走,也来了将近10天吧.也多得他们的到来我才真正意义的走出小区到外边走走,期间</description>
+    </item>
+    
+    <item>
+      <title>不平坦的魔都路</title>
+      <link>https://xguox.me/an-unusual-trip.html/</link>
+      <pubDate>Sun, 15 Jul 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/an-unusual-trip.html/</guid>
+      <description>来到上海两周多些,好事是有不少,但坎坷的也是不少.前几天纠结了好一些时间转房子的事情,刚刚解脱了,而今又胃病再次来袭,还花了好大一笔.家里人</description>
+    </item>
+    
+    <item>
+      <title>Rails 3 Remote Links and Forms Part 2: Data-type (With jQuery)</title>
+      <link>https://xguox.me/rails-3-remote-links-and-forms-part-2-data-type-with-jquery.html/</link>
+      <pubDate>Thu, 12 Jul 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-3-remote-links-and-forms-part-2-data-type-with-jquery.html/</guid>
+      <description>自从写了Rails 3 Remote Links &amp;amp; Forms Definitive Guide有一个问题也接踵而至: 我们该如何使远程链接或者表单取回 js.erb而不是一个html的partial</description>
+    </item>
+    
+    <item>
+      <title>Rails 3 Remote Links and Forms: A Definitive Guide</title>
+      <link>https://xguox.me/rails-3-remote-links-and-forms.html/</link>
+      <pubDate>Wed, 11 Jul 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-3-remote-links-and-forms.html/</guid>
+      <description>blahblah: 这些天遇上一些困难请教Larry的时候他没少给我一些英文的资料,虽然能够阅读,但是始终觉得翻译回中文以后再看也方便些.不过有些地方翻的比较</description>
+    </item>
+    
+    <item>
+      <title>安顿生活,融入上海</title>
+      <link>https://xguox.me/the-first-week-in-shanghai.html/</link>
+      <pubDate>Sun, 08 Jul 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/the-first-week-in-shanghai.html/</guid>
+      <description>这周的主题正如我的标题那样,安顿生活,融入上海. 经过一周的各种转折,算是安定下了生活,包括在食宿方面等等.不过在住宿方面,我也因为一些心急付</description>
+    </item>
+    
+    <item>
+      <title>Life`上海</title>
+      <link>https://xguox.me/rails-intern.html/</link>
+      <pubDate>Sun, 01 Jul 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-intern.html/</guid>
+      <description>29号早到达上海… 原本这应该是在刚到时候写的… 或许很多人听说我要去上海的第一感觉是我去旅行.很可惜,这次比厦门那一次还来狠的.我是去工作.我</description>
+    </item>
+    
+    <item>
+      <title>一些学习,一些发现</title>
+      <link>https://xguox.me/some-findings.html/</link>
+      <pubDate>Mon, 04 Jun 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/some-findings.html/</guid>
+      <description>今个儿有发现问题,也有学到东西了. 先说学到的吧,在做公司的论坛时候,要做一个浏览统计,因为一般做浏览统计都要加个时间限制的,刚接到任务时候第</description>
+    </item>
+    
+    <item>
+      <title>Rails 小记两则</title>
+      <link>https://xguox.me/rails-note.html/</link>
+      <pubDate>Sun, 27 May 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-note.html/</guid>
+      <description>最近在做个课程设计,好吧,俺老师是要求用JSP的,可惜我那弱爆了的水平是不可能完成的.于是顶着各种压力自己用Rails来做. 今天才发现个问题</description>
+    </item>
+    
+    <item>
+      <title>小记</title>
+      <link>https://xguox.me/recently-status.html/</link>
+      <pubDate>Fri, 11 May 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/recently-status.html/</guid>
+      <description>最近各种没状态,我的Rails学习落下了不少,主要是胃病来袭外加一些校内的揪心事.哎,说到底,还是我还不会调整状态.一有什么较为棘手的外部因</description>
+    </item>
+    
+    <item>
+      <title>ubuntu12.04 and Rails</title>
+      <link>https://xguox.me/ubuntu1204-and-rails.html/</link>
+      <pubDate>Fri, 27 Apr 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ubuntu1204-and-rails.html/</guid>
+      <description>昨晚,把ubuntu升级到了12.04,其实,对我目前的使用来说,系统是否升级几乎没影响.不过看着更新管理器冒出了新版本,反正也就按几个下的</description>
+    </item>
+    
+    <item>
+      <title>Rails中try的用法</title>
+      <link>https://xguox.me/usage-of-try.html/</link>
+      <pubDate>Fri, 20 Apr 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/usage-of-try.html/</guid>
+      <description>居然今晚才发现Rails中try的用法,初一看,怎么那么像印象中某些语言的异常处理?不对啊,Ruby中的异常处理不是长这个样子的. 查了下Ra</description>
+    </item>
+    
+    <item>
+      <title>My VIM Config</title>
+      <link>https://xguox.me/my-vim-config.html/</link>
+      <pubDate>Sat, 14 Apr 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/my-vim-config.html/</guid>
+      <description>其实前不久就要写挺多东西的,只是忽然间事情就集中的涌了过来,状态没调整好,也就耽搁了些.之前是直接使用网上高人的vim配置以及插件,发现有很</description>
+    </item>
+    
+    <item>
+      <title>Two weeks withs Rails</title>
+      <link>https://xguox.me/two-weeks-withs-rails.html/</link>
+      <pubDate>Fri, 23 Mar 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/two-weeks-withs-rails.html/</guid>
+      <description>并不是我刚开始接触Rails两周,而是这两周我才能真正的算个入门吧.虽然学校有教C与Java,但就像我之前所说那般,其实Ruby才是我的fi</description>
+    </item>
+    
+    <item>
+      <title>DRY</title>
+      <link>https://xguox.me/dry.html/</link>
+      <pubDate>Sun, 04 Mar 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/dry.html/</guid>
+      <description>从刚接触Rails开始就被灌输三种观念&amp;ndash;DRY、COC、REST.虽然这三种思想还没完全的领悟透彻,但是,已经感受到了它们的强大</description>
+    </item>
+    
+    <item>
+      <title>Ruby/Rails.note</title>
+      <link>https://xguox.me/rails-dot-note.html/</link>
+      <pubDate>Mon, 27 Feb 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/rails-dot-note.html/</guid>
+      <description>把平常中一些开发出错以及解决方法记录了下来,其实,基本上都是Google或者StackOverflow得到的答案.然后有些都不知道问题的根源</description>
+    </item>
+    
+    <item>
+      <title>《黑客与画家》语录---我的那些价值观</title>
+      <link>https://xguox.me/hackers-and-painters.html/</link>
+      <pubDate>Tue, 17 Jan 2012 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/hackers-and-painters.html/</guid>
+      <description>1 2 3 4 5 6 黑客行为必须包含三个特点:playful、cleverness、exploration ----Richard Stallman 黑客伦理的一个必然推论就是,黑客不服从</description>
+    </item>
+    
+    <item>
+      <title>One Day With Linux</title>
+      <link>https://xguox.me/one-day-with-linux.html/</link>
+      <pubDate>Sat, 31 Dec 2011 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/one-day-with-linux.html/</guid>
+      <description>为了不影响其他人的网速,我只好选择了通宵下载VMware和Ubuntu.今早上老早就起来安装,看网上好多人安装Ubuntu各种各样的出错,而</description>
+    </item>
+    
+    <item>
+      <title>Hello Octopress!</title>
+      <link>https://xguox.me/my-first-post-of-octopress.html/</link>
+      <pubDate>Mon, 26 Dec 2011 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/my-first-post-of-octopress.html/</guid>
+      <description>这是我的第一篇Octopress Post,曾经很浅显简单的玩过一下Wordpress,因为部署问题后面没有继续.因为Octopress跟gi</description>
+    </item>
+    
+    <item>
+      <title>给 Ruby on Rails 提速</title>
+      <link>https://xguox.me/ror-performance.html/</link>
+      <pubDate>Sun, 25 Dec 2011 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ror-performance.html/</guid>
+      <description>Repost Ruby 语言常以其灵活性为人所称道.正如 Dick Sites 所言,您可以 &amp;ldquo;为了编程而编程&amp;rdquo;.Ruby on Rails 扩展了核心 Ruby 语言,但正是 Ruby 本身使</description>
+    </item>
+    
+    <item>
+      <title>Lambda 和 Proc 的区别在哪儿</title>
+      <link>https://xguox.me/proc-vs-lambda.html/</link>
+      <pubDate>Fri, 18 Nov 2011 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/proc-vs-lambda.html/</guid>
+      <description>proc是代码块的对象形式,它的行为就像一个代码块.Lambda的的行为略有不同,它的行为更像方法而非代码块.调用一个proc则像对代码块进</description>
+    </item>
+    
+  </channel>
+</rss>

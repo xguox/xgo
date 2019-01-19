@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/categories/linux/</link>
+    <description>Recent content in Linux on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 01 Nov 2018 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>查看 TCP 端口号占用</title>
+      <link>https://xguox.me/tcp-port-pid.html/</link>
+      <pubDate>Thu, 01 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/tcp-port-pid.html/</guid>
+      <description>查看 TCP 端口被哪个进程(PID)占用了 1 lsof -nP -i4TCP:$PORT | grep LISTEN</description>
+    </item>
+    
+    <item>
+      <title>查看 VPS 上打开/关闭的端口号</title>
+      <link>https://xguox.me/check-opened-closed-port.html/</link>
+      <pubDate>Mon, 23 Nov 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/check-opened-closed-port.html/</guid>
+      <description>Mark 一下一个有用的命令, 运维比较渣没有系统研究过, 唯有见一个标一个 = . = 1 netstat -lpn list current enable port 输出一般如下: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 Proto Recv-Q Send-Q Local Address</description>
+    </item>
+    
+    <item>
+      <title>Linux 的 2&gt;&amp;1</title>
+      <link>https://xguox.me/linux-shell-2-1.html/</link>
+      <pubDate>Tue, 10 Nov 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/linux-shell-2-1.html/</guid>
+      <description>Shell 命令缓慢的学习中&amp;hellip; Shell 脚本的 &amp;gt; 表示输出重定向, 而 0 1 2 则分别代表标准输入(stdin), 标准输出(stdout)和标准错误(s</description>
+    </item>
+    
+  </channel>
+</rss>

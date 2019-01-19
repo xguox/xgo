@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Nexus 6p 让我失望透了 - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="手机像往常一样, 还剩 20% 左右的电量, 插上充电没在意. 回头一看, 不对劲, 怎么一直重启进不去系统. 搜了一下才发现貌似是 Nexus 5X 和 6p 的通病？ WTF! 搜索并没带" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/nexus-6p-broke-my-android-heart.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Nexus 6p 让我失望透了" />
+<meta property="og:description" content="手机像往常一样, 还剩 20% 左右的电量, 插上充电没在意. 回头一看, 不对劲, 怎么一直重启进不去系统. 搜了一下才发现貌似是 Nexus 5X 和 6p 的通病？ WTF! 搜索并没带" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/nexus-6p-broke-my-android-heart.html/" /><meta property="article:published_time" content="2017-09-05T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2017-09-05T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Nexus 6p 让我失望透了">
+<meta itemprop="description" content="手机像往常一样, 还剩 20% 左右的电量, 插上充电没在意. 回头一看, 不对劲, 怎么一直重启进不去系统. 搜了一下才发现貌似是 Nexus 5X 和 6p 的通病？ WTF! 搜索并没带">
+
+
+<meta itemprop="datePublished" content="2017-09-05T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2017-09-05T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="357">
+
+
+
+<meta itemprop="keywords" content="Jabber," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Nexus 6p 让我失望透了"/>
+<meta name="twitter:description" content="手机像往常一样, 还剩 20% 左右的电量, 插上充电没在意. 回头一看, 不对劲, 怎么一直重启进不去系统. 搜了一下才发现貌似是 Nexus 5X 和 6p 的通病？ WTF! 搜索并没带"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Nexus 6p 让我失望透了</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 5 Sep 2017 </span>
+          <span class="more-meta"> 357 words </span>
+          <span class="more-meta"> 1 min read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/jabber/"> Jabber </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>手机像往常一样, 还剩 20% 左右的电量, 插上充电没在意. 回头一看,  不对劲,  怎么一直重启进不去系统.</p>
+
+<p>搜了一下才发现貌似是 Nexus  5X 和 6p 的通病？ WTF!</p>
+
+<p>搜索并没带来什么好的解决方法, 看到一个治标不治本的方案,  说把 fastboot 把 810 的 A57 核禁用掉,  只用低功耗的 A53 , 想着死马当活马医,  呵呵哒,  也许有人用这方法凑效了,  也许是我的 Nexus 6p 前不久 OTA 升级了 8.0, 并没有起作用, 反而, 从原本的无限重启,  到耗尽电量以后, 彻底变砖,  连无限重启画面都没得看了.</p>
+
+<p>如果摔坏了, 碎屏了, 系统变卡了, 我不会有太多想法. 但是,  这种方式的坑,  实在接受不能.</p>
+
+<p>看来真的要换一台手机了,  只是还能用啥.  之前就长草的 Pixel 也瞬间破灭了好感.</p>
+
+<p>MoGi 最近也跟我抱怨了好多 Nexus 的. 他比我用的 Nexus 多的多,  什么 Moto, 4,  5X 一路过来, 甚至他的 6p 还是我的怂恿之下入手的.  我已经不记得跟多少人推荐 Nexus 系列,  然而结果是那么的尴尬, 失望.</p>
+
+<p>Goodbye.</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/jabber/">Jabber</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/rubyconf-china-2017.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">RubyConf China 2017 杭州</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/concurrency-in-ruby.html/">
+            <span class="next-text nav-default">Ruby 的并发, 进程, 线程, GIL, EventMachine, Celluloid</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

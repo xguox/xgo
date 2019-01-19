@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Elasticsearch 的分数(_score)是怎么计算得出 - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="上次写了关于 Elasticsearch 如何分词索引, 接着继续写 Elasticsearch 怎么计算搜索结果的得分(_score). Elasticsearch 默认是按照文档与查询的相关度(匹配度)的得分倒序返回结果的" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/how-elasticsearch-scoring-document.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Elasticsearch 的分数(_score)是怎么计算得出" />
+<meta property="og:description" content="上次写了关于 Elasticsearch 如何分词索引, 接着继续写 Elasticsearch 怎么计算搜索结果的得分(_score). Elasticsearch 默认是按照文档与查询的相关度(匹配度)的得分倒序返回结果的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/how-elasticsearch-scoring-document.html/" /><meta property="article:published_time" content="2016-11-04T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2016-11-04T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Elasticsearch 的分数(_score)是怎么计算得出">
+<meta itemprop="description" content="上次写了关于 Elasticsearch 如何分词索引, 接着继续写 Elasticsearch 怎么计算搜索结果的得分(_score). Elasticsearch 默认是按照文档与查询的相关度(匹配度)的得分倒序返回结果的">
+
+
+<meta itemprop="datePublished" content="2016-11-04T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2016-11-04T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="2207">
+
+
+
+<meta itemprop="keywords" content="Elasticsearch," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Elasticsearch 的分数(_score)是怎么计算得出"/>
+<meta name="twitter:description" content="上次写了关于 Elasticsearch 如何分词索引, 接着继续写 Elasticsearch 怎么计算搜索结果的得分(_score). Elasticsearch 默认是按照文档与查询的相关度(匹配度)的得分倒序返回结果的"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Elasticsearch 的分数(_score)是怎么计算得出</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 4 Nov 2016 </span>
+          <span class="more-meta"> 2207 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/elasticsearch/"> Elasticsearch </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      
+
+<p>上次写了关于 <a href="http://xguox.me/elasticsearch-custom-analyzer.html">Elasticsearch 如何分词索引</a>, 接着继续写 Elasticsearch 怎么计算搜索结果的得分(_score).</p>
+
+<p><strong>Elasticsearch 默认是按照文档与查询的相关度(匹配度)的得分倒序返回结果的.  得分 (_score) 就越大,  表示相关性越高.</strong></p>
+
+<p>所以, 相关度是啥? 分数又是怎么计算出来的? (全文检索和结构化的 SQL 查询不太一样, 虽然看起来结果比较&rsquo;飘忽&rsquo;, 但也是可以追根问底的)</p>
+
+<hr />
+
+<p>在 Elasticsearch 中, 标准的算法是  <strong>Term Frequency/Inverse Document Frequency, 简写为 TF/IDF</strong>, (刚刚发布的 5.0 版本, 改为了据说更先进的 BM25 算法)</p>
+
+<p><a href="http://xguox.me/how-elasticsearch-5-scoring-with-bm25.html"><strong>-&gt;</strong> Elasticsearch 5.X(Lucene 6) 的 BM25 相关度算法</a></p>
+
+<h5 id="term-frequency">Term Frequency</h5>
+
+<p>某单个关键词(term) 在某文档的某字段中出现的频率次数, 显然, 出现频率越高意味着该文档与搜索的相关度也越高</p>
+
+<p>具体计算公式是 <strong>tf(q in d) = sqrt(termFreq)</strong></p>
+
+<p>另外, 索引的时候可以做一些设置, &ldquo;index_options&rdquo;: &ldquo;docs&rdquo; 的情况下, 只考虑 term 是否出现(命中), 不考虑出现的次数.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">PUT</span> <span class="err">/my_index</span>
+<span class="p">{</span>
+  <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;doc&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&#34;type&#34;</span><span class="p">:</span>          <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;index_options&#34;</span><span class="p">:</span> <span class="s2">&#34;docs&#34;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h5 id="inverse-document-frequency">Inverse document frequency</h5>
+
+<p>某个关键词(term) 在索引(单个分片)之中出现的频次. 出现频次越高, 这个词的相关度越低. 相对的, 当某个关键词(term)在一大票的文档下面都有出现, 那么这个词在计算得分时候所占的比重就要比那些只在少部分文档出现的词所占的得分比重要低. 说的那么长一句话, 用人话来描述就是 <strong>&ldquo;物以稀为贵&rdquo;</strong>, 比如, &lsquo;的&rsquo;, &lsquo;得&rsquo;, &lsquo;the&rsquo; 这些一般在一些文档中出现的频次都是非常高的, 因此, 这些词占的得分比重远比特殊一些的词(如&rsquo;Solr&rsquo;, &lsquo;Docker&rsquo;, &lsquo;哈苏&rsquo;)占比要低,</p>
+
+<p>具体计算公式是 <strong>idf = 1 + ln(maxDocs/(docFreq + 1))</strong></p>
+
+<h5 id="field-length-norm">Field-length Norm</h5>
+
+<p>字段长度, 这个字段长度越短, 那么字段里的每个词的相关度也就越大. 某个关键词(term) 在一个短的句子出现, 其得分比重比在一个长句子中出现要来的高.</p>
+
+<p>具体计算公式是 <strong>norm = 1/sqrt(numFieldTerms)</strong></p>
+
+<p>默认每个 analyzed 的 string 都有一个 norm 值, 用来存储该字段的长度,</p>
+
+<p>用 &ldquo;norms&rdquo;: { &ldquo;enabled&rdquo;: false } 关闭以后, 评分时, 不管文档的该字段长短如何, 得分都一样.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">PUT</span> <span class="err">/my_index</span>
+<span class="p">{</span>
+  <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;doc&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;norms&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;enabled&#34;</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h5 id="最后的得分是三者的乘积-tf-idf-norm">最后的得分是三者的乘积 tf * idf * norm</h5>
+
+<p>以上描述的是最原始的针对<strong>单个关键字(term)</strong>的搜索. 如果是有<strong>多个搜索关键词(terms)</strong>的时候, 还要用到的 <strong>Vector Space Model</strong></p>
+
+<p>如果查询复杂些, 或者用到一些修改了分数的查询, 或者索引时候修改了字段的权重, 比如 <strong>function_score</strong> 之类的,计算方式也就又更复杂一些.</p>
+
+<h5 id="explain-https-www-elastic-co-guide-en-elasticsearch-reference-5-0-search-explain-html"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.0/search-explain.html">Explain</a></h5>
+
+<p><strong>看上去 TF/IDF 的算法已经一脸懵逼吓跑人了, 不过其实, 用 Explain 跑一跑也没啥, 虽然各种开方, 自然对数的, Google一个科学计算器就是了.</strong></p>
+
+<p><strong>举个例子</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="cm">/*先删掉索引, 如果有的话*/</span>
+<span class="nx">curl</span> <span class="o">-</span><span class="nx">XDELETE</span> <span class="s1">&#39;http://localhost:9200/blog&#39;</span>
+
+<span class="nx">curl</span> <span class="o">-</span><span class="nx">XPUT</span> <span class="s1">&#39;http://localhost:9200/blog/&#39;</span> <span class="o">-</span><span class="nx">d</span> <span class="s1">&#39;
+</span><span class="s1">{
+</span><span class="s1">  &#34;mappings&#34;: {
+</span><span class="s1">     &#34;post&#34;: {
+</span><span class="s1">        &#34;properties&#34;: {
+</span><span class="s1">           &#34;title&#34;: {
+</span><span class="s1">              &#34;type&#34;: &#34;string&#34;,
+</span><span class="s1">              &#34;analyzer&#34;: &#34;standard&#34;,
+</span><span class="s1">              &#34;term_vector&#34;: &#34;yes&#34;
+</span><span class="s1">           }
+</span><span class="s1">        }
+</span><span class="s1">     }
+</span><span class="s1">  }
+</span><span class="s1">}&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>存入一些文档 (Water 随手加进去测试的.)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">curl</span> <span class="o">-</span><span class="nx">s</span> <span class="o">-</span><span class="nx">XPOST</span> <span class="nx">localhost</span><span class="o">:</span><span class="mi">9200</span><span class="err">/_bulk -d &#39;</span>
+<span class="p">{</span> <span class="s2">&#34;create&#34;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;_index&#34;</span><span class="o">:</span> <span class="s2">&#34;blog&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="o">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="o">:</span> <span class="s2">&#34;1&#34;</span> <span class="p">}}</span>
+<span class="p">{</span> <span class="s2">&#34;title&#34;</span><span class="o">:</span> <span class="s2">&#34;What is the best water temperature, Mr Water&#34;</span> <span class="p">}</span>
+<span class="p">{</span> <span class="s2">&#34;create&#34;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;_index&#34;</span><span class="o">:</span> <span class="s2">&#34;blog&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="o">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="o">:</span> <span class="s2">&#34;2&#34;</span> <span class="p">}}</span>
+<span class="p">{</span> <span class="s2">&#34;title&#34;</span><span class="o">:</span> <span class="s2">&#34;Water no symptoms&#34;</span> <span class="p">}</span>
+<span class="p">{</span> <span class="s2">&#34;create&#34;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;_index&#34;</span><span class="o">:</span> <span class="s2">&#34;blog&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="o">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="o">:</span> <span class="s2">&#34;3&#34;</span> <span class="p">}}</span>
+<span class="p">{</span> <span class="s2">&#34;title&#34;</span><span class="o">:</span> <span class="s2">&#34;Did Vitamin B6 alone work for you? Water?&#34;</span> <span class="p">}</span>
+<span class="p">{</span> <span class="s2">&#34;create&#34;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;_index&#34;</span><span class="o">:</span> <span class="s2">&#34;blog&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="o">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="o">:</span> <span class="s2">&#34;4&#34;</span> <span class="p">}}</span>
+<span class="p">{</span> <span class="s2">&#34;title&#34;</span><span class="o">:</span> <span class="s2">&#34;The ball drifted on the water.&#34;</span> <span class="p">}</span>
+<span class="p">{</span> <span class="s2">&#34;create&#34;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;_index&#34;</span><span class="o">:</span> <span class="s2">&#34;blog&#34;</span><span class="p">,</span> <span class="s2">&#34;_type&#34;</span><span class="o">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="o">:</span> <span class="s2">&#34;5&#34;</span> <span class="p">}}</span>
+<span class="p">{</span> <span class="s2">&#34;title&#34;</span><span class="o">:</span> <span class="s2">&#34;No water no food no air&#34;</span> <span class="p">}</span>
+<span class="err">&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>bulk insert 以后先用 Kopf 插件输出看一下, 5 个文档并不是平均分配在 5 个分片的, 其中, 编号为 2 的这个分片里边有两个文档, 其中编号为 0 的那个分片是没有分配文档在里面的.</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/62fdd4d5gw1f9fb44fanfj227w17un6g.jpg" alt="" /></p>
+
+<p>接下来, 搜索的同时 <strong>explain</strong></p>
+
+<p>原本输出的 json 即使加了 pretty 也很难看, 换成 yaml 会好不少</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">curl</span> <span class="err">-XGET</span> <span class="s2">&#34;http://127.0.0.1:9200/blog/post/_search?explain&amp;format=yaml&#34;</span> <span class="err">-d</span> <span class="err">&#39;</span>
+<span class="p">{</span>
+  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;term&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;water&#34;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span><span class="err">&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>输出如图(json)</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/62fdd4d5gw1f9fb43tttmj21hu1dyah4.jpg" alt="" /></p>
+
+<p>可以看到五个文档都命中了这个查询, 注意看每个文档的 <strong>_shard</strong></p>
+
+<p>整个输出 yml 太长了, 丢到最后面, 只截取了其中一部分, 如图,</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/62fdd4d5gw1f9fb44r1ukj217018gtft.jpg" alt="" /></p>
+
+<p>返回排名第一的分数是 <strong>_score: 0.2972674</strong>, _shard(2),</p>
+
+<p><strong>&ldquo;weight(title:water in 0) [PerFieldSimilarity], result of:&rdquo;</strong> 这里的 0 不是 _id, 只是 Lucene 的一个内部文档 ID, 可以忽略.</p>
+
+<p>排名第一和第二的两个文档刚好是在同一个分片的, 所以跟另外三个的返回结果有些许不一样, 主要就是多了一个 <strong>queryWeight</strong>, 里面的 <strong>queryNorm</strong> 只要在同一分片下, 都是一样的, 总而言之, 这个可以忽略(至少目前这个例子可以忽略)</p>
+
+<p>只关注 <strong>fieldWeight</strong>, 排名第一和第二的的 tf 都是 1,</p>
+
+<p>在 <strong>idf(docFreq=2, maxDocs=2)</strong> 中,  docFreq 和 maxDocs 都是针对单个分片而言, 2号分片一共有 2个文档(maxDocs), 然后命中的文档也是两个(docFreq).</p>
+
+<p>所以 idf 的得分, 根据公式, <strong>1 + ln(maxDocs/(docFreq + 1))</strong> 是 0.59453489189</p>
+
+<p>最后 <strong>fieldNorm</strong>, 这个 field 有三个词, 所以是 1/sqrt(3), 但是按官方给的这个公式怎么算都不对, 不管哪个文档. 后来查了一下, 说是 Lucene 存这个 lengthNorm 数据时候都是用的 1 byte来存, 所以不管怎么着都会丢掉一些精度. 呵呵哒了 = . =</p>
+
+<p>最后的最后, 总得分 = 1 * 0.5945349 * 0.5 = 0.2972674.</p>
+
+<p>同理其他的几个文档也可以算出这个得分, 只是都要被 fieldNorm 的精度问题蛋疼一把.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">took<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w"></span>timed_out<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w"></span>_shards<span class="p">:</span><span class="w">
+</span><span class="w">  </span>total<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">  </span>successful<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">  </span>failed<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w"></span>hits<span class="p">:</span><span class="w">
+</span><span class="w">  </span>total<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">  </span>max_score<span class="p">:</span><span class="w"> </span><span class="m">0.2972674</span><span class="w">
+</span><span class="w">  </span>hits<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>_shard<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>_node<span class="p">:</span><span class="w"> </span><span class="s2">&#34;aVHxi_d2TYq40ISddYZF-A&#34;</span><span class="w">
+</span><span class="w">    </span>_index<span class="p">:</span><span class="w"> </span><span class="s2">&#34;blog&#34;</span><span class="w">
+</span><span class="w">    </span>_type<span class="p">:</span><span class="w"> </span><span class="s2">&#34;post&#34;</span><span class="w">
+</span><span class="w">    </span>_id<span class="p">:</span><span class="w"> </span><span class="s2">&#34;2&#34;</span><span class="w">
+</span><span class="w">    </span>_score<span class="p">:</span><span class="w"> </span><span class="m">0.2972674</span><span class="w">
+</span><span class="w">    </span>_source<span class="p">:</span><span class="w">
+</span><span class="w">      </span>title<span class="p">:</span><span class="w"> </span><span class="s2">&#34;Water no symptoms&#34;</span><span class="w">
+</span><span class="w">    </span>_explanation<span class="p">:</span><span class="w">
+</span><span class="w">      </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.2972674</span><span class="w">
+</span><span class="w">      </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;sum of:&#34;</span><span class="w">
+</span><span class="w">      </span>details<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.2972674</span><span class="w">
+</span><span class="w">        </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;weight(title:water in 0) [PerFieldSimilarity], result of:&#34;</span><span class="w">
+</span><span class="w">        </span>details<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.2972674</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;score(doc=0,freq=1.0), product of:&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.99999994</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;queryWeight, product of:&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.5945349</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;idf(docFreq=2, maxDocs=2)&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.681987</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;queryNorm&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.29726744</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;fieldWeight in 0, product of:&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;tf(freq=1.0), with freq of:&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w">
+</span><span class="w">              </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">                </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;termFreq=1.0&#34;</span><span class="w">
+</span><span class="w">                </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.5945349</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;idf(docFreq=2, maxDocs=2)&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.5</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;fieldNorm(doc=0)&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.0</span><span class="w">
+</span><span class="w">        </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;match on required clause, product of:&#34;</span><span class="w">
+</span><span class="w">        </span>details<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.0</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;# clause&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.681987</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;_type:post, product of:&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;boost&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.681987</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;queryNorm&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>_shard<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>_node<span class="p">:</span><span class="w"> </span><span class="s2">&#34;aVHxi_d2TYq40ISddYZF-A&#34;</span><span class="w">
+</span><span class="w">    </span>_index<span class="p">:</span><span class="w"> </span><span class="s2">&#34;blog&#34;</span><span class="w">
+</span><span class="w">    </span>_type<span class="p">:</span><span class="w"> </span><span class="s2">&#34;post&#34;</span><span class="w">
+</span><span class="w">    </span>_id<span class="p">:</span><span class="w"> </span><span class="s2">&#34;4&#34;</span><span class="w">
+</span><span class="w">    </span>_score<span class="p">:</span><span class="w"> </span><span class="m">0.22295055</span><span class="w">
+</span><span class="w">    </span>_source<span class="p">:</span><span class="w">
+</span><span class="w">      </span>title<span class="p">:</span><span class="w"> </span><span class="s2">&#34;The ball drifted on the water.&#34;</span><span class="w">
+</span><span class="w">    </span>_explanation<span class="p">:</span><span class="w">
+</span><span class="w">      </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.22295056</span><span class="w">
+</span><span class="w">      </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;sum of:&#34;</span><span class="w">
+</span><span class="w">      </span>details<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.22295056</span><span class="w">
+</span><span class="w">        </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;weight(title:water in 1) [PerFieldSimilarity], result of:&#34;</span><span class="w">
+</span><span class="w">        </span>details<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.22295056</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;score(doc=1,freq=1.0), product of:&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.99999994</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;queryWeight, product of:&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.5945349</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;idf(docFreq=2, maxDocs=2)&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.681987</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;queryNorm&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.22295058</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;fieldWeight in 1, product of:&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;tf(freq=1.0), with freq of:&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w">
+</span><span class="w">              </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">                </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;termFreq=1.0&#34;</span><span class="w">
+</span><span class="w">                </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.5945349</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;idf(docFreq=2, maxDocs=2)&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.375</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;fieldNorm(doc=1)&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.0</span><span class="w">
+</span><span class="w">        </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;match on required clause, product of:&#34;</span><span class="w">
+</span><span class="w">        </span>details<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.0</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;# clause&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.681987</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;_type:post, product of:&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;boost&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.681987</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;queryNorm&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>_shard<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">    </span>_node<span class="p">:</span><span class="w"> </span><span class="s2">&#34;aVHxi_d2TYq40ISddYZF-A&#34;</span><span class="w">
+</span><span class="w">    </span>_index<span class="p">:</span><span class="w"> </span><span class="s2">&#34;blog&#34;</span><span class="w">
+</span><span class="w">    </span>_type<span class="p">:</span><span class="w"> </span><span class="s2">&#34;post&#34;</span><span class="w">
+</span><span class="w">    </span>_id<span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span><span class="w">    </span>_score<span class="p">:</span><span class="w"> </span><span class="m">0.13561106</span><span class="w">
+</span><span class="w">    </span>_source<span class="p">:</span><span class="w">
+</span><span class="w">      </span>title<span class="p">:</span><span class="w"> </span><span class="s2">&#34;What is the best water temperature, Mr Water&#34;</span><span class="w">
+</span><span class="w">    </span>_explanation<span class="p">:</span><span class="w">
+</span><span class="w">      </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.13561106</span><span class="w">
+</span><span class="w">      </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;sum of:&#34;</span><span class="w">
+</span><span class="w">      </span>details<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.13561106</span><span class="w">
+</span><span class="w">        </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;weight(title:water in 0) [PerFieldSimilarity], result of:&#34;</span><span class="w">
+</span><span class="w">        </span>details<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.13561106</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;fieldWeight in 0, product of:&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.4142135</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;tf(freq=2.0), with freq of:&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">2.0</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;termFreq=2.0&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.30685282</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;idf(docFreq=1, maxDocs=1)&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.3125</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;fieldNorm(doc=0)&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.0</span><span class="w">
+</span><span class="w">        </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;match on required clause, product of:&#34;</span><span class="w">
+</span><span class="w">        </span>details<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.0</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;# clause&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">3.2588913</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;_type:post, product of:&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;boost&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">3.2588913</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;queryNorm&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>_shard<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>_node<span class="p">:</span><span class="w"> </span><span class="s2">&#34;aVHxi_d2TYq40ISddYZF-A&#34;</span><span class="w">
+</span><span class="w">    </span>_index<span class="p">:</span><span class="w"> </span><span class="s2">&#34;blog&#34;</span><span class="w">
+</span><span class="w">    </span>_type<span class="p">:</span><span class="w"> </span><span class="s2">&#34;post&#34;</span><span class="w">
+</span><span class="w">    </span>_id<span class="p">:</span><span class="w"> </span><span class="s2">&#34;5&#34;</span><span class="w">
+</span><span class="w">    </span>_score<span class="p">:</span><span class="w"> </span><span class="m">0.11506981</span><span class="w">
+</span><span class="w">    </span>_source<span class="p">:</span><span class="w">
+</span><span class="w">      </span>title<span class="p">:</span><span class="w"> </span><span class="s2">&#34;No water no food no air&#34;</span><span class="w">
+</span><span class="w">    </span>_explanation<span class="p">:</span><span class="w">
+</span><span class="w">      </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.11506981</span><span class="w">
+</span><span class="w">      </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;sum of:&#34;</span><span class="w">
+</span><span class="w">      </span>details<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.11506981</span><span class="w">
+</span><span class="w">        </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;weight(title:water in 0) [PerFieldSimilarity], result of:&#34;</span><span class="w">
+</span><span class="w">        </span>details<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.11506981</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;fieldWeight in 0, product of:&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;tf(freq=1.0), with freq of:&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;termFreq=1.0&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.30685282</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;idf(docFreq=1, maxDocs=1)&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.375</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;fieldNorm(doc=0)&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.0</span><span class="w">
+</span><span class="w">        </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;match on required clause, product of:&#34;</span><span class="w">
+</span><span class="w">        </span>details<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.0</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;# clause&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">3.2588913</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;_type:post, product of:&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;boost&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">3.2588913</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;queryNorm&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>_shard<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span><span class="w">    </span>_node<span class="p">:</span><span class="w"> </span><span class="s2">&#34;aVHxi_d2TYq40ISddYZF-A&#34;</span><span class="w">
+</span><span class="w">    </span>_index<span class="p">:</span><span class="w"> </span><span class="s2">&#34;blog&#34;</span><span class="w">
+</span><span class="w">    </span>_type<span class="p">:</span><span class="w"> </span><span class="s2">&#34;post&#34;</span><span class="w">
+</span><span class="w">    </span>_id<span class="p">:</span><span class="w"> </span><span class="s2">&#34;3&#34;</span><span class="w">
+</span><span class="w">    </span>_score<span class="p">:</span><span class="w"> </span><span class="m">0.095891505</span><span class="w">
+</span><span class="w">    </span>_source<span class="p">:</span><span class="w">
+</span><span class="w">      </span>title<span class="p">:</span><span class="w"> </span><span class="s2">&#34;Did Vitamin B6 alone work for you? Water?&#34;</span><span class="w">
+</span><span class="w">    </span>_explanation<span class="p">:</span><span class="w">
+</span><span class="w">      </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.095891505</span><span class="w">
+</span><span class="w">      </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;sum of:&#34;</span><span class="w">
+</span><span class="w">      </span>details<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.095891505</span><span class="w">
+</span><span class="w">        </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;weight(title:water in 0) [PerFieldSimilarity], result of:&#34;</span><span class="w">
+</span><span class="w">        </span>details<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.095891505</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;fieldWeight in 0, product of:&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;tf(freq=1.0), with freq of:&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">              </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;termFreq=1.0&#34;</span><span class="w">
+</span><span class="w">              </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.30685282</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;idf(docFreq=1, maxDocs=1)&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.3125</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;fieldNorm(doc=0)&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.0</span><span class="w">
+</span><span class="w">        </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;match on required clause, product of:&#34;</span><span class="w">
+</span><span class="w">        </span>details<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">0.0</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;# clause&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">3.2588913</span><span class="w">
+</span><span class="w">          </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;_type:post, product of:&#34;</span><span class="w">
+</span><span class="w">          </span>details<span class="p">:</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;boost&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>value<span class="p">:</span><span class="w"> </span><span class="m">3.2588913</span><span class="w">
+</span><span class="w">            </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;queryNorm&#34;</span><span class="w">
+</span><span class="w">            </span>details<span class="p">:</span><span class="w"> </span><span class="p">[]</span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/elasticsearch/">Elasticsearch</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/shaoguan-nanxiong-pingtian-yinxing-photo.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">坪田的银杏...还没黄（ ＴДＴ）</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/ruby-old-driver-may-not-gotcha.html/">
+            <span class="next-text nav-default">Ruby 老司机也未必 Gotcha </span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Getting Started with Meteor - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="LEVEL: BEGINNER 当你看到这,也就说明你听说了Meteor这东西, 并对它产生一些好奇. 那就让我们创建一个最基本的应用来耍一耍吧. 希望能以此学习到一两样东西" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/getting-started-with-meteor.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Getting Started with Meteor" />
+<meta property="og:description" content="LEVEL: BEGINNER 当你看到这,也就说明你听说了Meteor这东西, 并对它产生一些好奇. 那就让我们创建一个最基本的应用来耍一耍吧. 希望能以此学习到一两样东西" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/getting-started-with-meteor.html/" /><meta property="article:published_time" content="2013-03-05T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2013-03-05T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Getting Started with Meteor">
+<meta itemprop="description" content="LEVEL: BEGINNER 当你看到这,也就说明你听说了Meteor这东西, 并对它产生一些好奇. 那就让我们创建一个最基本的应用来耍一耍吧. 希望能以此学习到一两样东西">
+
+
+<meta itemprop="datePublished" content="2013-03-05T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2013-03-05T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="1896">
+
+
+
+<meta itemprop="keywords" content="Translation,JavaScript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Getting Started with Meteor"/>
+<meta name="twitter:description" content="LEVEL: BEGINNER 当你看到这,也就说明你听说了Meteor这东西, 并对它产生一些好奇. 那就让我们创建一个最基本的应用来耍一耍吧. 希望能以此学习到一两样东西"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Getting Started with Meteor</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 5 Mar 2013 </span>
+          <span class="more-meta"> 1896 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/translation/"> Translation </a>
+          <a href="/categories/javascript/"> JavaScript </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      
+
+<h5 id="level-beginner">LEVEL: BEGINNER</h5>
+
+<p>当你看到这,也就说明你听说了<a href="http://Meteor.com/">Meteor</a>这东西, 并对它产生一些好奇.
+那就让我们创建一个最基本的应用来耍一耍吧. 希望能以此学习到一两样东西.</p>
+
+<h2 id="准备工作-安装meteor">准备工作: 安装Meteor</h2>
+
+<p>要安装Meteor那就再简单不过了. 只需要执行下面这条命令
+<code>curl https://install.Meteor.com | /bin/sh</code></p>
+
+<p>只要你是在<a href="https://github.com/Meteor/Meteor/wiki/Supported-Platforms">支持的平台</a>上运行,跟着步骤来就基本没什么问题.</p>
+
+<p>接下来让我们创建一个简单的app来确定是否安装成功.
+<code>Meteor create forum</code>
+如果安装成功, 那执行下面的步骤就可以把这个app跑起来了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">cd</span> <span class="n">forum</span>
+<span class="no">Meteor</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>如果这一切都顺利的话, 那么在浏览器打开<code>http://localhost:3000</code>, 就会看到:
+<img src="http://theMeteorbook.com/images/posts/bare-Meteor-app.png" alt="" /></p>
+
+<h2 id="设置我们的forum">设置我们的forum</h2>
+
+<p>这个使用Meteor生成的简单的应用程序并不能做些什么; 只是或多或少示范了如何呈现模板和响应事件.</p>
+
+<p>而今, 我们只需要用浏览器的控制台(比如Chrome的Inspector)来捣鼓一些我们这个应用的数据. 因此,我们不必太过在意现有的用户界面. 一切从简. 在创建一个posts集合并在一个列表中一一展示前,我们先在 forum.html 这么干:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Forum<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  {% raw %}
+  {{&gt; posts}}
+  {% endraw %}
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">template</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;posts&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Posts<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+	{% raw %}  \{\{#each posts}}{% endraw %}
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>{% raw %}{{name}}{% endraw %}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    {% raw %}\{\{/each}}{% endraw %}
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>当编辑完成上面这段代码后, 你应该会看到浏览器自动重载了页面. 现在, 除了一个&rdquo;Posts&rdquo;标题,你应该什么也看不到. 为什么会这样呢?</p>
+
+<p><img src="http://theMeteorbook.com/images/posts/empty-posts-list.png" alt="" /></p>
+
+<p>我们刚刚使用了<code>{%raw%}{{ #each }}{%endraw%}</code>这个helper来告诉Meteor创建了一个无序列表并且在其里边的每个li标签展示一条post. 但是在这里我们的posts为空. 所以页面中什么也没显示出来. 那么接下来让我们来生成一些posts吧.</p>
+
+<p>在<code>forum.js</code>, 我们创建了一个叫<code>posts</code>的<code>Collection</code>, 并使用之前所建立的<code>posts</code>模板加载之:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">Posts</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">Collection</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">posts</span><span class="p">.</span><span class="nx">helpers</span><span class="p">({</span>
+    <span class="nx">posts</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">Posts</span><span class="p">.</span><span class="nx">find</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>这看起来只是一个简单的变化,但事实并非如此. 我们做的事是在客户端和服务端创建了一个叫作<code>posts</code>的Meteor <code>Collection</code>. 这是什么意思呢?</p>
+
+<p>在服务端,当数据被添加进来之后, 会被插入写进到一个<a href="http://www.mongodb.org/">mongo</a>数据库(mongo内置包含在每个Meteor应用程序). 当执行查询的时候, Meteor会查找到这个数据库. 这样我们其实就已经把这些posts永久性的存贮起来了.</p>
+
+<p>在客户端,<code>posts</code> 集合会自动连接到服务端并在浏览器,本地镜像或者缓存中创建这个服务端集合. 这样, 当在浏览器中新建posts,这些posts就会直达服务端从而插入到mongo数据库中,并传输到其他连接上的本地的<code>posts</code>集合. 很难理解是吧?你很快就会知道这一切是怎么回事.</p>
+
+<p>添加完以上的js以后, 你不会看到我们的应用程序发生任何的改变; 这是因为我们还没添加任何一条的数据. 那么现在开始添加吧.</p>
+
+<h2 id="在你的浏览器控制台中操纵数据">在你的浏览器控制台中操纵数据</h2>
+
+<p>让我们来仔细看看这个神奇的集合. 在这我们会使用到浏览器控制台, 尽管我们假定你一直跟着我们的步伐并使用了Chrome的Inspector, 但其他的一些浏览器控制台(如Firebug等)也一样可以完成.</p>
+
+<p>首先, 让我们看看集合里有些什么东西. 运行下面的代码,我们会告诉<code>posts</code>模板查找该集合中的数据:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Posts</span><span class="o">.</span><span class="n">find</span><span class="p">()</span>
+<span class="err">»</span> <span class="err">‣</span><span class="no">LocalCollection</span><span class="o">.</span><span class="n">Cursor</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>Cursor</code>是一个匹配指定的查询(在本例中为空)所得到的Meteor数据源. 现在看起来不那么有趣, 让我们使用下面这条语句来提取数据:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Posts</span><span class="o">.</span><span class="n">find</span><span class="p">()</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span>
+<span class="err">»</span> <span class="o">[]</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>由于还没有一条post, 这会返回一个空数组. 让我们添加上一条吧!</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Posts</span><span class="o">.</span><span class="n">insert</span><span class="p">({</span><span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;A Brand New Post&#39;</span><span class="p">});</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>由于Meteor的响应式渲染( reactive rendering )使得HTML与底层的数据模型保持同步, 因此我们可以马上在页面上看到这条post
+<img src="http://theMeteorbook.com/images/posts/single-post-inserted.png" alt="" /></p>
+
+<p>等一等,现在我们能够在客户端中从这个集合里抓取到这条post</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Posts</span><span class="o">.</span><span class="n">find</span><span class="p">()</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span>
+<span class="err">»</span> <span class="o">[</span><span class="err">‣</span><span class="no">Object</span><span class="o">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>我们能够在本地集合中看到这篇post的存在. 对此没什么概念吗? 试试刷新页面;或者在一个新的tab打开<code>http://localhost:3000</code>,这篇post还在是吧!</p>
+
+<p>为什么会这样呢?在程序内部,Meteor已经同步了这个post对象(<code>{name: 'A Brand New Post'}</code>)到服务端, 并将其存储到mongo数据库中,这样,在所有的客户端都能访问到这篇post.我们同样能够在mongo的控制台中查看到它;在命令行中运行<code>Meteor mongo</code>(该命令运行的同时必须把项目跑起来),你也可以使用相似的接口来查看到:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">&gt; db.posts.find()
+{ &#34;name&#34; : &#34;A Brand New Post&#34;, &#34;_id&#34; : &#34;a72d6722-262b-4dc5-80f6-564796a6cc95&#34; }</pre></td></tr></table>
+</div>
+</div>
+<p>花上一点时间想想这对你来说有多么的神奇 (with no work on your part!), 然后肆意地在浏览器的控制台操纵<code>insert</code>  <code>update</code>  <code>remove</code> 命令(<a href="http://docs.Meteor.com/#collections">文档在这</a>),同时在其他tab,其他浏览器甚至其他机器上(只要能看得到)看看同步的效果</p>
+
+<p>原文转自 Tom Coleman <a href="http://theMeteorbook.com/2013/01/30/getting-started-with-Meteor/">Getting Started with Meteor</a></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/translation/">Translation</a>
+          <a href="/tags/javascript/">JavaScript</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/a-look-at-a-meteor-template.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">A Look at a Meteor Template</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/should-you-use-strict-in-your-production-javascript.html/">
+            <span class="next-text nav-default">你应该在生产环境下使用JavaScript的严格模式(strict mode)吗?</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

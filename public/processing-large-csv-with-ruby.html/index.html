@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Ruby 处理大型 CSV 文件 - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="处理大文件是一项非常耗内存的操作, 有时候甚至会跑光服务器上的物理内存和虚拟内存. 下面来看看使用 Ruby 来处理大型 CSV 文件的几种方式, 同时测试一下这几" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/processing-large-csv-with-ruby.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用 Ruby 处理大型 CSV 文件" />
+<meta property="og:description" content="处理大文件是一项非常耗内存的操作, 有时候甚至会跑光服务器上的物理内存和虚拟内存. 下面来看看使用 Ruby 来处理大型 CSV 文件的几种方式, 同时测试一下这几" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/processing-large-csv-with-ruby.html/" /><meta property="article:published_time" content="2016-04-05T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2016-04-05T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="使用 Ruby 处理大型 CSV 文件">
+<meta itemprop="description" content="处理大文件是一项非常耗内存的操作, 有时候甚至会跑光服务器上的物理内存和虚拟内存. 下面来看看使用 Ruby 来处理大型 CSV 文件的几种方式, 同时测试一下这几">
+
+
+<meta itemprop="datePublished" content="2016-04-05T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2016-04-05T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="1106">
+
+
+
+<meta itemprop="keywords" content="Ruby," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Ruby 处理大型 CSV 文件"/>
+<meta name="twitter:description" content="处理大文件是一项非常耗内存的操作, 有时候甚至会跑光服务器上的物理内存和虚拟内存. 下面来看看使用 Ruby 来处理大型 CSV 文件的几种方式, 同时测试一下这几"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">使用 Ruby 处理大型 CSV 文件</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 5 Apr 2016 </span>
+          <span class="more-meta"> 1106 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/ruby/"> Ruby </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      
+
+<p>处理大文件是一项非常耗内存的操作, 有时候甚至会跑光服务器上的物理内存和虚拟内存. 下面来看看使用 Ruby 来处理大型 CSV 文件的几种方式, 同时测试一下这几种方式的内存消耗以及性能.</p>
+
+<h3 id="准备测试用的-csv-数据文件">准备测试用的 CSV 数据文件.</h3>
+
+<p>在开始之前, 先来准备一个拥有一百万行的 CSV 文件 <strong>data.csv</strong>(大约 75mb)用于测试.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># generate_csv.rb</span>
+<span class="nb">require</span> <span class="s1">&#39;csv&#39;</span>
+<span class="n">require_relative</span> <span class="s1">&#39;./helpers&#39;</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="s1">&#39;street&#39;</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="o">]</span>
+
+<span class="nb">name</span>    <span class="o">=</span> <span class="s2">&#34;Pink Panther&#34;</span>
+<span class="n">email</span>   <span class="o">=</span> <span class="s2">&#34;pink.panther@example.com&#34;</span>
+<span class="n">city</span>    <span class="o">=</span> <span class="s2">&#34;Pink City&#34;</span>
+<span class="n">street</span>  <span class="o">=</span> <span class="s2">&#34;Pink Road&#34;</span>
+<span class="n">country</span> <span class="o">=</span> <span class="s2">&#34;Pink Country&#34;</span>
+
+<span class="n">print_memory_usage</span> <span class="k">do</span>
+  <span class="n">print_time_spent</span> <span class="k">do</span>
+    <span class="no">CSV</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="ss">write_headers</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">headers</span><span class="p">:</span> <span class="n">headers</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">csv</span><span class="o">|</span>
+      <span class="mi">1_000_000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+        <span class="n">csv</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="n">i</span><span class="p">,</span> <span class="nb">name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">street</span><span class="p">,</span> <span class="n">country</span><span class="o">]</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="内存及时间的消耗">内存及时间的消耗</h3>
+
+<p>上面这个脚本需要引用到 <code>helpers.rb</code> 脚本, <code>helpers.rb</code> 定义了两个 helper 方法来测量并打印出内存以及时间的消耗情况.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># helpers.rb</span>
+<span class="nb">require</span> <span class="s1">&#39;benchmark&#39;</span>
+
+<span class="k">def</span> <span class="nf">print_memory_usage</span>
+  <span class="n">memory_before</span> <span class="o">=</span> <span class="sb">`ps -o rss= -p </span><span class="si">#{</span><span class="no">Process</span><span class="o">.</span><span class="n">pid</span><span class="si">}</span><span class="sb">`</span><span class="o">.</span><span class="n">to_i</span>
+  <span class="k">yield</span>
+  <span class="n">memory_after</span> <span class="o">=</span> <span class="sb">`ps -o rss= -p </span><span class="si">#{</span><span class="no">Process</span><span class="o">.</span><span class="n">pid</span><span class="si">}</span><span class="sb">`</span><span class="o">.</span><span class="n">to_i</span>
+
+  <span class="nb">puts</span> <span class="s2">&#34;Memory: </span><span class="si">#{</span><span class="p">((</span><span class="n">memory_after</span> <span class="o">-</span> <span class="n">memory_before</span><span class="p">)</span> <span class="sr">/ 1024.0).round(2)} MB&#34;
+</span><span class="sr">end
+</span><span class="sr">
+</span><span class="sr">def print_time_spent
+</span><span class="sr">  time = Benchmark.realtime do
+</span><span class="sr">    yield
+</span><span class="sr">  end
+</span><span class="sr">
+</span><span class="sr">  puts &#34;Time: </span><span class="si">#{</span><span class="n">time</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="sr">&#34;
+</span><span class="sr">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>执行并生成 CSV 文件:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">ruby</span> <span class="n">generate_csv</span><span class="o">.</span><span class="n">rb</span>
+<span class="ss">Time</span><span class="p">:</span> <span class="mi">7</span><span class="o">.</span><span class="mi">14</span>
+<span class="ss">Memory</span><span class="p">:</span> <span class="mi">4</span><span class="o">.</span><span class="mi">79</span> <span class="no">MB</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>不同的机器输出结果也不尽相同, 不过, 幸运的是, 得益于 garbage collector (GC) 回收已使用过的内存, 这个 Ruby 进程耗掉的内存(4.79MB)并不是很夸张. 同时生成的数据文件如图为 74MB.</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/62fdd4d5jw1f2m3u6s1twj20ze038gm6.jpg" alt="" /></p>
+
+<h3 id="csv-read">CSV.read</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># parse1.rb</span>
+<span class="n">require_relative</span> <span class="s1">&#39;./helpers&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;csv&#39;</span>
+
+<span class="n">print_memory_usage</span> <span class="k">do</span>
+  <span class="n">print_time_spent</span> <span class="k">do</span>
+    <span class="n">csv</span> <span class="o">=</span> <span class="no">CSV</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="ss">headers</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
+    <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">csv</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">row</span><span class="o">|</span>
+      <span class="n">sum</span> <span class="o">+=</span> <span class="n">row</span><span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="o">].</span><span class="n">to_i</span>
+    <span class="k">end</span>
+
+    <span class="nb">puts</span> <span class="s2">&#34;Sum: </span><span class="si">#{</span><span class="n">sum</span><span class="si">}</span><span class="s2">&#34;</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">ruby</span> <span class="n">parse1</span><span class="o">.</span><span class="n">rb</span>
+
+<span class="ss">Sum</span><span class="p">:</span> <span class="mi">499999500000</span>
+<span class="ss">Time</span><span class="p">:</span> <span class="mi">21</span><span class="o">.</span><span class="mi">3</span>
+<span class="ss">Memory</span><span class="p">:</span> <span class="mi">1277</span><span class="o">.</span><span class="mo">07</span> <span class="no">MB</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>惊人的超过 1GB 内存消耗啊.</p>
+
+<p><code>CSV.read</code> 源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"> <span class="c1"># File csv.rb, line 1750</span>
+<span class="k">def</span> <span class="nf">read</span>
+  <span class="n">rows</span> <span class="o">=</span> <span class="nb">to_a</span>
+  <span class="k">if</span> <span class="vi">@use_headers</span>
+    <span class="no">Table</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+  <span class="k">else</span>
+    <span class="n">rows</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="csv-parse">CSV.parse</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># parse2.rb</span>
+<span class="n">require_relative</span> <span class="s1">&#39;./helpers&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;csv&#39;</span>
+
+<span class="n">print_memory_usage</span> <span class="k">do</span>
+  <span class="n">print_time_spent</span> <span class="k">do</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
+    <span class="n">csv</span> <span class="o">=</span> <span class="no">CSV</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="ss">headers</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
+    <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">csv</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">row</span><span class="o">|</span>
+      <span class="n">sum</span> <span class="o">+=</span> <span class="n">row</span><span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="o">].</span><span class="n">to_i</span>
+    <span class="k">end</span>
+
+    <span class="nb">puts</span> <span class="s2">&#34;Sum: </span><span class="si">#{</span><span class="n">sum</span><span class="si">}</span><span class="s2">&#34;</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">ruby</span> <span class="n">parse2</span><span class="o">.</span><span class="n">rb</span>
+<span class="ss">Sum</span><span class="p">:</span> <span class="mi">499999500000</span>
+<span class="ss">Time</span><span class="p">:</span> <span class="mi">21</span><span class="o">.</span><span class="mi">88</span>
+<span class="ss">Memory</span><span class="p">:</span> <span class="mi">1362</span><span class="o">.</span><span class="mi">89</span> <span class="no">MB</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>可以看到, 内存消耗的比刚刚第一个脚本还略多, 差距大概就是刚好 CSV 文件大小.</p>
+
+<p><code>CSV.parse</code> 源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># File csv.rb, line 1293</span>
+<span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">parse</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="n">csv</span> <span class="o">=</span> <span class="kp">new</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="n">nil?</span>  <span class="c1"># slurp contents, if no block is given</span>
+    <span class="k">begin</span>
+      <span class="n">csv</span><span class="o">.</span><span class="n">read</span>
+    <span class="k">ensure</span>
+      <span class="n">csv</span><span class="o">.</span><span class="n">close</span>
+    <span class="k">end</span>
+  <span class="k">else</span>           <span class="c1"># or pass each row to a provided block</span>
+    <span class="n">csv</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="csv-new">CSV.new</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># parse3.rb</span>
+<span class="n">require_relative</span> <span class="s1">&#39;./helpers&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;csv&#39;</span>
+
+<span class="n">print_memory_usage</span> <span class="k">do</span>
+  <span class="n">print_time_spent</span> <span class="k">do</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
+    <span class="n">csv</span> <span class="o">=</span> <span class="no">CSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="ss">headers</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
+    <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="n">row</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">shift</span>
+      <span class="n">sum</span> <span class="o">+=</span> <span class="n">row</span><span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="o">].</span><span class="n">to_i</span>
+    <span class="k">end</span>
+
+    <span class="nb">puts</span> <span class="s2">&#34;Sum: </span><span class="si">#{</span><span class="n">sum</span><span class="si">}</span><span class="s2">&#34;</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">ruby</span> <span class="n">parse3</span><span class="o">.</span><span class="n">rb</span>
+<span class="ss">Sum</span><span class="p">:</span> <span class="mi">499999500000</span>
+<span class="ss">Time</span><span class="p">:</span> <span class="mi">16</span><span class="o">.</span><span class="mi">89</span>
+<span class="ss">Memory</span><span class="p">:</span> <span class="mi">76</span><span class="o">.</span><span class="mi">72</span> <span class="no">MB</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这次结果可以看到, 因为只是在内存中加载了整个文件内容, 所以内存的消耗大概就是文件的大小(74MB), 而处理时间也快了不少. 当我们只是想逐行逐行的操作而不是读取要一次过读取一整个文件时候, 这种方法非常奏效.</p>
+
+<h3 id="通过-io-对象一行一行解析">通过 IO 对象一行一行解析</h3>
+
+<p>虽然有了很大的进步, 但是, 使用 IO 文件对象还可以做得更好.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># parse4.rb</span>
+<span class="n">require_relative</span> <span class="s1">&#39;./helpers&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;csv&#39;</span>
+
+<span class="n">print_memory_usage</span> <span class="k">do</span>
+  <span class="n">print_time_spent</span> <span class="k">do</span>
+    <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+      <span class="n">csv</span> <span class="o">=</span> <span class="no">CSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="ss">headers</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
+      <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span>
+
+      <span class="k">while</span> <span class="n">row</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">shift</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">row</span><span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="o">].</span><span class="n">to_i</span>
+      <span class="k">end</span>
+
+      <span class="nb">puts</span> <span class="s2">&#34;Sum: </span><span class="si">#{</span><span class="n">sum</span><span class="si">}</span><span class="s2">&#34;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">ruby</span> <span class="n">parse4</span><span class="o">.</span><span class="n">rb</span>
+<span class="ss">Sum</span><span class="p">:</span> <span class="mi">499999500000</span>
+<span class="ss">Time</span><span class="p">:</span> <span class="mi">13</span><span class="o">.</span><span class="mi">78</span>
+<span class="ss">Memory</span><span class="p">:</span> <span class="mi">2</span><span class="o">.</span><span class="mi">64</span> <span class="no">MB</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>仅仅用了 2.64MB, 速度也稍稍又快了一些.</p>
+
+<h3 id="csv-foreach">CSV.foreach</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># parse5.rb</span>
+<span class="n">require_relative</span> <span class="s1">&#39;./helpers&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;csv&#39;</span>
+
+<span class="n">print_memory_usage</span> <span class="k">do</span>
+  <span class="n">print_time_spent</span> <span class="k">do</span>
+    <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="no">CSV</span><span class="o">.</span><span class="n">foreach</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="ss">headers</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">row</span><span class="o">|</span>
+      <span class="n">sum</span> <span class="o">+=</span> <span class="n">row</span><span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="o">].</span><span class="n">to_i</span>
+    <span class="k">end</span>
+
+    <span class="nb">puts</span> <span class="s2">&#34;Sum: </span><span class="si">#{</span><span class="n">sum</span><span class="si">}</span><span class="s2">&#34;</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果跟上一个差不多:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">ruby</span> <span class="n">parse5</span><span class="o">.</span><span class="n">rb</span>
+<span class="ss">Sum</span><span class="p">:</span> <span class="mi">499999500000</span>
+<span class="ss">Time</span><span class="p">:</span> <span class="mi">15</span><span class="o">.</span><span class="mi">54</span>
+<span class="ss">Memory</span><span class="p">:</span> <span class="mi">2</span><span class="o">.</span><span class="mi">62</span> <span class="no">MB</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>CSV.foreach</code> 源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># File csv.rb, line 1118</span>
+<span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">foreach</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">to_enum</span><span class="p">(</span><span class="n">__method__</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span> <span class="k">unless</span> <span class="n">block</span>
+  <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">csv</span><span class="o">|</span>
+    <span class="n">csv</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Source Link 来自: <a href="http://dalibornasevic.com/posts/68-processing-large-csv-files-with-ruby">http://dalibornasevic.com/posts/68-processing-large-csv-files-with-ruby</a></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ruby/">Ruby</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/upgrade-elasticsearch-2-3.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Upgrade Elasticsearch to 2.3</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/elasticsearch-aggregations.html/">
+            <span class="next-text nav-default">Elasticsearch Aggregations 聚合分析</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

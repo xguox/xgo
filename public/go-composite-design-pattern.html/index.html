@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Go 的组合模式(Composite Pattern) - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="Go 没有传统面向对象语言(如 Ruby, Java) 的继承特性, 取而代之, 更多的是用 组合模式 来达到类似效果. 组合设计模式 Composite Design Pattern 组合构建的是一个树形的层级对象, 一个" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/go-composite-design-pattern.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Go 的组合模式(Composite Pattern)" />
+<meta property="og:description" content="Go 没有传统面向对象语言(如 Ruby, Java) 的继承特性, 取而代之, 更多的是用 组合模式 来达到类似效果. 组合设计模式 Composite Design Pattern 组合构建的是一个树形的层级对象, 一个" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/go-composite-design-pattern.html/" /><meta property="article:published_time" content="2018-09-13T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2018-09-13T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="Go 的组合模式(Composite Pattern)">
+<meta itemprop="description" content="Go 没有传统面向对象语言(如 Ruby, Java) 的继承特性, 取而代之, 更多的是用 组合模式 来达到类似效果. 组合设计模式 Composite Design Pattern 组合构建的是一个树形的层级对象, 一个">
+
+
+<meta itemprop="datePublished" content="2018-09-13T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-13T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="1049">
+
+
+
+<meta itemprop="keywords" content="Go," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go 的组合模式(Composite Pattern)"/>
+<meta name="twitter:description" content="Go 没有传统面向对象语言(如 Ruby, Java) 的继承特性, 取而代之, 更多的是用 组合模式 来达到类似效果. 组合设计模式 Composite Design Pattern 组合构建的是一个树形的层级对象, 一个"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">Go 的组合模式(Composite Pattern)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 13 Sep 2018 </span>
+          <span class="more-meta"> 1049 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/go/"> Go </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      
+
+<p><strong>Go</strong> 没有传统面向对象语言(如 Ruby, Java) 的继承特性, 取而代之, 更多的是用 <strong>组合模式</strong> 来达到类似效果.</p>
+
+<h5 id="组合设计模式-composite-design-pattern">组合设计模式 Composite Design Pattern</h5>
+
+<p><strong>组合构建的是一个树形的层级对象, 一个对象包含有其他一些拥有各自独立的字段和方法的对象.</strong> 换一个说法讲, <strong>组合代表「拥有 has」 关系, 而继承则代表「是 is」关系.</strong> 这种模式可以解决(多)继承的问题, 典型的比如, 两个实体分别继承自两个不同的类, 而这两个实体之间实际上并没有任何关联关系.</p>
+
+<p>举个例子, Athlete(运动员)类有一个 Train(训练)方法, 然后 SwimmerAthlete(游泳运动员) 继承自 Athlete, 并有自己的 Swim(游泳)方法. 可能还会有一个 Rider(骑手)类也继承自 Athlete, 然后有一个自己的 Ride(骑行)方法.</p>
+
+<p>另外的, 还有一个 Animal(动物)类, 有 Eat, Sleep 等方法. 然后类似有 Dog(🐶) 类继承于它, 并有着特有的 Bark(叫)方法 一切看起来都没什么特别之处, 很常规的面向对象的继承就可以实现.  但是, <strong>问题来了</strong>, 如果有一个 Fish(鱼) 类, 同样也有一个 Swim 方法, 那么就不好办了, Fish 不是 Athlete 啊. Fish 会 Swim 但不会 Train (不抬杠哈). 这时候的最佳实践可能会是定义一个需要实现 Swim 方法的 Swimmer 接口, 然后 SwimmerAthlete 和 Fish 都分别实现这个接口.  但结果即使是一模一样的方法, Swim 还是要被实现两次. 如果有一个 Triathlete(三项全能运动员)类呢? 又得再实现一次一模式样的?</p>
+
+<p><strong>运用组合模式则可以很好的解决这个问题</strong>, 用 Go 有两种实现这种组合的方式, 先来看第一种.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Athlete</span> <span class="kd">struct</span><span class="p">{}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">Athlete</span><span class="p">)</span> <span class="nf">Train</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Training&#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>接下来建立一个 Swimmer 结构体, 这里加上 A 用以标识是第一种区别于后边的第二种.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">CompositeSwimmerA</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">MyAthlete</span> <span class="nx">Athlete</span>
+    <span class="nx">MySwim</span> <span class="kd">func</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>CompositeSwimmerA 这个类型有一个 <code>Athlete</code> 类型的 <code>MyAthlete</code> 字段, 和一个 <code>func()</code> 类型的 <code>MySwim</code> 字段.</p>
+
+<p>定义一个 Swim 方法之后可以赋值到上述的 <code>MySwim</code> 字段.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Swim</span><span class="p">(){</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Swimming!&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+
+<span class="nx">swimmer</span> <span class="o">:=</span> <span class="nx">CompositeSwimmerA</span><span class="p">{</span>
+    <span class="nx">MySwim</span><span class="p">:</span> <span class="nx">Swim</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nx">swimmer</span><span class="p">.</span><span class="nx">MyAthlete</span><span class="p">.</span><span class="nf">Train</span><span class="p">()</span>
+<span class="nx">swimmer</span><span class="p">.</span><span class="nf">MySwim</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这里的 swimmer 对象因为没有赋值给 <code>MyAthlete</code> 字段, 所以默认为<code>Athlete</code> 类型的零值.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="err">$</span> <span class="k">go</span> <span class="nx">run</span> <span class="nx">main</span><span class="p">.</span><span class="k">go</span>
+<span class="nx">Training</span>
+<span class="nx">Swimming</span><span class="p">!</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>那么鱼呢?</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Animal</span> <span class="kd">struct</span><span class="p">{}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Animal</span><span class="p">)</span><span class="nf">Eat</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nb">println</span><span class="p">(</span><span class="s">&#34;Eating&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Fish</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">Animal</span>
+    <span class="nx">Swim</span> <span class="kd">func</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="nx">nimo</span> <span class="o">:=</span> <span class="nx">Fish</span><span class="p">{</span>
+    <span class="nx">Swim</span><span class="p">:</span> <span class="nx">Swim</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nx">nimo</span><span class="p">.</span><span class="nf">Eat</span><span class="p">()</span>
+<span class="nx">nimo</span><span class="p">.</span><span class="nf">Swim</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>「继承」了对应的类型并拥有公用的 Swim 方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="err">$</span> <span class="k">go</span> <span class="nx">run</span> <span class="nx">main</span><span class="p">.</span><span class="k">go</span>
+<span class="nx">Eating</span>
+<span class="nx">Swimming</span><span class="p">!</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这里 Fish 的实现与 Athlete 有一些不一样的地方是用了嵌套类型. 顺便就有了我们前面提的第二种方式.</p>
+
+<p>定义一个需要实现 Swim 方法的 Swimmer 接口, 以及一个实现了该接口的结构体 <code>SwimmerImpl</code>, 最后嵌套在 <code>CompositeSwimmerB</code> 这个结构体里边(相应鱼的实现也类似).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Swimmer</span> <span class="kd">interface</span> <span class="p">{</span>
+    <span class="nf">Swim</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Trainer</span> <span class="kd">interface</span> <span class="p">{</span>
+    <span class="nf">Train</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="kd">type</span> <span class="nx">SwimmerImpl</span> <span class="kd">struct</span><span class="p">{}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">SwimmerImpl</span><span class="p">)</span> <span class="nf">Swim</span><span class="p">(){</span>
+    <span class="nb">println</span><span class="p">(</span><span class="s">&#34;Swimming!&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">CompositeSwimmerB</span> <span class="kd">struct</span><span class="p">{</span>
+    <span class="nx">Trainer</span>
+    <span class="nx">Swimmer</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>这种做法的好处是, 里层字段对象更可控, 不会一不小心变成了零值</strong>, 使用方式:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">swimmer</span> <span class="o">:=</span> <span class="nx">CompositeSwimmerB</span><span class="p">{</span>
+    <span class="o">&amp;</span><span class="nx">Athlete</span><span class="p">{},</span>
+    <span class="o">&amp;</span><span class="nx">SwimmerImpl</span><span class="p">{},</span>
+<span class="p">}</span>
+
+<span class="nx">swimmer</span><span class="p">.</span><span class="nf">Train</span><span class="p">()</span>
+<span class="nx">swimmer</span><span class="p">.</span><span class="nf">Swim</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/go/">Go</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/go-proxy-design-pattern.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Go 的代理模式(Proxy Pattern)</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/go-gin-validator.html/">
+            <span class="next-text nav-default">Gin 模型验证 Validator</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

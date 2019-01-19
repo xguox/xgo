@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tools on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/categories/tools/</link>
+    <description>Recent content in Tools on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 07 Jan 2019 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/categories/tools/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>用 Goland 阅读代码是真 6</title>
+      <link>https://xguox.me/goland-is-awesome-for-reading.html/</link>
+      <pubDate>Mon, 07 Jan 2019 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/goland-is-awesome-for-reading.html/</guid>
+      <description>曾几何时也不喜欢 IDE, 启动超慢, 风扇呼呼的转. 写 Ruby 以后更甚, 因为 Ruby / Rails 的很多魔法在 IDE 里边会水土不服. 虽然据说 Rubymine 挺好的, 不过尝试的欲望还是不高. 之</description>
+    </item>
+    
+    <item>
+      <title>查看 TCP 端口号占用</title>
+      <link>https://xguox.me/tcp-port-pid.html/</link>
+      <pubDate>Thu, 01 Nov 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/tcp-port-pid.html/</guid>
+      <description>查看 TCP 端口被哪个进程(PID)占用了 1 lsof -nP -i4TCP:$PORT | grep LISTEN</description>
+    </item>
+    
+    <item>
+      <title>Git Bisect Debug 利器</title>
+      <link>https://xguox.me/git-bisect-debug.html/</link>
+      <pubDate>Sat, 25 Feb 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/git-bisect-debug.html/</guid>
+      <description>老早就听说过用 Git 的 bisect, 二分查找问题 commit, 只是一直都没机会实践运用. (项目都跑的太正常了, 手动斜眼) 其实, 只是绝大部分时候总可以通过各种 Log 来追踪到问</description>
+    </item>
+    
+    <item>
+      <title>与开发相关的一些 iOS App (通勤时间太长怪我咯?)</title>
+      <link>https://xguox.me/ios-developer-tools.html/</link>
+      <pubDate>Mon, 12 Dec 2016 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/ios-developer-tools.html/</guid>
+      <description>在路上的时间超长如我, 不是果粉, 只是有一台 iPad Air 2. 这货屏幕比手中的大法机大得多, 平日看电子书较多, 最近折腾起一些开发相关的工具, 好像还是很好玩</description>
+    </item>
+    
+    <item>
+      <title>Git 合并 commits</title>
+      <link>https://xguox.me/git-squashing-commits-with-rebase.html/</link>
+      <pubDate>Tue, 22 Dec 2015 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/git-squashing-commits-with-rebase.html/</guid>
+      <description>很多时候, 为了方便别人帮忙 review 代码, 习惯喜欢把某个 todo 任务的提交合并作为一个. 如果想直接合到前一个 commit 的话, 一般都是用 git commit --amend 很多时候 typo 都这么干, 省</description>
+    </item>
+    
+    <item>
+      <title>OneNote or Evernote?</title>
+      <link>https://xguox.me/onenote-or-evernote.html/</link>
+      <pubDate>Tue, 18 Mar 2014 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/onenote-or-evernote.html/</guid>
+      <description>近日, 微软发布了 Mac 版 OneNote. 原本没想着装来耍耍的, 只是看了下大概, 发觉 UI 相较之 Evernote 更符合我的胃口, 于是, OOXX 话说, 以前用 Lumia 的 Windows Phone 的时候玩过一会. 其实我</description>
+    </item>
+    
+    <item>
+      <title>自动更换 Sublime Text 主题 by Automator IFTTT Dropbox</title>
+      <link>https://xguox.me/automator-ifttt-dropbox-sublime-theme.html/</link>
+      <pubDate>Tue, 24 Dec 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/automator-ifttt-dropbox-sublime-theme.html/</guid>
+      <description>没事喜欢折腾下 Sublime Text 的主题, 当然可能看习惯一种主题对编码也有帮助的, 对各种语法匹配各种颜色形成了习惯, 出现 typo 或者其他的一些错误也较容易发现吧.</description>
+    </item>
+    
+    <item>
+      <title>Hidden Productivity Secrets With Alfred</title>
+      <link>https://xguox.me/hidden-productivity-secrets-with-alfred.html/</link>
+      <pubDate>Mon, 28 Oct 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/hidden-productivity-secrets-with-alfred.html/</guid>
+      <description>好的开发人员总是在寻找可以让自己的工作流程更快速,更自动化的方法. 这次,我们带来的是Alfred的一系列workflows,它们可以极大的提</description>
+    </item>
+    
+    <item>
+      <title>扯点Sublime</title>
+      <link>https://xguox.me/jabber-sublime.html/</link>
+      <pubDate>Thu, 11 Apr 2013 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/jabber-sublime.html/</guid>
+      <description>Fxxk Jabber 回想起初初接触编程语言的时候, 特喜欢折腾IDE的玩意, 什么visual studio啊, Eclipse啊, Netbeans, Aptana的会不会用好不好用</description>
+    </item>
+    
+  </channel>
+</rss>

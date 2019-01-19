@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Erlang on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/categories/erlang/</link>
+    <description>Recent content in Erlang on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 30 Aug 2017 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/categories/erlang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Erlang weekly note 07 - Processes 进程</title>
+      <link>https://xguox.me/erlang-weekly-note-07.html/</link>
+      <pubDate>Wed, 30 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-07.html/</guid>
+      <description>为了让几十个任务能同时执行, Erlang 采用了 Actor 模型, 每个 actor 都是虚拟机中的一个独立进程. 在 Erlang 中, 并发的基本单位是进程(Actor). 每个进程代表一个持</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 06 - Exceptions 异常</title>
+      <link>https://xguox.me/erlang-weekly-note-06.html/</link>
+      <pubDate>Sat, 26 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-06.html/</guid>
+      <description>Let it crash! Erlang 的异常有三类: 出错(error), 退出(exit), 抛出(throw), 针对每种异常, 都有一个与之对应的用于抛出异常内置函数, throw(Exception), ex</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 05 - Records &amp; Maps 记录与键值对</title>
+      <link>https://xguox.me/erlang-weekly-note-05.html/</link>
+      <pubDate>Mon, 21 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-05.html/</guid>
+      <description>元组是大部分 Erlang 结构化数据的基石, 而 Erlang 的记录(Record)是元组之上的语法糖, 记录可以让你避免了使用元组时增减字段所带来的麻烦以及必须记住各</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 04 - Recursion 递归</title>
+      <link>https://xguox.me/erlang-weekly-note-04.html/</link>
+      <pubDate>Mon, 14 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-04.html/</guid>
+      <description>尾递归 Erlang 没有 for 或者 each 之类的循环迭代结构, 循环迭代靠的是递归(Recursion). 比如, 计算 0 到 N 的累加和, 循环迭代可以这么写: 1 2 3 4 5 6</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 03 - Function 函数</title>
+      <link>https://xguox.me/erlang-weekly-note-03.html/</link>
+      <pubDate>Mon, 07 Aug 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-03.html/</guid>
+      <description>这是一段 Ruby 方法的定义, 主流的语言语法都差不多. 1 2 3 4 5 6 7 8 9 10 def greet(gender, name) case gender when :male puts(&amp;#34;Hello, Mr. #{name}!&amp;#34;) when :female puts(&amp;#34;Hello, Mrs. #{name}!&amp;#34;) else print(&amp;#34;Hello, #{name}!&amp;#34;) end end 但是, 如果换做 Erlang 来写的话: 1 2 3 4</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 02 - Module 模块</title>
+      <link>https://xguox.me/erlang-weekly-note-02.html/</link>
+      <pubDate>Sun, 30 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/erlang-weekly-note-02.html/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 % erl % Eshell V9.0 (abort with ^G) % 列表中的第一个元素称为头(head) hd([1,2,3,4]). 1 % 剩余的部分称为尾(tail) tl([1,2,3,4]). [2,3,4] % 列表的长度 length([1,2,3,4]). 4</description>
+    </item>
+    
+    <item>
+      <title>Erlang weekly note 01</title>
+      <link>https://xguox.me/this-week-with-erlang.html/</link>
+      <pubDate>Thu, 20 Jul 2017 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/this-week-with-erlang.html/</guid>
+      <description>一些意料之外但又在情理之中的语法. 为什么不是「如日中天」的 Elixir 呢? 我也想问, 也不知道. 就只是想先入坑 Erlang呢. 因为「主流」的语法先入为主</description>
+    </item>
+    
+  </channel>
+</rss>

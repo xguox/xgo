@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>sync.Mutex, sync.RWMutex, snyc.Cond - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="当两个(或以上)的 goroutine 并发访问同一个变量, 且至少其中一个是写操作的时候就会发生数据竞争. 像其他语言比如 Ruby 一样, Go 也提供了互斥锁 Mutex 来避免发生这一" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/sync-in-go.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="sync.Mutex, sync.RWMutex, snyc.Cond" />
+<meta property="og:description" content="当两个(或以上)的 goroutine 并发访问同一个变量, 且至少其中一个是写操作的时候就会发生数据竞争. 像其他语言比如 Ruby 一样, Go 也提供了互斥锁 Mutex 来避免发生这一" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/sync-in-go.html/" /><meta property="article:published_time" content="2018-11-21T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2018-11-21T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="sync.Mutex, sync.RWMutex, snyc.Cond">
+<meta itemprop="description" content="当两个(或以上)的 goroutine 并发访问同一个变量, 且至少其中一个是写操作的时候就会发生数据竞争. 像其他语言比如 Ruby 一样, Go 也提供了互斥锁 Mutex 来避免发生这一">
+
+
+<meta itemprop="datePublished" content="2018-11-21T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2018-11-21T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="1058">
+
+
+
+<meta itemprop="keywords" content="Go," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="sync.Mutex, sync.RWMutex, snyc.Cond"/>
+<meta name="twitter:description" content="当两个(或以上)的 goroutine 并发访问同一个变量, 且至少其中一个是写操作的时候就会发生数据竞争. 像其他语言比如 Ruby 一样, Go 也提供了互斥锁 Mutex 来避免发生这一"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">sync.Mutex, sync.RWMutex, snyc.Cond</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 21 Nov 2018 </span>
+          <span class="more-meta"> 1058 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/go/"> Go </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>当两个(或以上)的 goroutine 并发访问同一个变量, 且至少其中一个是写操作的时候就会发生数据竞争. 像其他语言比如 Ruby 一样, Go 也提供了互斥锁 Mutex 来避免发生这一情况.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;sync&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="p">(</span>
+	<span class="nx">counter</span> <span class="kt">int</span>
+	<span class="nx">wg</span>      <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+	<span class="nx">mutex</span>   <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+	<span class="k">go</span> <span class="nf">incCounter</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">incCounter</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Final Counter: %d\\n&#34;</span><span class="p">,</span> <span class="nx">counter</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">incCounter</span><span class="p">(</span><span class="nx">id</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">defer</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+
+	<span class="k">for</span> <span class="nx">count</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">count</span> <span class="p">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">count</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">mutex</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+		<span class="p">{</span>
+			<span class="nx">value</span> <span class="o">:=</span> <span class="nx">counter</span>
+			<span class="nx">value</span><span class="o">++</span>
+			<span class="nx">counter</span> <span class="p">=</span> <span class="nx">value</span>
+		<span class="p">}</span>
+		<span class="nx">mutex</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>一个互斥锁可以被用来保护<strong>一个临界区或者一组临界区</strong>. 有了互斥锁, 在同一时刻只有一个 goroutine 进入到该临界区里面执行. 每当有 goroutine 想进入临界区时, 都需要先通过 <strong>Lock</strong> 将互斥锁进行锁定, 每个 goroutine 离开临界区时, 都要立即通过 <strong>Unlock</strong> 进行解锁.  当临界区比较精简的时候可能不会忘了解锁, 但是, 当临界区比较复杂的时候, 比如出现分叉或者提前返回, 往往容易忘记解锁, 这时候可以使用 <code>defer mutext.Unlock()</code>,  临界区会延伸到函数作用域的最后一行, 当函数返回甚至发生 <strong>panic</strong> 以后用 <strong>recover</strong> 恢复都会执行解锁.</p>
+
+<hr />
+
+<p>因为造成竞争的一个原因是<strong>同时写数据</strong>, 这也就意味着, 如果只是并发读的话是不会发生竞争的. 所以, go 提供了更细粒度的读写锁 <strong>RWMutex</strong>. 顾名思义, 就是把读锁跟写锁分开,  通过 <strong>RLock</strong> 与 <strong>RUnlock</strong> 对读锁进行锁定与解锁, 而写锁的锁定与解锁操作则还是<strong>Lock</strong> 和 <strong>Unlock</strong>. 在读锁被锁定的情况下, 如果锁定写锁则会阻塞当前 goroutine, 但是, 再对读锁锁定不会阻塞.</p>
+
+<p>就是说, 多个读操作可以同时进行, 但当有正在读的操作发生以后, 不能进行写操作, 直到读锁被释放.</p>
+
+<p>看了 RWMutex 的源码这里又得回顾一下类型别名和类型定义 = 。 =</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// RLocker returns a Locker interface that implements
+</span><span class="c1">// the Lock and Unlock methods by calling rw.RLock and rw.RUnlock.
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">rw</span> <span class="o">*</span><span class="nx">RWMutex</span><span class="p">)</span> <span class="nf">RLocker</span><span class="p">()</span> <span class="nx">Locker</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">rlocker</span><span class="p">)(</span><span class="nx">rw</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">rlocker</span> <span class="nx">RWMutex</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">rlocker</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span>   <span class="p">{</span> <span class="p">(</span><span class="o">*</span><span class="nx">RWMutex</span><span class="p">)(</span><span class="nx">r</span><span class="p">).</span><span class="nf">RLock</span><span class="p">()</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">rlocker</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">()</span> <span class="p">{</span> <span class="p">(</span><span class="o">*</span><span class="nx">RWMutex</span><span class="p">)(</span><span class="nx">r</span><span class="p">).</span><span class="nf">RUnlock</span><span class="p">()</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>配合 sync.Cond 使用的时候, 如果需要传读锁的话可以用这个 <code>RLocker</code></p>
+
+<hr />
+
+<p><strong>snyc.Cond</strong> 需要配合锁一起使用, *Mutex 或者 *RWMutex 都可以. 通过 <code>sync.NewCond</code> 函数初始化得到一个 *sync.Cond 值.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// NewCond returns a new Cond with Locker l.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewCond</span><span class="p">(</span><span class="nx">l</span> <span class="nx">Locker</span><span class="p">)</span> <span class="o">*</span><span class="nx">Cond</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Cond</span><span class="p">{</span><span class="nx">L</span><span class="p">:</span> <span class="nx">l</span><span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>*sync.Cond 的主要方法有三个, <code>Wait</code>, <code>Signal</code>, <code>Broadcast</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Cond</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">noCopy</span> <span class="nx">noCopy</span>
+
+	<span class="c1">// L is held while observing or changing the condition
+</span><span class="c1"></span>	<span class="nx">L</span> <span class="nx">Locker</span>
+
+	<span class="nx">notify</span>  <span class="nx">notifyList</span>
+	<span class="nx">checker</span> <span class="nx">copyChecker</span>
+<span class="p">}</span>
+<span class="o">...</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>调用 <code>newCond</code> 的时候传的一般是锁的指针, 所以, 下面的 c.L.Lock() 其实跟直接在锁上面调 <code>Lock()</code> 是一样的.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">//    c.L.Lock()
+</span><span class="c1">//    for !condition() {
+</span><span class="c1">//        c.Wait()
+</span><span class="c1">//    }
+</span><span class="c1">//    ... make use of condition ...
+</span><span class="c1">//    c.L.Unlock()
+</span><span class="c1">//
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">c</span><span class="p">.</span><span class="nx">checker</span><span class="p">.</span><span class="nf">check</span><span class="p">()</span>
+	<span class="nx">t</span> <span class="o">:=</span> <span class="nf">runtime_notifyListAdd</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">.</span><span class="nx">notify</span><span class="p">)</span>
+	<span class="nx">c</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+	<span class="nf">runtime_notifyListWait</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">.</span><span class="nx">notify</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span>
+	<span class="nx">c</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>Wait</code> 会自动 Unlock 锁, 所以, 得先锁定了互斥锁的前提下才能调用 <code>Wait</code>. 同时还会暂停执行当前 goroutine, 当稍后唤醒通知来了, 恢复该 goroutine 的执行以后, 会再次上锁.</p>
+
+<p>源码的注释示例这里用的是 <strong>for</strong>, 而不是 <strong>if</strong>, 因为在恢复执行了以后, <strong>condition 不一定就满足条件可以跳出等待</strong>, 那么就需要继续等待, 而不是让 goroutine 执行下去.</p>
+
+<p>对应上面的唤醒通知的是, <code>Signal</code>, <code>Broadcast</code>这俩方法, Signal 唤醒的任意一个被悬起的 goroutine(Cond 的 <code>notifyList</code>), Broadcast 则是唤醒所有的 goroutine, 再分别检验条件是否继续 <code>Wait</code>.</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/go/">Go</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/elk-logstash-conf.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Logstash 的日志输出</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/go-pointer.html/">
+            <span class="next-text nav-default">Go 的指针</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

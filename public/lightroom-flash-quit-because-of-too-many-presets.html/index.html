@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>解决 Lightroom 闪退 - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="接上一篇, 想着在网上搞了那么多的预设,不用放着也不碍事. 结果没些时间, Lightroom 就各种闪退各种编辑不能. 按理说应该不是跟 Maverick 兼容问题吧,如果那样的话升" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/lightroom-flash-quit-because-of-too-many-presets.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="解决 Lightroom 闪退" />
+<meta property="og:description" content="接上一篇, 想着在网上搞了那么多的预设,不用放着也不碍事. 结果没些时间, Lightroom 就各种闪退各种编辑不能. 按理说应该不是跟 Maverick 兼容问题吧,如果那样的话升" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/lightroom-flash-quit-because-of-too-many-presets.html/" /><meta property="article:published_time" content="2013-11-28T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2013-11-28T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="解决 Lightroom 闪退">
+<meta itemprop="description" content="接上一篇, 想着在网上搞了那么多的预设,不用放着也不碍事. 结果没些时间, Lightroom 就各种闪退各种编辑不能. 按理说应该不是跟 Maverick 兼容问题吧,如果那样的话升">
+
+
+<meta itemprop="datePublished" content="2013-11-28T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2013-11-28T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="429">
+
+
+
+<meta itemprop="keywords" content="Photo," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="解决 Lightroom 闪退"/>
+<meta name="twitter:description" content="接上一篇, 想着在网上搞了那么多的预设,不用放着也不碍事. 结果没些时间, Lightroom 就各种闪退各种编辑不能. 按理说应该不是跟 Maverick 兼容问题吧,如果那样的话升"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">解决 Lightroom 闪退</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 28 Nov 2013 </span>
+          <span class="more-meta"> 429 words </span>
+          <span class="more-meta"> 1 min read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/photo/"> Photo </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>接<a href="http://xguox.me/lightroom-presets.html">上一篇</a>, 想着在网上搞了那么多的预设,不用放着也不碍事. 结果没些时间, Lightroom 就各种闪退各种编辑不能.</p>
+
+<p>按理说应该不是跟 Maverick 兼容问题吧,如果那样的话升级了之后应该就会有问题了, 不过升级 10.9 以后没怎么使用, 都是随手的就预设搞定. 没注意预设这点, 只是简单地用 CleanMyMac 卸载了之后重装了一次, 顺手下载了一个 5.3 RC版的来解 A7R 的 RAW, 好吧,我也没怎么用 RAW.</p>
+
+<p>安装过后还是老样子的只要一编辑图片就闪退, 蹦出一个 Error 框来唬人(可以进入 Lightroom,看到图片). 不过奇怪的是, 我用 CleanMyMac 卸载完重装以后, 居然还可以继续使用之前的预设. 打开 <code>~/Library/Application Support/Adobe/Lightroom/Develop Presets/</code> 发现, 一个也没少啊. 这个就奇葩了.</p>
+
+<p>果断把所有预设删除, 杠杠的就可以编辑!!!果然, 不过是预设太多了还是因为部分预设的版本太老或者其他什么的原因?</p>
+
+<p>把之前的预设都删光光了之后一个个预设文件夹的复制进去,发现,有些导致了不能编辑, 有些则直接就造成 Lightroom 启动不能. 更具体原因不明&hellip;</p>
+
+<p>所以说,还是别贪心啊啊, 找好自己喜欢的风格喜欢的调子就好. 这下不能拖延症了啊!</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/photo/">Photo</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/hello-22.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Diary: 22 西涌</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/a7r-iso-unbox-manfrotto.html/">
+            <span class="next-text nav-default">用 A7R 玩开箱并各档不严谨不严肃不专业无责任高感测试</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

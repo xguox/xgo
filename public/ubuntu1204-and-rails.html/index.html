@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ubuntu12.04 and Rails - XguoX - 写点 Ruby 糊口饭吃</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="XguoX" /><meta name="description" content="昨晚,把ubuntu升级到了12.04,其实,对我目前的使用来说,系统是否升级几乎没影响.不过看着更新管理器冒出了新版本,反正也就按几个下的" /><meta name="keywords" content="Ruby, Golang, Erlang, 前端, 后端, Android, Elasticsearch, Programmer, Photo, Lens, Camera, Sony, A7r, Fujifilm, Lego" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://xguox.me/ubuntu1204-and-rails.html/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.7fcd997e.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="ubuntu12.04 and Rails" />
+<meta property="og:description" content="昨晚,把ubuntu升级到了12.04,其实,对我目前的使用来说,系统是否升级几乎没影响.不过看着更新管理器冒出了新版本,反正也就按几个下的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xguox.me/ubuntu1204-and-rails.html/" /><meta property="article:published_time" content="2012-04-27T16:01:23&#43;08:00"/>
+<meta property="article:modified_time" content="2012-04-27T16:01:23&#43;08:00"/>
+
+<meta itemprop="name" content="ubuntu12.04 and Rails">
+<meta itemprop="description" content="昨晚,把ubuntu升级到了12.04,其实,对我目前的使用来说,系统是否升级几乎没影响.不过看着更新管理器冒出了新版本,反正也就按几个下的">
+
+
+<meta itemprop="datePublished" content="2012-04-27T16:01:23&#43;08:00" />
+<meta itemprop="dateModified" content="2012-04-27T16:01:23&#43;08:00" />
+<meta itemprop="wordCount" content="546">
+
+
+
+<meta itemprop="keywords" content="Ruby," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ubuntu12.04 and Rails"/>
+<meta name="twitter:description" content="昨晚,把ubuntu升级到了12.04,其实,对我目前的使用来说,系统是否升级几乎没影响.不过看着更新管理器冒出了新版本,反正也就按几个下的"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="table cover">
+        <div class="cover-card table-cell table-middle">
+
+  <img src="/img/logo.jpeg" alt="" class="avatar">
+
+  <a href="https://xguox.me/" class="author_name">XguoX</a>
+  <span class="author_job">写点 Ruby 糊口饭吃</span>
+  <span class="author_bio mbm">Model 42082</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://xguox.me/">home</a>
+        <span>/</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/post/">Archive</a>
+
+          <span>/</span>
+
+      </li>
+
+      <li class="nav-item">
+        <a href="https://xguox.me/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="social-links">
+    <ul>
+        <li><a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a></li>
+        <li><a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a></li>
+        <li><a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a></li>
+    <li>
+      <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    </li>
+    </ul>
+  </div>
+
+  <section id="js-search" class="p-3 p-lg-5 d-flex flex-column">
+    <div class="my-auto" >
+      <form action="https://xguox.me/search">
+        <input id="search-query" name="s" placeholder="~$ enter to search"/>
+      </form>
+    </div>
+  </section>
+</div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="post-listing">
+        
+        <div class="container" id="mobile-panel">
+          
+
+          <main id="main" class="main">
+            <div class="content-wrapper">
+              <div id="content" class="content">
+                <article class="post inner">
+    <a class="home-btn" href= "https://xguox.me//" >
+      Home
+    </a>
+    
+    <header class="post-header">
+      <h1 class="post-title">ubuntu12.04 and Rails</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 27 Apr 2012 </span>
+          <span class="more-meta"> 546 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        
+      </div>
+      <div class="post-category">
+          <a href="/categories/ruby/"> Ruby </a>
+          </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>昨晚,把ubuntu升级到了12.04,其实,对我目前的使用来说,系统是否升级几乎没影响.不过看着更新管理器冒出了新版本,反正也就按几个下的功夫,于是就升上去了.</p>
+
+<p>新版本多了首先感觉感觉性能上貌似快了些许,不多&hellip;另外对我而言直观的体验是launcher,之前的launcher也太敏感了,不过现在这倒是太呆板了,有时想要却不出来.不过桌面状态下不显示这点我比较喜欢.(以前也可以设置?不知道,木有研究)</p>
+
+<p>另外alt键貌似上边会冒出个可输入命令行的,目前还木有发现其实际作用.</p>
+
+<p>好吧,其实,我对这些改进啊有的没的还不怎么敏感.所以与其要看我介绍新功能新特性还不如直接搜索.</p>
+
+<p>我敏感的只是,我的一些Rails项目都跑不动了.passenger报错</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Error</span> <span class="ss">message</span><span class="p">:</span>
+<span class="n">libmysqlclient_r</span><span class="o">.</span><span class="n">so</span><span class="o">.</span><span class="mi">16</span><span class="p">:</span> <span class="n">cannot</span> <span class="nb">open</span> <span class="n">shared</span> <span class="n">object</span> <span class="ss">file</span><span class="p">:</span> <span class="no">No</span> <span class="n">such</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span> <span class="o">-</span> <span class="sr">/home/x</span><span class="n">guox</span><span class="sr">/.rvm/</span><span class="n">gems</span><span class="sr">/Ruby-1.9.2-p290@Rails/</span><span class="n">gems</span><span class="sr">/mysql2-0.3.11/</span><span class="n">lib</span><span class="sr">/mysql2/m</span><span class="n">ysql2</span><span class="o">.</span><span class="n">so</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>我还以为是我缺少了libmysqlclient_r.so.16这个文件,自己下载了之后也还是不行.期间尝试重装mysql,也试过之前说的那个,安装各种组建的命令还是无果.最终在Ruby-china得到大神指点,居然只需卸了重装mysql2这个gem就可以了.貌似是因为/usr/lib 下的mysql2.so没有link到gem里边的mysql2.so
+过后,还是跟往常没有多大差别的继续Rails&hellip;</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ruby/">Ruby</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/recently-status.html/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">小记</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/usage-of-try.html/">
+            <span class="next-text nav-default">Rails中try的用法</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+              </div>
+              <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xguox';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </div>
+          </main>
+
+          <footer id="footer" class="footer">
+            <div class="social-links">
+      <a href="mailto:xguox@hotmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/XguoX_L" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xguox" class="iconfont icon-github" title="github"></a>
+  <a href="https://xguox.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme -
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy;
+    2011 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-bulb"></i>
+    </span>
+    <span class="author">XguoX</span>
+  </span>
+</div>
+          </footer>
+
+          <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.733a52a9.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-62252083-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

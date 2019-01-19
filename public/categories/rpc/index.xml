@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RPC on XguoX - 写点 Ruby 糊口饭吃</title>
+    <link>https://xguox.me/categories/rpc/</link>
+    <description>Recent content in RPC on XguoX - 写点 Ruby 糊口饭吃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 10 Aug 2018 16:01:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://xguox.me/categories/rpc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Protobuf, Go, gRPC 的 Hello World 理解</title>
+      <link>https://xguox.me/grpc-go-protobuf-hello-world-example-explain.html/</link>
+      <pubDate>Fri, 10 Aug 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://xguox.me/grpc-go-protobuf-hello-world-example-explain.html/</guid>
+      <description>示例代码从官方示例提取过来的. 1 2 3 4 5 6 // addressbook.proto syntax = &amp;#34;proto3&amp;#34;; package tutorial; import &amp;#34;google/protobuf/timestamp.proto&amp;#34;; // 导入 proto3 新加的 timestamp 包 对于目标语言为 Go, 除非显式的提供 option go_package 在 .proto 文件中, 否则, 如果指定了</description>
+    </item>
+    
+  </channel>
+</rss>

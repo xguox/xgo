@@ -95,7 +95,7 @@ inuse_space 是正在使用的内存大小, alloc_space是从头到尾一共分�
 
 [例子 gist](https://gist.github.com/xguox/f0603d9e3ef48148d4bd84fa209c6de5) 来自[从 net/http 入门到 Gin 源码梳理](https://xguox.me/gin-source-code.html/)
 
-引入多一行 `_ "net/http/pprof"`, 启用服务的时候, `log.Println(http.ListenAndServe(":8080", nil))`, 接着就可以在路径 `/debug/pprof/` 看到相应的监控数据. 类似下面(已经很贴心的把各自的描述信息写在下边了):
+引入多一行 `_ "net/http/pprof"`, 启用服务以后就可以在路径 `/debug/pprof/` 看到相应的监控数据. 类似下面(已经很贴心的把各自的描述信息写在下边了):
 
 ![](http://wx1.sinaimg.cn/large/62fdd4d5gy1fzfeeircq4j22801e0akr.jpg)
 

@@ -97,11 +97,57 @@ inuse_space 是正在使用的内存大小, alloc_space是从头到尾一共分�
 
 引入多一行 `_ "net/http/pprof"`, 启用服务以后就可以在路径 `/debug/pprof/` 看到相应的监控数据. 类似下面(已经很贴心的把各自的描述信息写在下边了):
 
-![](http://wx1.sinaimg.cn/large/62fdd4d5gy1fzfeeircq4j22801e0akr.jpg)
+用 wrk (brew install wrk) 模拟测试
 
-![](http://wx2.sinaimg.cn/large/62fdd4d5gy1fzfeejcmncj22801e0kar.jpg)
+`wrk -c 200 -t 4 -d 3m http://localhost:8080/hello`
+
+![](http://wx3.sinaimg.cn/large/62fdd4d5gy1fzfftiaid1j22801e0akx.jpg)
 
 还是没有前面的那些可视化图形 UI 直观, 不过可以通过 **http://localhost:8080/debug/pprof/profile** (其他几个指标也差不多, heap, alloc...)生成一个类似前面的 CPU profile 文件监控 **30s** 内的数据. 然后就可以用 `go tool pprof`来解读了.
+
+```go
+Type: cpu
+Time: Jan 22, 2019 at 4:22pm (CST)
+Duration: 30.13s, Total samples = 1.62mins (321.66%)
+Entering interactive mode (type "help" for commands, "o" for options)
+(pprof) top
+Showing nodes accounting for 93.78s, 96.76% of 96.92s total
+Dropped 270 nodes (cum <= 0.48s)
+Showing top 10 nodes out of 52
+      flat  flat%   sum%        cum   cum%
+    81.42s 84.01% 84.01%     81.45s 84.04%  syscall.Syscall
+     3.45s  3.56% 87.57%      3.45s  3.56%  runtime.kevent
+     2.31s  2.38% 89.95%      2.31s  2.38%  runtime.pthread_cond_wait
+     2.06s  2.13% 92.08%      2.07s  2.14%  runtime.usleep
+     1.93s  1.99% 94.07%      1.93s  1.99%  runtime.pthread_cond_signal
+     1.10s  1.13% 95.20%      1.10s  1.13%  runtime.freedefer
+     0.85s  0.88% 96.08%      0.87s   0.9%  runtime.nanotime
+     0.59s  0.61% 96.69%      4.07s  4.20%  runtime.netpoll
+     0.04s 0.041% 96.73%      0.67s  0.69%  runtime.newproc1
+     0.03s 0.031% 96.76%     44.18s 45.58%  net/http.(*conn).readRequest
+(pprof)
+
+Type: alloc_space
+Time: Jan 22, 2019 at 4:26pm (CST)
+Entering interactive mode (type "help" for commands, "o" for options)
+(pprof) top
+Showing nodes accounting for 21.91GB, 99.82% of 21.95GB total
+Dropped 66 nodes (cum <= 0.11GB)
+Showing top 10 nodes out of 16
+      flat  flat%   sum%        cum   cum%
+    6.72GB 30.61% 30.61%     6.72GB 30.62%  net/textproto.(*Reader).ReadMIMEHeader
+    5.97GB 27.18% 57.80%    20.54GB 93.60%  net/http.(*conn).readRequest
+       4GB 18.21% 76.01%    13.23GB 60.30%  net/http.readRequest
+    2.01GB  9.16% 85.17%     2.01GB  9.16%  net/url.parse
+    1.25GB  5.71% 90.88%     1.25GB  5.71%  net.(*conn).Read
+    1.22GB  5.54% 96.42%     1.22GB  5.55%  context.WithCancel
+    0.49GB  2.25% 98.68%     0.49GB  2.25%  net/textproto.(*Reader).ReadLine
+    0.13GB  0.58% 99.25%     0.13GB  0.58%  main.main.func1
+    0.12GB  0.56% 99.82%     0.12GB  0.56%  bufio.NewWriterSize (inline)
+         0     0% 99.82%     0.13GB  0.59%  net/http.(*ServeMux).ServeHTTP
+(pprof)
+```
+
 
 ## gin pprof
 

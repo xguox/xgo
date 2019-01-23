@@ -165,3 +165,27 @@ func init() {
 ```
 
 因此, **Gin** 项目要使用 **pprof** 的话可以参考[这里](https://github.com/DeanThompson/ginpprof/blob/master/pprof.go)
+
+# Flame Graph 火焰图
+
+[go-torch](https://github.com/uber/go-torch) 在 **Go 1.11** 之前是作为非官方的可视化工具存在的, 它可以为监控数据生成一个类似下面这样的图形界面, 红红火火的, 因而得名. 从 **Go 1.11** 开始, 火焰图被集成进入 Go 官方的 **pprof** 库.
+
+> go-torch is deprecated, use pprof instead
+
+> As of Go 1.11, flamegraph visualizations are available in go tool pprof directly!
+
+```go
+$ go tool pprof -http=":8081" [binary] [profile]
+```
+
+在浏览器打开 **http://localhost:8081/ui/flamegraph**, 就可以看到下面这样的反过来的火焰图.
+
+长条形的颜色只是为了好看, 颜色的深浅是随机的 = 。=  长度越长代表占用 CPU 时间越长
+
+![](http://wx2.sinaimg.cn/large/62fdd4d5gy1fzgbuz1x3nj227y0swaj2.jpg)
+
+然后, **pprof** 命令行的 **top** 以及 **list** 正则也可以在这里边完成, 还有 **svg** 图形.
+
+![](http://wx3.sinaimg.cn/large/62fdd4d5gy1fzgbuzpge6j21le0ocq8b.jpg)
+
+

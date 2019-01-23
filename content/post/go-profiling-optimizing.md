@@ -170,6 +170,8 @@ func init() {
 
 [go-torch](https://github.com/uber/go-torch) 在 **Go 1.11** 之前是作为非官方的可视化工具存在的, 它可以为监控数据生成一个类似下面这样的图形界面, 红红火火的, 因而得名. 从 **Go 1.11** 开始, 火焰图被集成进入 Go 官方的 **pprof** 库.
 
+![](https://camo.githubusercontent.com/496577fa999cda41f65a01923afc75ed02993845/687474703a2f2f756265722e6769746875622e696f2f676f2d746f7263682f6d6574612e737667)
+
 > go-torch is deprecated, use pprof instead
 
 > As of Go 1.11, flamegraph visualizations are available in go tool pprof directly!

@@ -16,7 +16,7 @@ import "net/http"
 func main() {
     http.Handle("/", &MyHandler{})
     http.Handle("/hello", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte("world"))
+        w.Write([]byte("world"))
     }))
     http.HandleFunc("/ping", hello)
 
@@ -56,7 +56,7 @@ http.HandleFunc("/ping", m.ServeHTTP)
 ```go
 func (mux *ServeMux) HandleFunc(pattern string, handler func(ResponseWriter, *Request)) {
     if handler == nil {
-    panic("http: nil handler")
+        panic("http: nil handler")
     }
     mux.Handle(pattern, HandlerFunc(handler))
 }
@@ -106,13 +106,13 @@ import (
 func main() {
     r := gin.New()
     r.GET("/", func(context *gin.Context) {
-    context.String(http.StatusOK, "gin home page")
+        context.String(http.StatusOK, "gin home page")
     })
     r.GET("/ping", func(context *gin.Context) {
-    context.String(http.StatusOK, "pong")
+        context.String(http.StatusOK, "pong")
     })
     r.GET("/hello", func(context *gin.Context) {
-    context.String(http.StatusOK, "world")
+        context.String(http.StatusOK, "world")
     })
     r.Run()
 }
@@ -213,7 +213,7 @@ func (srv *Server) ListenAndServe() error {
     // ...
     ln, err := net.Listen("tcp", addr) // 监听 TCP(HTTP) 的连接
     if err != nil {
-    return err
+        return err
     }
     return srv.Serve(tcpKeepAliveListener{ln.(*net.TCPListener)})
 }
@@ -251,10 +251,10 @@ type serverHandler struct {
 func (sh serverHandler) ServeHTTP(rw ResponseWriter, req *Request) {
     handler := sh.srv.Handler  // gin.Engine
     if handler == nil {
-    handler = DefaultServeMux
+        handler = DefaultServeMux
     }
     if req.RequestURI == "*" && req.Method == "OPTIONS" {
-    handler = globalOptionsHandler{}
+        handler = globalOptionsHandler{}
     }
     handler.ServeHTTP(rw, req)
 }
@@ -301,7 +301,7 @@ type Context struct {
 func (c *Context) Next() {
     c.index++
     for s := int8(len(c.handlers)); c.index < s; c.index++ {
-    c.handlers[c.index](c) // 执行 handler
+        c.handlers[c.index](c) // 执行 handler
     }
 }
 

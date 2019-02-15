@@ -224,21 +224,21 @@ func (srv *Server) Serve(l net.Listener) error {
 
     // ...
     for {
-    rw, e := l.Accept() // 阻塞等待客户端连接
-    // ...
-    c := srv.newConn(rw)
-    c.setState(c.rwc, StateNew) // before Serve can return
-    go c.serve(ctx) // 起一个 goroutine 处理接受的请求
+        rw, e := l.Accept() // 阻塞等待客户端连接
+        // ...
+        c := srv.newConn(rw)
+        c.setState(c.rwc, StateNew) // before Serve can return
+        go c.serve(ctx) // 起一个 goroutine 处理接受的请求
     }
 }
 
 func (c *conn) serve(ctx context.Context) {
     // ...
     for {
-    w, err := c.readRequest(ctx)
-    // ...
-    serverHandler{c.server}.ServeHTTP(w, w.req)
-    // ...
+        w, err := c.readRequest(ctx)
+        // ...
+        serverHandler{c.server}.ServeHTTP(w, w.req)
+        // ...
     }
 }
 

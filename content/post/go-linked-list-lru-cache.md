@@ -2,8 +2,8 @@
 title: "Golang, 链表, LRU 缓存淘汰策略"
 date: 2018-10-15T16:01:23+08:00
 draft: false
-tags: ["Go"]
-categories: ["Go"]
+tags: ["Go", "Algorithm"]
+categories: ["Go", "Algorithm"]
 ---
 
 当缓存的空间即将达到临界值的时候, 需要将一些旧的数据清理掉, 哪些该去, 哪些该留, 常用的缓存淘汰策略有下面三种:

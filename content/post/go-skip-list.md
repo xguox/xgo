@@ -2,8 +2,8 @@
 title: "Go 实现 Skip List(跳表)"
 date: 2018-11-10T16:01:23+08:00
 draft: false
-tags: ["Go"]
-categories: ["Go"]
+tags: ["Go", "Algorithm"]
+categories: ["Go", "Algorithm"]
 ---
 
 ![](http://wx2.sinaimg.cn/large/62fdd4d5gy1fwzsypsodkj20ti026wee.jpg)

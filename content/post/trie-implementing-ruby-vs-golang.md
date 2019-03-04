@@ -2,8 +2,8 @@
 title: "Trie 的实现, Ruby vs Go"
 date: 2019-01-03T16:01:23+08:00
 draft: false
-tags: ["Go", "Ruby"]
-categories: ["Go", "Ruby"]
+tags: ["Go", "Ruby", "Algorithm"]
+categories: ["Go", "Ruby", "Algorithm"]
 ---
 
 [上一篇](https://xguox.me/gin-router-conflicts.html)看到 Trie 的数据结构, 想着用 Ruby 和 Go 大概实现一下对比看看, 顺便看看一下 Benchmark.

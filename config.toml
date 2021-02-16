@@ -1,4 +1,4 @@
-baseURL = "https://xguox.me/"
+baseURL = "https://xguox.com/"
 languageCode = "en"
 defaultContentLanguage = "en"                             # en / zh-cn / ... (This field determines which i18n file to use)
 title = "XguoX - 写点 Ruby 糊口饭吃"
